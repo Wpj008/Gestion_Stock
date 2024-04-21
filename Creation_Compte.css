@@ -1,0 +1,52 @@
+body{
+
+    background-image: url(https://www.nikaiacours.fr/wp-content/uploads/2019/12/login-background.jpg);
+
+    
+}
+
+.name{
+
+    text-align: center;
+
+}
+
+.name input[type="text"]{
+
+    height: 30px;
+}
+
+.adresse{
+
+    text-align: center;
+}
+
+.adresse input[type="email"]{
+
+    height: 30px;
+}
+
+.password{
+
+}
+
+.password input[type="password"]{
+
+    height: 30px;
+}
+
+.retour{
+
+    text-align: center;
+}
+.retour input[type="submit"]{
+
+    background-color :azure ;
+    width: 150px;
+    padding: 15px;
+}
+
+h1,h2,h3{
+
+    text-align: center;
+}
