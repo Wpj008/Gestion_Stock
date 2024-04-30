@@ -2,10 +2,10 @@
 include "data.php";
 //test accès à la bdd 
 
-$query = $data->prepare('SELECT * FROM utilisateurs');
+/*$query = $data->prepare('SELECT * FROM utilisateurs');
 
 $query->execute();
-$results = $query->fetchAll(); 
+$results = $query->fetchAll(); */
 
 /*foreach ($results as $res) {
   
