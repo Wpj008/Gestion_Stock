@@ -1,24 +1,48 @@
 <?php if(isset($_GET['identifiant'])) ?>
 
+<?php //CONNEXION BASE DE DONNEES 
+
+try
+{
+	$user= new PDO('mysql:host=localhost;dbname=gestionstock;charset=utf8', 'root', '');
+}
+catch (Exception $e)
+{
+    die('Erreur : ' . $e->getMessage());
+}
+?>
+
+<?php
+$requete = $user->prepare('SELECT * FROM utilisateurs');
+?>
+
+<?php
+$requete->execute();
+$recipes = $requete->fetchAll();
+?>
+
+<?php 
+$entre = 'INSERT INTO "utilisateurs" ("nom", "email", "mot de passe", "type")';
+
+?>
+
+
+
+
 
 <?php
 function name($text ='Veuillez vous identifier : '){
         
         echo $text ;
         
-        $nom = readline('Nom : ');
-        
-        $post_nom = readline('Post-Nom : ');
-        
-        $prenom = readline('Prenom : ');
-
+       
         $nom_utilisateur = readline('Nom d utilisateur : ');
 
         $passework = readline('Mot de Passe : ');
 
         $email = readline('Email : ');
         
-        return [$nom, $passework];
+        return [$nom_utilisateur, $passework];
     }
  ?>
 
@@ -69,25 +93,6 @@ function name($text ='Veuillez vous identifier : '){
                
                 <form method="get" action="">
                     
-                        <fieldset>
-                        <legend>Vos identités</legend><br>
-                        <div class="name">
-
-                            
-                        <label for="Nom">Nom : </label>
-                        <input  type="text" id="Nom" name="Nom" autofocus required><?php  if(isset($_GET['Nom'])){ echo htmlentities($_GET['Nom']);}?><br><br>
-
-                        
-                        <label for="Post-Nom">Post-Nom : </label>
-                        <input  type="text" id="Post-Nom" name="Post-Nom" autofocus required><?php  if(isset($_GET['Post-Nom'])){ echo htmlentities($_GET['Post-Nom']);}?><br><br>
-
-                        
-                        <label for="Prenom">Prénom : </label>
-                        <input  type="text" id="Prenom" name="Prenom" autofocus required><?php  if(isset($_GET['Prenom'])){ echo htmlentities($_GET['Prenom']);}?><br><br>
-
-                        </div>
-
-                        </fieldset><br><br>
                         
                     <fieldset>
 
@@ -117,14 +122,12 @@ function name($text ='Veuillez vous identifier : '){
                         <ul>
                         <label for="email">email : </label>
                         <input  type="email" id="email" name="email" placeholder="abcemail@gmail.com" autofocus required><?php  if(isset($_GET['email'])){ echo htmlentities($_GET['email']);}?><br><br>
-                            <p>SEXE</p>
-                        <input type="radio" name="sexe" id="sexe">
-                        <label for="sexe">M</label>
-                        <input type="radio" name="sexe" id="sexe">
-                        <label for="sexe">F</label><br><br>
+                            <p>FONCTION : </p>
+                        <input type="radio" name="acheteur" id="acheteur" value="acheteur">
+                        <label for="achteur">Acheteur</label><br><br>
+                        <input type="radio" name="vendeur" id="vendeur" value="vendeur">
+                        <label for="vendeur">Vendeur</label><br><br>
                         
-                        <label for="start">Date de naissance : </label>
-                        <input type="date" id="start" name="trip-start" value="2010-01-01" min="1994-01-01" max="2010-12-31"><br><br>
                         
 
                     </ul>

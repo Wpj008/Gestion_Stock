@@ -35,7 +35,7 @@ $results = $query->fetchAll(); */
                 <input type="password" id="password" name="password" required>
             </div>
             <button type="submit">Connexion</button>
-            <p class="signup">Pas encore de compte ? <a href="/signup">Inscrivez-vous</a></p>
+            <p class="signup">Pas encore de compte ? <a href="creation_Compte.php">Inscrivez-vous</a></p>
         </form>
     </div>
 </body>
