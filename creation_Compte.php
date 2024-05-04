@@ -1,29 +1,34 @@
 <?php
+include "data.php";
 
 use function PHPSTORM_META\type;
 
     $nom = $_POST["nom"];
     $email = $_POST["email"];
-    $passework = $_POST["Mot de passe"];
-    $fonction = $_POST["fonction"];
+    $password = $_POST["password"];
+    //$fonction = $_POST["fonction"];
     
     try{
         //On se connecte à la BDD
-        $dbco = new PDO("mysql:host=localhost;dbname=gestionstock","root","");
-        $dbco->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        //$dbco = new PDO("mysql:host=localhost;dbname=gestionstock","root","");
+        //$data->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $query = $data->prepare("INSERT INTO utilisateurs (nom, email, mot_de_passe) VALUES (:nom, :email, :mot_de_passe)");
+
     
         //On insère les données reçues
-        $sth = $dbco->prepare(" INSERT INTO utilisateurs(nom, email, Mot de passe,fonction) VALUES(:nom, :email, :passework, :fonction)");
-        $sth->bindParam(':nom',$nom);
-        $sth->bindParam(':email',$email);
-        $sth->bindParam(':Mot de passe',$passework);
-        $sth->bindParam(':fonction',$fonction);
+        $query->bindParam(':nom', $nom);
+        $query->bindParam(':email', $email);
+        $query->bindParam(':mot_de_passe', $password);
 
-        $sth->execute();
+        // Exécution de la requête
+        $query->execute();
+
+        // Confirmation de l'inscription
+        echo "Inscription réussie !";
         
     }
     catch(PDOException $e){
-        echo ' Erreur : '.$e->getMessage();
+        echo ' Erreur inscription : '.$e->getMessage();
     }
 ?>
 
@@ -82,7 +87,7 @@ use function PHPSTORM_META\type;
                         <input  type="text" id="nom" name="nom" autofocus required><?php  //if(isset($_GET['identifiant'])){ echo htmlentities($_GET['identifiant']);}?><br><br>
                    
                         <label for="Mot de passe">Mot de passe : </label>
-                        <input   type="password" id="Mot de passe" name="Mot de passe" autofocus required><?php  //if(isset($_GET['Mot de passe'])){ echo htmlentities($_GET['Mot de passe']);}?><br><br>
+                        <input   type="password" id="password" name="password" autofocus required><?php  //if(isset($_GET['Mot de passe'])){ echo htmlentities($_GET['Mot de passe']);}?><br><br>
 
                     </div>
                     
