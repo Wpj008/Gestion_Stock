@@ -1,64 +1,37 @@
-<?php if(isset($_GET['identifiant'])) ?>
-
-<?php //CONNEXION BASE DE DONNEES 
-
-try
-{
-	$user= new PDO('mysql:host=localhost;dbname=gestionstock;charset=utf8', 'root', '');
-}
-catch (Exception $e)
-{
-    die('Erreur : ' . $e->getMessage());
-}
-?>
-
 <?php
-$requete = $user->prepare('SELECT * FROM utilisateurs');
-?>
 
-<?php
-$requete->execute();
-$recipes = $requete->fetchAll();
-?>
+use function PHPSTORM_META\type;
 
-<?php 
-$entre = 'INSERT INTO "utilisateurs" ("nom", "email", "mot de passe", "type")';
-
-?>
-
-
-
-
-
-<?php
-function name($text ='Veuillez vous identifier : '){
-        
-        echo $text ;
-        
-       
-        $nom_utilisateur = readline('Nom d utilisateur : ');
-
-        $passework = readline('Mot de Passe : ');
-
-        $email = readline('Email : ');
-        
-        return [$nom_utilisateur, $passework];
-    }
- ?>
-
-
+    $nom = $_POST["nom"];
+    $email = $_POST["email"];
+    $passework = $_POST["Mot de passe"];
+    $fonction = $_POST["fonction"];
     
+    try{
+        //On se connecte à la BDD
+        $dbco = new PDO("mysql:host=localhost;dbname=gestionstock","root","");
+        $dbco->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+        //On insère les données reçues
+        $sth = $dbco->prepare(" INSERT INTO utilisateurs(nom, email, Mot de passe,fonction) VALUES(:nom, :email, :passework, :fonction)");
+        $sth->bindParam(':nom',$nom);
+        $sth->bindParam(':email',$email);
+        $sth->bindParam(':Mot de passe',$passework);
+        $sth->bindParam(':fonction',$fonction);
 
-    <?php if($_GET['identifiant'] && $_GET['Mot de passe'] ) {
-        echo "connecté";
-
-    }
+        $sth->execute();
         
-        else {
-            
-            echo "Identifiant incorrect"; 
-        }
-            ?>
+    }
+    catch(PDOException $e){
+        echo ' Erreur : '.$e->getMessage();
+    }
+?>
+
+
+
+
+
+
 
 
 
@@ -87,22 +60,29 @@ function name($text ='Veuillez vous identifier : '){
 
                 </p>
                 <br><br>
+        
+        <?php /*
+            echo 'nom : '.$_POST["nom"].'<br>';
+            echo 'Email : ' .$_POST["email"].'<br>';
+            echo 'Mot de passe : ' .$_POST["Mot de passe"].'<br>';
+            echo 'fonction : ' .$_POST["fonction"].'<br>';*/
+        ?>
 
 
-                
-               
-                <form method="get" action="">
+
+
+<form method="post" action="">
                     
                         
                     <fieldset>
 
                         <div class="password"> 
 
-                       <label for="Identifiant">Nom d'Utilisateur : </label>
-                        <input  type="text" id="Identifiant" name="Identifiant" autofocus required><?php  if(isset($_GET['identifiant'])){ echo htmlentities($_GET['identifiant']);}?><br><br>
+                       <label for="nom">Nom  : </label>
+                        <input  type="text" id="nom" name="nom" autofocus required><?php  //if(isset($_GET['identifiant'])){ echo htmlentities($_GET['identifiant']);}?><br><br>
                    
                         <label for="Mot de passe">Mot de passe : </label>
-                        <input   type="password" id="Mot de passe" name="Mot de passe" autofocus required><?php  if(isset($_GET['Mot de passe'])){ echo htmlentities($_GET['Mot de passe']);}?><br><br>
+                        <input   type="password" id="Mot de passe" name="Mot de passe" autofocus required><?php  //if(isset($_GET['Mot de passe'])){ echo htmlentities($_GET['Mot de passe']);}?><br><br>
 
                     </div>
                     
@@ -121,12 +101,12 @@ function name($text ='Veuillez vous identifier : '){
                         
                         <ul>
                         <label for="email">email : </label>
-                        <input  type="email" id="email" name="email" placeholder="abcemail@gmail.com" autofocus required><?php  if(isset($_GET['email'])){ echo htmlentities($_GET['email']);}?><br><br>
+                        <input  type="email" id="email" name="email" placeholder="abcemail@gmail.com" autofocus required><?php //  if(isset($_GET['email'])){ echo htmlentities($_GET['email']);}?><br><br>
                             <p>FONCTION : </p>
-                        <input type="radio" name="acheteur" id="acheteur" value="acheteur">
-                        <label for="achteur">Acheteur</label><br><br>
-                        <input type="radio" name="vendeur" id="vendeur" value="vendeur">
-                        <label for="vendeur">Vendeur</label><br><br>
+                        <input type="radio" name="fonction" id="fonction" value="fonction">
+                        <label for="fonction">Acheteur</label><br><br>
+                        <input type="radio" name="fonction" id="fonction" value="fonction">
+                        <label for="fonction">Vendeur</label><br><br>
                         
                         
 
