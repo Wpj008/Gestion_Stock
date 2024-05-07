@@ -1,11 +1,44 @@
 <?php
 include "data.php";
 
+//FONCTION POUR SECURISER LES FORMULAIRES
+
+function securite($donnee){
+
+    $donnee = trim($donnee);
+    $donnee = strip_tags($donnee);
+    $donnee = stripcslashes($donnee);
+
+    return $donnee;
+}
+
+?>
+
+<?php 
+
+//CONDITION VALIDATION FORMULAIRE
+
+if (
+    !isset($_POST['email'])
+    ||empty($_POST['nom'])
+    || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+    echo('Il faut un email valides pour soumettre le formulaire.');
+    return;
+}
+
+
+?>
+
+
+
+
+<?php
+
 use function PHPSTORM_META\type;
 
-    $nom = $_POST["nom"];
-    $email = $_POST["email"];
-    $password = $_POST["password"];
+    $nom = securite($_POST["nom"]); 
+    $email = ($_POST["email"]);
+    $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
     //$fonction = $_POST["fonction"];
     
     try{
@@ -84,7 +117,7 @@ use function PHPSTORM_META\type;
                         <div class="password"> 
 
                        <label for="nom">Nom  : </label>
-                        <input  type="text" id="nom" name="nom" autofocus required><?php  //if(isset($_GET['identifiant'])){ echo htmlentities($_GET['identifiant']);}?><br><br>
+                        <input  type="text" id="nom" name="nom" autofocus required><?php /*if ( isset($_GET['nom'])){  echo htmlentities($_GET['identifiant']);}*/?><br><br>
                    
                         <label for="Mot de passe">Mot de passe : </label>
                         <input   type="password" id="password" name="password" autofocus required><?php  //if(isset($_GET['Mot de passe'])){ echo htmlentities($_GET['Mot de passe']);}?><br><br>
@@ -106,12 +139,18 @@ use function PHPSTORM_META\type;
                         
                         <ul>
                         <label for="email">email : </label>
-                        <input  type="email" id="email" name="email" placeholder="abcemail@gmail.com" autofocus required><?php //  if(isset($_GET['email'])){ echo htmlentities($_GET['email']);}?><br><br>
-                            <p>FONCTION : </p>
-                        <input type="radio" name="fonction" id="fonction" value="fonction">
-                        <label for="fonction">Acheteur</label><br><br>
-                        <input type="radio" name="fonction" id="fonction" value="fonction">
-                        <label for="fonction">Vendeur</label><br><br>
+                        <input  type="email" id="email" name="email" placeholder="abcemail@gmail.com" autofocus required><?php // echo($_POST['email']); ?><br><br>
+
+        <label for="fonction">Quelle est votre fonction ?</label><br><br>
+
+        <select name="fonction" id="fonction">
+
+
+            <option value="acheteur">acheteur</option>
+            <option value="vendeur">vendeur</option>
+        
+        </select>
+    
                         
                         
 
