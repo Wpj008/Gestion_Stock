@@ -1,4 +1,5 @@
 <?php
+/*
 
 
 //FONCTION AJOUT NOM PRODUIT
@@ -126,5 +127,5 @@ var_dump($nom_produit);
 var_dump ($time);
 var_dump ($dimension);
 
-
+*/
 ?>
