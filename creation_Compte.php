@@ -12,27 +12,16 @@ function securite($donnee){
     return $donnee;
 }
 
-?>
+//CONDITION VALIDATION
 
-<?php 
-
-//CONDITION VALIDATION FORMULAIRE
-
-if (
+/*if (
     !isset($_POST['email'])
     ||empty($_POST['nom'])
     || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
     echo('Il faut un email valides pour soumettre le formulaire.');
     return;
-}
+}*/
 
-
-?>
-
-
-
-
-<?php
 
 use function PHPSTORM_META\type;
 
@@ -99,12 +88,6 @@ use function PHPSTORM_META\type;
                 </p>
                 <br><br>
         
-        <?php /*
-            echo 'nom : '.$_POST["nom"].'<br>';
-            echo 'Email : ' .$_POST["email"].'<br>';
-            echo 'Mot de passe : ' .$_POST["Mot de passe"].'<br>';
-            echo 'fonction : ' .$_POST["fonction"].'<br>';*/
-        ?>
 
 
 
