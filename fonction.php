@@ -1,131 +1,36 @@
 <?php
-/*
+include "data.php";
 
 
-//FONCTION AJOUT NOM PRODUIT
-
-
-function name($text ='Veuillez saisir les informations du produit : '. '<br>'){
-        
-    echo $text ;
-    
-    $nom = readline('Nom du produit : ');
-    
-    
-    return [$nom];
-}
-
-$nom_produit = name();
-
-//var_dump($nom_produit);
-
-
-
-////////////////////////////////////////////////////
-//FONCTION DATE FAB-EXP :
-
-function date_produit($text = 'Veuillez saisir les dates : '){
-    
-    echo $text;
-    
-    while(true){
-    $date_fabrication = (int)readline('Date de Fabrication : ');
-    if($date_fabrication >= 2018 && $date_fabrication <= 2024){
-        
-        break;
+function inscrireUtilisateur($nom, $email, $password, $type) {
+    // verifications des champs non vides
+    if (empty($nom) || empty($email) || empty($password) || empty($type)) {
+        return "Tous les champs sont requis.";
     }
-    
+
+    // Validation du type d'utilisateur
+    if (!in_array($type, ['vendeur', 'acheteur'])) {
+        return "Type d'utilisateur non valide.";
     }
-    
-    while(true){
-    $date_expiration = (int)readline('Date d expiration : ');
-    if($date_expiration >= 2018 && $date_expiration <= 2050 && $date_expiration > $date_fabrication){
-        break;
-    }
-    
-    }
-    
-    return [$date_fabrication, $date_expiration];
-}
 
+    // Hashage du mot de passe
+    $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
-$time = date_produit();
+    try {
+        // Préparation de la requête d'insertion
+        $query = $GLOBALS['data']->prepare("INSERT INTO utilisateurs (nom, email, mot_de_passe, type) VALUES (:nom, :email, :mot_de_passe, :type)");
+        $query->bindParam(':nom', $nom);
+        $query->bindParam(':email', $email);
+        $query->bindParam(':mot_de_passe', $passwordHash);
+        $query->bindParam(':type', $type);
 
-//var_dump ($time);
-
-
-
-/////////////////////////////////////////////////
-
-
-
-//FONCTION QUANTITE PRODUIT
-
-function quantite($text = 'Quelle quantité désirez vous stocker ? : '){
-    
-    echo $text;
-    $taille = (int)readline();
-
-     echo 'Quel est le prix du produit en $ ? : ';
-    $prix = (int)readline();
-   
-    
-    return [$taille, $prix];
-}
-$dimension = quantite();
-
-
-
-//////////////////////////////////////////////////
-
-//FONCTION OUI NON
-
-
-function retour_oui_non($text) {
-    
-    
-    
-        
-        
-       $reponse = (int)readline($text ) ;
-
-       while($reponse !== 1 || $reponse !== 2){
-        
-        if ($reponse === 1) {
-            $nomProduit = name();
-            $dateProduit = date_produit();
-            $quantiteProduit = quantite();
-            
-            
-            echo "Produit  ajoué" ;
-            
-            
-            
-        } 
-        
-    
-        
-        elseif ($reponse === 2) {
-            
-            echo 'Merci et Au revoir' ;
-            
-        
-        }
-
-        
-        $reponse++;
-        
+        // Exécution de la requête
+        $query->execute();
+        return "Inscription réussie !";
+    } catch (PDOException $e) {
+        return "Erreur d'inscription : " . $e->getMessage();
     }
 }
 
 
-$reponse = retour_oui_non('Voulez vous continuer ? : 1. oui  2. non : ');
-
-
-
-var_dump($nom_produit);
-var_dump ($time);
-var_dump ($dimension);
-
-*/
 ?>
