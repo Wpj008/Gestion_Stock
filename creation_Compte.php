@@ -1,56 +1,17 @@
 <?php
-include "data.php";
+require 'fonction.php';
 
-//FONCTION POUR SECURISER LES FORMULAIRES
+if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
 
-function securite($donnee){
-
-    $donnee = trim($donnee);
-    $donnee = strip_tags($donnee);
-    $donnee = stripcslashes($donnee);
-
-    return $donnee;
-}
-
-//CONDITION VALIDATION
-
-/*if (
-    !isset($_POST['email'])
-    ||empty($_POST['nom'])
-    || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-    echo('Il faut un email valides pour soumettre le formulaire.');
-    return;
-}*/
-
-
-use function PHPSTORM_META\type;
-
-    $nom = securite($_POST["nom"]); 
-    $email = ($_POST["email"]);
-    $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
-    //$fonction = $_POST["fonction"];
+        // Récupération et nettoyage des données du formulaire
+        $nom = htmlspecialchars($_POST['nom']);
+        $email = htmlspecialchars($_POST['email']);
+        $password = htmlspecialchars($_POST['password']);
+        $type = htmlspecialchars($_POST['type']);
     
-    try{
-        //On se connecte à la BDD
-        //$dbco = new PDO("mysql:host=localhost;dbname=gestionstock","root","");
-        //$data->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $query = $data->prepare("INSERT INTO utilisateurs (nom, email, mot_de_passe) VALUES (:nom, :email, :mot_de_passe)");
-
-    
-        //On insère les données reçues
-        $query->bindParam(':nom', $nom);
-        $query->bindParam(':email', $email);
-        $query->bindParam(':mot_de_passe', $password);
-
-        // Exécution de la requête
-        $query->execute();
-
-        // Confirmation de l'inscription
-        echo "Inscription réussie !";
-        
-    }
-    catch(PDOException $e){
-        echo ' Erreur inscription : '.$e->getMessage();
+        // Appel à la fonction d'inscription
+        $result = inscrireUtilisateur($nom, $email, $password, $type);
+        echo $result;
     }
 ?>
 
@@ -92,7 +53,7 @@ use function PHPSTORM_META\type;
 
 
 
-<form method="post" action="">
+<form method="POST" action="">
                     
                         
                     <fieldset>
@@ -100,10 +61,10 @@ use function PHPSTORM_META\type;
                         <div class="password"> 
 
                        <label for="nom">Nom  : </label>
-                        <input  type="text" id="nom" name="nom" autofocus required><?php /*if ( isset($_GET['nom'])){  echo htmlentities($_GET['identifiant']);}*/?><br><br>
+                        <input  type="text" id="nom" name="nom" autofocus required><br><br>
                    
                         <label for="Mot de passe">Mot de passe : </label>
-                        <input   type="password" id="password" name="password" autofocus required><?php  //if(isset($_GET['Mot de passe'])){ echo htmlentities($_GET['Mot de passe']);}?><br><br>
+                        <input   type="password" id="password" name="password" autofocus required><br><br>
 
                     </div>
                     
@@ -122,20 +83,15 @@ use function PHPSTORM_META\type;
                         
                         <ul>
                         <label for="email">email : </label>
-                        <input  type="email" id="email" name="email" placeholder="abcemail@gmail.com" autofocus required><?php // echo($_POST['email']); ?><br><br>
+                        <input  type="email" id="email" name="email" placeholder="abcemail@gmail.com" autofocus required><br><br>
 
         <label for="fonction">Quelle est votre fonction ?</label><br><br>
 
-        <select name="fonction" id="fonction">
-
-
+        <select name="type" id="type">
             <option value="acheteur">acheteur</option>
             <option value="vendeur">vendeur</option>
-        
         </select>
-    
-                        
-                        
+
 
                     </ul>
 
@@ -144,7 +100,7 @@ use function PHPSTORM_META\type;
 
                     <div class="retour">
                     
-                    <input type="submit" value="créer compte">
+                    <input type="submit" name="submit" value="créer compte">
 
                     </div>
 
