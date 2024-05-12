@@ -1,0 +1,63 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px; /* Ajusté pour donner un peu d'espace horizontal */
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+nav.main-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: flex-end; /* Aligne les éléments à droite */
+    width: 90%; /* Assure que la liste prend toute la largeur */
+}
+
+nav.main-nav li {
+    padding: 0 15px;
+}
+
+nav.main-nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav.main-nav a:hover {
+    text-decoration: underline;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+/* Ajout pour éviter que le contenu soit caché par le header et footer */
+body {
+    padding-top: 60px; /* Assurez-vous que c'est assez pour votre header */
+    padding-bottom: 40px; /* Assurez-vous que c'est assez pour votre footer */
+}
