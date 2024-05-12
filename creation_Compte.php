@@ -1,5 +1,6 @@
 <?php
 require 'fonction.php';
+include "header.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
 
@@ -64,3 +65,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
     </div>
 </body>
 </html>
+
+
+<?php
+include "footer.php";
+?>

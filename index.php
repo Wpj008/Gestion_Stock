@@ -1,5 +1,6 @@
 <?php 
 include "data.php";
+include "header.php";
 //test accès à la bdd 
 
 /*$query = $data->prepare('SELECT * FROM utilisateurs');
@@ -40,3 +41,7 @@ $results = $query->fetchAll(); */
     </div>
 </body>
 </html>
+
+<?php
+include "footer.php";
+?>
