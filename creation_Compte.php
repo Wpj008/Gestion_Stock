@@ -26,98 +26,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
 
 
 
-<!DOCTYPE htmlL>
-
-          <html lang="fr">
-                 <head>
-                     <meta charset="utf-8">
-                     <title></title>
-                     <link href="Creation_Compte.css" rel="stylesheet"> 
-
-                 </head>
-
-            <body>
-
-                <p>
-                    <h1>Bienvenu à vous ! </h1><br>
-
-
-                   <h2> veillez créer votre compte !</h2><br><br>
-
-                        <h3>Complètez vos identités</h3>
-
-                </p>
-                <br><br>
-        
-
-
-
-
-<form method="POST" action="">
-                    
-                        
-                    <fieldset>
-
-                        <div class="password"> 
-
-                       <label for="nom">Nom  : </label>
-                        <input  type="text" id="nom" name="nom" autofocus required><br><br>
-                   
-                        <label for="Mot de passe">Mot de passe : </label>
-                        <input   type="password" id="password" name="password" autofocus required><br><br>
-
-                    </div>
-                    
-                    </fieldset><br><br>
-
-                        
-                    
-
-                    
-
-                <br><br>
-
-                   <fieldset>
-
-                    <div class="adresse">
-                        
-                        <ul>
-                        <label for="email">email : </label>
-                        <input  type="email" id="email" name="email" placeholder="abcemail@gmail.com" autofocus required><br><br>
-
-        <label for="fonction">Quelle est votre fonction ?</label><br><br>
-
-        <select name="type" id="type">
-            <option value="acheteur">acheteur</option>
-            <option value="vendeur">vendeur</option>
-        </select>
-
-
-                    </ul>
-
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Inscription - Gestion de Stock</title>
+    <link href="css/Creation_Compte.css" rel="stylesheet"> 
+</head>
+<body>
+    <div class="signup-container">
+        <h1>Bienvenu à vous !</h1>
+        <h2>Veuillez créer votre compte !</h2>
+        <h3>Complétez vos identités</h3>
+        <form method="POST" action="">
+            <fieldset>
+                <div class="form-group">
+                    <label for="nom">Nom :</label>
+                    <input type="text" id="nom" name="nom" required>
                 </div>
-                    </fieldset><br><br>
-
-                    <div class="retour">
-                    
-                    <input type="submit" name="submit" value="créer compte">
-
-                    </div>
-
-
-                    
-
-
-
-
-                </form>
-
-
-              </body>
- 
-           
-           
-           
-
-
+                <div class="form-group">
+                    <label for="password">Mot de passe :</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email :</label>
+                    <input type="email" id="email" name="email" placeholder="abcemail@gmail.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="fonction">Quelle est votre fonction ?</label>
+                    <select name="type" id="type">
+                        <option value="acheteur">Acheteur</option>
+                        <option value="vendeur" selected>Vendeur</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Créer compte">
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</body>
 </html>
