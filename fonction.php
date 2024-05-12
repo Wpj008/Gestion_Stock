@@ -27,6 +27,7 @@ function inscrireUtilisateur($nom, $email, $password, $type) {
         // Exécution de la requête
         $query->execute();
         return "Inscription réussie !";
+        //retourner vers la connexion
     } catch (PDOException $e) {
         return "Erreur d'inscription : " . $e->getMessage();
     }

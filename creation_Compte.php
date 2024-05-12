@@ -17,33 +17,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
 
 
 
-
-
-
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <title>Inscription - Gestion de Stock</title>
+    <script src="js/verification.js"></script>
     <link href="css/Creation_Compte.css" rel="stylesheet"> 
 </head>
 <body>
     <div class="signup-container">
-        <h1>Bienvenu à vous !</h1>
+        <!-- <h1>Bienvenu à vous !</h1> -->
         <h2>Veuillez créer votre compte !</h2>
         <h3>Complétez vos identités</h3>
-        <form method="POST" action="">
+        <form method="POST" action="" onsubmit="return verifierChamps();">
             <fieldset>
                 <div class="form-group">
                     <label for="nom">Nom :</label>
                     <input type="text" id="nom" name="nom" required>
+                    <div id="nomErreur" class="error-message"></div>
                 </div>
+                <!-- <div class="form-group">
+                    <label for="prenom">Prenom :</label>
+                    <input type="text" id="prenom" name="prenom" required>
+                </div> -->
                 <div class="form-group">
                     <label for="password">Mot de passe :</label>
                     <input type="password" id="password" name="password" required>
@@ -60,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
                     </select>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Créer compte">
+                    <input type="submit" name="submit" value="Créer compte">
                 </div>
             </fieldset>
         </form>
