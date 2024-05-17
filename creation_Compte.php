@@ -1,4 +1,5 @@
 <?php
+session_start();
 require 'fonction.php';
 include "header.php";
 
@@ -31,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
         <!-- <h1>Bienvenu à vous !</h1> -->
         <h2>Veuillez créer votre compte !</h2>
         <h3>Complétez vos identités</h3>
-        <form method="POST" action="" onsubmit="return verifierChamps();">
+        <form method="POST" action="pageAccueil.php" onsubmit="return verifierChamps();">
             <fieldset>
                 <div class="form-group">
                     <label for="nom">Nom :</label>
