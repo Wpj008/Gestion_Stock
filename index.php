@@ -1,4 +1,6 @@
 <?php 
+session_start();
+
 include "data.php";
 include "header.php";
 //test accès à la bdd 
@@ -26,7 +28,7 @@ $results = $query->fetchAll(); */
     <div class="login-container">
         <h1>Gestion de Stock</h1>
         <h2>Connexion</h2>
-        <form action="/path_to_your_authentication_script" method="POST">
+        <form action="pageAccueil.php" method="POST">
             <div class="input-group">
                 <label for="username">Nom d'utilisateur:</label>
                 <input type="text" id="username" name="username" required>
