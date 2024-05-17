@@ -12,7 +12,7 @@
                 <li><a href="creation_Compte.php">Inscription</a></li>
                 <li><a href="#"> Mon compte</a></li> 
                 <!-- <img src="" alt="Compte" style="vertical-align: middle;"> -->
-                <li><a href="#">Déconnexion</a></li>
+                <li><a href="deconnexion.php">Déconnexion</a></li>
             </ul>
         </nav>
     </header>
