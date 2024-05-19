@@ -5,16 +5,17 @@ include "data.php";
 include "header.php";
 //test accès à la bdd 
 
-/*$query = $data->prepare('SELECT * FROM utilisateurs');
+$query = $data->prepare('SELECT * FROM utilisateurs WHERE nom = nom  AND mot_de_passe = mot_de_passe');
+
 
 $query->execute();
-$results = $query->fetchAll(); */
+$results = $query->fetch(); 
 
-/*foreach ($results as $res) {
+
   
-        echo $res['nom']; 
+        echo $results['nom']; 
     
-    }*/
+    
 ?>
 <!DOCTYPE html>
 <html lang="fr">
