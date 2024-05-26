@@ -1,0 +1,81 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+
+nav.main-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+nav.main-nav li {
+    padding: 0 15px;
+}
+
+nav.main-nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav.main-nav a:hover {
+    text-decoration: underline;
+}
+
+
+
+/* Ajout pour éviter que le contenu soit caché par le header et footer */
+body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
+
+.product-grid-container {
+    padding: 20px;
+    margin-top: 60px; /* Pour compenser le header fixe */
+}
+
+.product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: space-between;
+}
+
+.product-item {
+    background: white;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    flex-basis: calc(22% - 15px);
+    text-align: center;
+}
+
+.product-item img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.product-item h2 {
+    font-size: 1em;
+    margin: 10px 0;
+}
+
+.product-item p {
+    margin: 5px 0;
+}
+
+.in-stock {
+    color: green;
+    font-weight: bold;
+}

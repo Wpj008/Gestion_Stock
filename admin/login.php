@@ -1,50 +1,42 @@
 <?php 
+session_start();
 
-include "data.php";
-include "header.php";
+include "../data.php";
+//include "../header.php";
+//test accès à la bdd 
 
-
-if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
-
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     
+
     $email = $_POST['username'];
-    
-    $password = htmlspecialchars($_POST['password']);
+    $password = $_POST['password'];
     $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-    
-    $query = $data->prepare("SELECT * FROM utilisateurs WHERE  mot_de_passe = :mot_de_passe AND email = :email  " );
 
-    $query->bindParam(':mot_de_passe', $password);
+    $query = $data->prepare("SELECT * FROM utilisateurs WHERE email = :email");
     $query->bindParam(':email', $email);
     $query->execute();
-  
-    $results = $query->fetch();
+    $admin = $query->fetch();
 
-    if($results){
-
-        session_start();
-        $_SESSION['username'] = $results['email'];
-        $_SESSION['mot_de_passe'] = $results['mot_de_passe'];
-        $_SESSION['is_admin'] = $results['is_admin'];
-        $_SESSION['nom'] = $results['nom'];
-
-        header('Location: accueil.php');
-
-        exit();
-
-    }
-    else{
-        echo "Impossible de vous connecter";
-    }
-
-
-}
-
+    //echo (password_verify($passwordHash, $admin['mot_de_passe']));
+     if ($admin && password_verify($password, $admin['mot_de_passe'])) {
+        //echo "AA";
+         session_start();
+        
+        $_SESSION['user_id'] = $admin['id'];
+        $_SESSION['is_admin'] = $admin['is_admin'];
+    
+        if ($admin['is_admin'] == 1) {
+            
+            header('Location: admin/dashboard.php');
+        } else {
+            header('Location: ../index.php');
+        }
+    } else {
+        echo "Identifiants incorrects";
+     }
+} 
 
 ?>
-
-
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -55,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
 </head>
 <body>
     <div class="login-container">
-        <h1>Gestion de Stock</h1>
+        <h1>Espace Admin</h1>
         <h2>Connexion</h2>
         <form action="" method="POST">
             <div class="input-group">
@@ -67,12 +59,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
                 <input type="password" id="password" name="password" required>
             </div>
             <button type="submit" name="submit">Connexion</button>
-            <p class="signup">Pas encore de compte ? <a href="creation_Compte.php">Inscrivez-vous</a></p>
+            
         </form>
     </div>
 </body>
 </html>
 
 <?php
-include "footer.php";
+//include "footer.php";
 ?>
