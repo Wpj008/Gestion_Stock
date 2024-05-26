@@ -36,8 +36,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
         session_start();
         $_SESSION['username'] = $results['email'];
         $_SESSION['mot_de_passe'] = $results['mot_de_passe'];
+        $_SESSION['is_admin'] = $results['is_admin'];
+        $_SESSION['nom'] = $results['nom'];
 
-        header('Location: pageAccueil.php');
+        header('Location: accueil.php');
 
         exit();
 
