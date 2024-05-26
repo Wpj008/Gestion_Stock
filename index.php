@@ -1,22 +1,59 @@
 <?php 
-session_start();
 
 include "data.php";
 include "header.php";
+
+
 //test accès à la bdd 
 
-$query = $data->prepare('SELECT * FROM utilisateurs WHERE nom = nom  AND mot_de_passe = mot_de_passe');
+if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
 
+    
+    $email = $_POST['username'];
+    
+    $password = htmlspecialchars($_POST['password']);
+    $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+    
+    $query = $data->prepare("SELECT * FROM utilisateurs WHERE  mot_de_passe = :mot_de_passe AND email = :email  " );
 
-$query->execute();
-$results = $query->fetch(); 
+    $query->bindParam(':mot_de_passe', $password);
+       $query->bindParam(':email', $email);
 
+        $query->execute();
 
   
-        echo $results['nom']; 
-    
-    
+     $results = $query->fetch();
+
+        
+        echo $results['email'] ;
+        
+        echo $results['mot_de_passe'];
+
+
+
+    if($results){
+
+        session_start();
+        $_SESSION['username'] = $results['email'];
+        $_SESSION['mot_de_passe'] = $results['mot_de_passe'];
+
+        header('Location: pageAccueil.php');
+
+        exit();
+
+    }
+    else{
+        echo "impossible de vous connecter";
+    }
+
+
+}
+
+
 ?>
+
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -29,7 +66,7 @@ $results = $query->fetch();
     <div class="login-container">
         <h1>Gestion de Stock</h1>
         <h2>Connexion</h2>
-        <form action="pageAccueil.php" method="POST">
+        <form action="" method="POST">
             <div class="input-group">
                 <label for="username">Nom d'utilisateur:</label>
                 <input type="text" id="username" name="username" required>
@@ -38,7 +75,7 @@ $results = $query->fetch();
                 <label for="password">Mot de passe:</label>
                 <input type="password" id="password" name="password" required>
             </div>
-            <button type="submit">Connexion</button>
+            <button type="submit" name="submit">Connexion</button>
             <p class="signup">Pas encore de compte ? <a href="creation_Compte.php">Inscrivez-vous</a></p>
         </form>
     </div>
