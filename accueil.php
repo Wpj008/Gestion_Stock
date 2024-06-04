@@ -8,6 +8,14 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
     header('Location: index.php');  // Rediriger vers la page de connexion
     exit;  // Arrêter l'exécution des scripts suivants
 }
+
+$query = $data->prepare("SELECT * FROM produits " );
+
+$query->execute();
+  
+$produits = $query->fetchAll();
+
+
 ?>
 
 <!DOCTYPE html>
@@ -21,39 +29,42 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
 
     
     <!-- Main Content -->
+    <h1>Produits Disponibles</h1>
+
     <main class="product-grid-container">
-        <h1>Produits Disponibles</h1>
+
+        
         <div class="product-grid">
+        <?php foreach($produits as $produit){?>
             <div class="product-item">
                 <img src="img/fer1.jpg" alt="Produit 1">
-                <h2>Nom du Produit 1</h2>
-                <p>Prix: 10€</p>
-                <p class="in-stock">En stock</p>
-            </div>
-            <div class="product-item">
-                <img src="img/fer1.jpg" alt="Produit 2">
-                <h2>Nom du Produit 2</h2>
-                <p>Prix: 20€</p>
-                <p class="in-stock">En stock</p>
+                <h2> <?=  $produit['nom'] ?> </h2>
+              <h2> <?= $produit['description'] ?> </h2>
+              <h2> <?= $produit['quantite'] ?> </h2>
+              <h2> <?= $produit['prix'] ?> </h2>
+                
+              <a href="produit.php? nom= <?= $produit['nom']?> & prix=<?= $produit['prix']?> & quantite= <?= $produit['quantite'] ?> & description= <?= $produit['description'] ?> ">Voir produit</a>
+           
+
+                <?php if($produit['quantite'] > 5){?>
+               
+               <p class="in-stock">En stock</p>
+               
+           <?php } else {
+           }?>
+
+           
+               
+                
             </div>
 
-            <div class="product-item">
-                <img src="img/fer1.jpg" alt="Produit 2">
-                <h2>Nom du Produit 2</h2>
-                <p>Prix: 20€</p>
-                <p class="in-stock">En stock</p>
-            </div>
-            <div class="product-item">
-                <img src="img/fer1.jpg" alt="Produit 2">
-                <h2>Nom du Produit 4</h2>
-                <p>Prix: 20€</p>
-                <p class="in-stock">En stock</p>
-            </div>
-            
-
+             
+    <?php }?>
         </div>
+        
     </main>
 
+    
 </body>
 </html>
 
