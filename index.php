@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
   
     $results = $query->fetch();
 
-    if($results){
+    if($results && $results['type'] == "vendeur"){
 
         session_start();
         $_SESSION['username'] = $results['email'];
@@ -30,11 +30,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
         //pour verifier dans les autres pages qu'on est connecté
         $_SESSION['is_logged_in'] = true;
 
-        header('Location: accueil.php');
+        header('Location: vendeur.php');
 
         exit();
 
     }
+    else if($results && $results['type'] == "acheteur"){
+
+        session_start();
+        $_SESSION['id_user'] = $results['id'];
+        $_SESSION['username'] = $results['email'];
+        $_SESSION['mot_de_passe'] = $results['mot_de_passe'];
+        $_SESSION['is_admin'] = $results['is_admin'];
+        $_SESSION['nom'] = $results['nom'];
+        //pour verifier dans les autres pages qu'on est connecté
+        $_SESSION['is_logged_in'] = true;
+
+        header('Location: acheteur.php');
+
+        exit();
+
+    }
+
     else{
         echo "Impossible de vous connecter";
     }
@@ -61,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
         <h2>Connexion</h2>
         <form action="" method="POST">
             <div class="input-group">
-                <label for="username">Nom d'utilisateur:</label>
+                <label for="username">Email:</label>
                 <input type="text" id="username" name="username" required>
             </div>
             <div class="input-group">

@@ -2,6 +2,44 @@
 session_start();
 include "data.php";
 include "header.php";
+
+
+
+
+
+
+    //recuperr l'id passé en parametre 
+    $idProduit = $_GET['id_produit'];
+    
+
+    
+
+    $query = $data->prepare("SELECT * FROM produits WHERE  id = :id" );
+
+    $query->bindParam(':id', $idProduit);
+    $query->execute();
+    $results = $query->fetch();
+
+
+
+if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
+
+//Recuperation des informations du produit ayant l'id passé en parametre
+
+$_SESSION['id_produit'] = $_GET['id_produit'];
+$_SESSION['quantite'] = $results['quantite'];
+$_SESSION['prix'] = $results['prix'];
+
+//Redirection à la page commande.php
+
+    header('Location: commande.php');
+
+    
+
+}
+
+
+
 ?>
 
         
@@ -28,10 +66,12 @@ include "header.php";
   
 
   
-        <p class="card-text"> Nom : <?php echo $_GET['nom'] ?> </p>
-        <p class="card-text">Description : <?php echo $_GET['description'] ?> </p>
-        <p class="card-text"> Quantité : <?php echo $_GET['quantite'] ?> </p>
-        <p class="card-text"> Prix : <?php echo $_GET['prix'] ?> </p>
+        <p class="card-text"> Nom : <?= $results['nom'] ?> </p>
+        <p class="card-text">Description : <?= $results['description'] ?> </p>
+        <p class="card-text"> Quantité : <?= $results['quantite'] ?> </p>
+        <p class="card-text"> Prix : <?= $results['prix'] ?> </p>
+
+
      
         
                
@@ -42,7 +82,13 @@ include "header.php";
         
     </main>
 
-    
+    <form method="POST" action="">
+
+    <button type="submit" name="submit">Commander</button>
+
+    </form>
+
+  <br><br><br><br><br><br><br><br><br>
 </body>
 </html>
 

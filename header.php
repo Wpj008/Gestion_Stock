@@ -15,10 +15,20 @@
                 <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1): ?>
                     <li><a href="admin/login.php">Espace Admin</a></li>
                 <?php endif; ?>
+
                 <!-- <img src="" alt="Compte" style="vertical-align: middle;"> -->
+                <li><a href="historique.php">Historique</a></li>
                 <li><a href="deconnexion.php">Déconnexion</a></li>
             </ul>
         </nav>
     </header>
+
+    
+    <?php if (isset($_SESSION['username'])): ?>
+
+<?= $_SESSION['username'] ?>
+<?php endif; ?>
+
+
 </body>
 </html>

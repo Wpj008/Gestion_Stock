@@ -9,6 +9,8 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
     exit;  // Arrêter l'exécution des scripts suivants
 }
 
+// Affichage de tous les produits se trouvant dans la bdd
+
 $query = $data->prepare("SELECT * FROM produits " );
 
 $query->execute();
@@ -43,9 +45,9 @@ $produits = $query->fetchAll();
               <h2> <?= $produit['quantite'] ?> </h2>
               <h2> <?= $produit['prix'] ?> </h2>
                 
-              <a href="produit.php? nom= <?= $produit['nom']?> & prix=<?= $produit['prix']?> & quantite= <?= $produit['quantite'] ?> & description= <?= $produit['description'] ?> ">Voir produit</a>
+              <a href="produit.php ? id_produit= <?= $produit['id'] ?> ">Voir produit</a>
            
-
+              <br><br>
                 <?php if($produit['quantite'] > 5){?>
                
                <p class="in-stock">En stock</p>
