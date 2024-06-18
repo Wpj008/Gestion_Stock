@@ -29,56 +29,58 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
     $query->bindParam(':commande', $commande);
     $query->bindParam(':id', $idEtat);
 
-    $query->execute(); 
+    $query->execute(); ?>
 
 
-// calcul de la nouvelle quantité du stock dans la bdd apres commande
-
-    $newQuantite = $quantite - $commande ;
-
-// calcul du prix total de la commande
-
-   // $totalPrix = $prix * $commande;
+<?php
 
 
-
-
-// Remplassement de la nouvelle quantite apres commande dans la bdd
-
-    if($newQuantite > 0){
-
-    $query = $data->prepare( "UPDATE produits SET quantite = :quantite WHERE id = :id");
-    $query->bindParam(':quantite', $newQuantite);
-    $query->bindParam(':id', $idProduit);
-
-    $query->execute();
-
+      $newQuantite = $quantite - $commande ;
     
+        if($newQuantite > 0){
+    
+        $query = $data->prepare( "UPDATE produits SET quantite = :quantite WHERE id = :id");
+        $query->bindParam(':quantite', $newQuantite);
+        $query->bindParam(':id', $idProduit);
+    
+        $query->execute();
+
         
-    echo "Votre commande est en cours"."<br>";
-   /*
-   echo "quantité commandé : ".$commande."<br>";
-    echo "Prix total : ". $totalPrix."$"."<br>"; 
-*/
-   
 
-    }else{
 
-        echo "Quantité insuffisante";
+        echo "<div class='confirmation-message'>Votre commande est en cours.<br>";
+        /*
+        echo "quantité commandé : " . $commande . "<br>";
+        echo "Prix total : " . $totalPrix . "$" . "<br>"; 
+        */
+        echo "</div>";
+    } else {
+        echo "<div class='error-message'>Quantité insuffisante</div>";
     }
 }
-
-    
-    ?>
-    
-    <br><br><br><br><br>
+?>
 
 
-    <form method="POST" action="">
 
-    <label for="commande">Quelle quantité desirez-vous ?</label><br><br>
-    <input id="commande" name="commande" type="text"><br><br><br><br>
 
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="css/commande.css">
+</head>
+<body>
+
+
+<form method="POST" action="">
+    <label for="commande">Quelle quantité désirez-vous ?</label><br><br>
+    <input id="commande" name="commande" type="text" required><br><br><br><br>
     <button type="submit" name="submit">Passer la commande</button>
+</form>
 
-    </form>
+</body>
+</html>
+
+
+<?php
+include "footer.php";
+?>

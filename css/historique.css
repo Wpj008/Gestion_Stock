@@ -1,0 +1,28 @@
+body {
+    font-family: Arial, sans-serif;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+table th, table td {
+    border: 2px solid #333;
+    padding: 8px;
+    text-align: left;
+}
+table th {
+    background-color: #4CAF50;
+    color: white;
+}
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+table tr:hover {
+    background-color: #f1f1f1;
+}
+.total-orders {
+    margin: 20px 0;
+    font-weight: bold;
+    font-size: 1.2em;
+}
