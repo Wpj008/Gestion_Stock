@@ -43,7 +43,7 @@ $produits = $query->fetchAll();
                 <h2> <?=  $produit['nom'] ?> </h2>
               <h2> <?= $produit['description'] ?> </h2>
               <h2> <?= $produit['quantite'] ?> </h2>
-              <h2> <?= $produit['prix'] ?> </h2>
+              <h2> <?= $produit['prix'] ." $"?> </h2>
                 
               <a href="produit.php ? id_produit= <?= $produit['id'] ?> ">Voir produit</a>
            

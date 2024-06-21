@@ -29,11 +29,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
     $query->bindParam(':commande', $commande);
     $query->bindParam(':id', $idEtat);
 
-    $query->execute(); ?>
+    $query->execute(); 
 
 
-<?php
 
+//Calcul et stockage de la nouvelle quantité dans bdd
 
       $newQuantite = $quantite - $commande ;
     

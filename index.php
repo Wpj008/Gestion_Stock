@@ -27,6 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
         $_SESSION['mot_de_passe'] = $results['mot_de_passe'];
         $_SESSION['is_admin'] = $results['is_admin'];
         $_SESSION['nom'] = $results['nom'];
+        $_SESSION['type'] = $results['type'];
         //pour verifier dans les autres pages qu'on est connecté
         $_SESSION['is_logged_in'] = true;
 
@@ -43,6 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
         $_SESSION['mot_de_passe'] = $results['mot_de_passe'];
         $_SESSION['is_admin'] = $results['is_admin'];
         $_SESSION['nom'] = $results['nom'];
+        $_SESSION['type'] = $results['type'];
         //pour verifier dans les autres pages qu'on est connecté
         $_SESSION['is_logged_in'] = true;
 

@@ -16,8 +16,20 @@
                     <li><a href="admin/login.php">Espace Admin</a></li>
                 <?php endif; ?>
 
+                
+                <?php if (isset($_SESSION['type']) && $_SESSION['type'] == "vendeur"): ?>
+                    <li><a href="vendeur.php">Espace Vendeur</a></li>
+                <?php endif; ?>
+
                 <!-- <img src="" alt="Compte" style="vertical-align: middle;"> -->
-                <li><a href="historique.php">Historique</a></li>
+
+                <?php if (isset($_SESSION['type']) && $_SESSION['type'] == "acheteur"): ?>
+
+                  <li><a href="historique.php">Historique</a></li>
+
+                <?php endif; ?>
+
+
                 <li><a href="deconnexion.php">Déconnexion</a></li>
             </ul>
         </nav>

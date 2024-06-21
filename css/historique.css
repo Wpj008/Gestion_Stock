@@ -26,3 +26,8 @@ table tr:hover {
     font-weight: bold;
     font-size: 1.2em;
 }
+
+.formulaire {
+    display: none;
+}
+
