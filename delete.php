@@ -32,14 +32,36 @@ $query->execute();
 
 <h2>Vous voulez supprimer ce produit ? </h2><br><br>
 
-
+<div class="container">
 <form method="POST" action="">
 
 <button type="submit" name="submit">Supprimer definitivement</button>
 
 </form>
+</div>
 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Accueil</title>
+   
+    <style>
 
+.container button {
+
+color: white;
+background-color: red;
+border: none;
+padding: 0.5rem 1rem;
+text-decoration: none;
+border-radius: 4px;
+display: inline-block;
+margin-top: 1rem;
+}
+
+        </style>
+</head>
 
 <?php
 include "footer.php";

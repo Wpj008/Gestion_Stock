@@ -75,7 +75,31 @@ body {
     margin: 5px 0;
 }
 
+.product-item a {
+    
+    color: white;
+    background-color: #007bff;
+    border: none;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 4px;
+    display: inline-block;
+    margin-top: 1rem;
+}
+
 .in-stock {
     color: green;
     font-weight: bold;
+}
+
+.container button {
+
+    color: white;
+    background-color: #696b6e;
+    border: none;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 4px;
+    display: inline-block;
+    margin-top: 1rem;
 }

@@ -82,11 +82,15 @@ $_SESSION['prix'] = $results['prix'];
         
     </main>
 
+    <div class="container">
+
     <form method="POST" action="">
 
     <button type="submit" name="submit">Commander</button>
 
     </form>
+
+    </div>
 
   <br><br><br><br><br><br><br><br><br>
 </body>

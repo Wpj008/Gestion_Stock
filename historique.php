@@ -60,7 +60,7 @@ echo "<div class='total-orders'>Total des commandes effectuées : " . $valeur['t
 </head>
 <body>
 
-
+<br><br><br><br><br>
 </body>
 </html>
 

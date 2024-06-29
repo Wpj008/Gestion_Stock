@@ -1,36 +1,14 @@
 <?php
 session_start();
 
+// Détruire toutes les variables de session
+$_SESSION = array();
+
+// détruire la session.
 session_destroy();
 
-
+// Rediriger vers la page d'accueil
+header("Location: index.php");
+exit;
 ?>
 
-
-<!DOCTYPE html>
-<html lang="fr">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="#" />
-  <title>DECONNEXION</title>
-</head>
-
-<body>
-
-    <p> Voulez vous vous deconnecter ? </p>
-<form action="index.php" method="POST">
-
-
-                <br><br><br><br><br><br>
-
-
-                <button id="valider">DECONNEXION</button>
-
-</form>
-
-                </body>
-
-                
-</html>
