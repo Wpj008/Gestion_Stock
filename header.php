@@ -18,7 +18,7 @@
 
                 
                 <?php if (isset($_SESSION['type']) && $_SESSION['type'] == "vendeur"): ?>
-                    <li><a href="vendeur.php">Espace Vendeur</a></li>
+                    <li><a href="espace.php">Espace Vendeur</a></li>
                 <?php endif; ?>
 
                 <!-- <img src="" alt="Compte" style="vertical-align: middle;"> -->
