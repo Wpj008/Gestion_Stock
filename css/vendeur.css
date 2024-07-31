@@ -1,42 +1,77 @@
 
 
-
-.sidebar {
-    width: 250px;
-    background-color: #2d3e50;
-    color: white;
-    display: flex;
-    flex-direction: column;
-  
-     
-}
-
 .logo {
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 20px;
 }
+/* Style pour la sidebar */
+/*nav .detail/* {
+    background-color: #f4f4f4;
+    padding: 15px;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+    position: fixed; /* Pour que la sidebar soit fixée */
+    /*top: 0;
+    right: 0;
+    width: 250px; /* Ajustez la largeur selon vos besoins */
+   /* height: 100vh; /* Hauteur de la fenêtre */
+    /*overflow-y: auto; /* Défilement si nécessaire */
+    /*z-index: 1000;
+}*/
 
-.sidebar ul {
-    list-style: none;
-    padding: 10;
+/* Style pour les éléments de la liste */
+ nav ul {  list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: flex-end; /* Aligne les éléments à droite */
+    width: 90%; /* Assure que la liste prend toute la largeur */
 }
 
-.sidebar ul li {
+nav ul li {
     margin: 10px 0;
-    padding: 20px;
+    padding: 10px;
     cursor: pointer;
+
 }
 
-.sidebar ul li:hover {
-    background-color: #1e2a38;
-    border-radius: 5px;
+ nav ul li:hover {
+    background-color: #ccc; /* Couleur de fond au survol */
 }
+
+/* Style pour le contenu déroulant */
+ nav ul li .dropdown-content {
+    display: none; /* Cache les contenus déroulants par défaut */
+    position: absolute;
+    top: 100%; /* Place le menu déroulant juste en dessous de l'élément */
+    left: 0;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    padding: 10px;
+    z-index: 1000;
+}
+
+nav ul li:hover .dropdown-content {
+    display: block; /* Affiche le contenu déroulant au survol */
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 10px;
+    color: #333;
+    text-decoration: none;
+    border-bottom: 1px solid #ddd;
+}
+
+.dropdown-content a:hover {
+    background-color: #f4f4f4;
+}
+
 
 .main-content {
     flex-grow: 2;
     background-color: #f0f2f5;
-    display: flex;
+    display: block;
     flex-direction: column;
 }
 

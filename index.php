@@ -23,6 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
     if($results && $results['type'] == "vendeur"){
 
         session_start();
+        $_SESSION['id_user'] = $results['id'];
         $_SESSION['username'] = $results['email'];
         $_SESSION['mot_de_passe'] = $results['mot_de_passe'];
         $_SESSION['is_admin'] = $results['is_admin'];

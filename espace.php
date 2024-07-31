@@ -91,10 +91,19 @@ right: 10px;
     text-decoration: none;
     color: #000;
     font-size: 16px;
+    
+    background-color: #0070fa;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 20px;
+    width: 40%;
 }
 
 .menu-content a:hover {
-    text-decoration: underline;
+    text-decoration: none;
 }
 </style>
 
@@ -104,7 +113,7 @@ right: 10px;
         </button>
 
         <div class="profile-info" id="profile-info">
-            <h2><?= $_SESSION['nom'] ?> <?= $_SESSION['type'] ?></h2>
+            <h2><?= $_SESSION['nom'] ?><br> <?= $_SESSION['type'] ?></h2>
             <p><b>Email :</b> <?= $_SESSION['username'] ?></p>
 
             
@@ -114,9 +123,7 @@ right: 10px;
     <div class="menu">
         <div class="menu-content">
             
-        <a href="#">Option 1</a>
-        <a href="#">Option 1</a>
-        <a href="#">Option 1</a>
+        <a href="dataUser.php">Voir profil</a>
         
 
         </div>
@@ -126,70 +133,75 @@ right: 10px;
     </div>
 
 
-
-
-
-
-<div class="sidebar">
-
-<br><br><br><br>
+   
         <div class="logo">PM-stock</div>
 
 
-        
-<ul>
-        <li onclick="toggleDropdown(this)">Tableau de bord
-            <div class="dropdown-content">
-                <a href="#">Option 1</a>
-                <a href="espace.php">Espace vendeur</a>
-                <a href="deconnexion.php">Deconnexion</a>
-            </div>
-        </li>
-        <li onclick="toggleDropdown(this)">Produits
-            <div class="dropdown-content">
-                <a href="#">Nouveau Produit</a>
-                <a href="acheteur.php">Liste Produit</a>
-                <a href="#">Option 3</a>
-            </div>
-        </li>
-        <li onclick="toggleDropdown(this)">Ventes clients
-            <div class="dropdown-content">
-                <a href="creation_Compte.php">Nouveau Client </a>
-                <a href="commande.php">Nouvelle commande</a>
-                <a href="#">Liste Client</a>
-                <a href="historique.php">Liste commande</a>
-            </div>
-        </li>
 
-        <li onclick="toggleDropdown(this)">Stocks
-            <div class="dropdown-content">
-            <ul> <a href="modification.php">modification</a>
-            <a href="vendeur.php">Inventaire</a>
-              <a href="#">Option 3</a></ul>
-            </div>
-        </li>
-        <li onclick="toggleDropdown(this)">Rapport
-            <div class="dropdown-content">
-          
-            </div>
-        </li>
-        <li onclick="toggleDropdown(this)">Catégories
-            <div class="dropdown-content">
-            <a href="#">Aliments</a>
-            <a href="#">Bureau</a>
-            <a href="#">Cuisine</a>
-            </div>
-        </li>
-    </ul>
 
-</div>
+
+
 
 
 
 <div class="main-content">
 
+
 <br><br><br><br>
 <div class="topbar">
+
+
+<nav >
+
+        
+<ul>
+    <li onclick="toggleDropdown(this)">Tableau de bord
+        <div class="dropdown-content">
+            <a href="#">Option 1</a>
+            <a href="espace.php">Espace vendeur</a>
+            <a href="deconnexion.php">Deconnexion</a>
+        </div>
+    </li>
+    <li onclick="toggleDropdown(this)">Produits
+        <div class="dropdown-content">
+            <a href="ajoutProduit.php">Nouveau Produit</a>
+            <a href="acheteur.php">Liste Produit</a>
+            <a href="#">Option 3</a>
+        </div>
+    </li>
+    <li onclick="toggleDropdown(this)">Ventes clients
+        <div class="dropdown-content">
+            <a href="creation_Compte.php">Nouveau Client </a>
+            <a href="commande.php">Nouvelle commande</a>
+            <a href="#">Liste Client</a>
+            <a href="listeCommande.php">Liste commande</a>
+        </div>
+    </li>
+    <li onclick="toggleDropdown(this)">Stocks
+        <div class="dropdown-content">
+            <ul>
+                <a href="#">Option 1</a>
+                <a href="vendeur.php">Inventaire</a>
+                <a href="#">Option 3</a>
+            </ul>
+        </div>
+    </li>
+    <li onclick="toggleDropdown(this)">Rapport
+        <div class="dropdown-content">
+            <!-- Contenu du rapport -->
+        </div>
+    </li>
+    <li onclick="toggleDropdown(this)">Catégories
+        <div class="dropdown-content">
+            <a href="#">Aliments</a>
+            <a href="#">Bureau</a>
+            <a href="#">Cuisine</a>
+        </div>
+    </li>
+</ul>
+   
+</nav>
+
 <br><br><br><br>
 <input type="text" placeholder="Recherche">
         </div>
@@ -204,7 +216,7 @@ right: 10px;
         <div class="stats-block">
             <h3>Produits</h3>
             <span>Total: <?=$valeur['total']?></span><br>
-            <span>Valeur du stock: </span><br>
+            <span>Valeur du stock: <?/*=$solde*/?></span><br>
             <span>Age stock: 8</span><br>
             <span>Rotation stock: 0</span>
         </div>

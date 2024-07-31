@@ -25,28 +25,28 @@ th {
     background-color: #f2f2f2;
 }
 
-#formulaire {
+.formulaire {
     background-color: #ffffff;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     max-width: 400px;
     margin-top: 20px;
-    display: none;
+  
 }
 
-#formulaire form {
+ .formulaire form {
     display: flex;
     flex-direction: column;
 }
 
-#formulaire label {
+.formulaire label {
     margin-bottom: 5px;
     font-weight: bold;
 }
 
-#formulaire input[type="text"],
-#formulaire input[type="number"] {
+.formulaire input[type="text"],
+.formulaire input[type="number"] {
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
@@ -55,7 +55,7 @@ th {
     box-sizing: border-box;
 }
 
-#formulaire button {
+.formulaire button {
     padding: 10px;
     background-color: #28a745;
     color: #fff;
@@ -65,23 +65,6 @@ th {
     font-size: 16px;
 }
 
-#formulaire button:hover {
+.formulaire button:hover {
     background-color: #218838;
 }
-
-button[onclick="afficherFormulaire()"] {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-bottom: 20px;
-}
-
-button[onclick="afficherFormulaire()"]:hover {
-    background-color: #0056b3;
-}
-
-

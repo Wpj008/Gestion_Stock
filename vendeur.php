@@ -3,7 +3,8 @@ session_start();
 include "data.php";
 include "header.php";
 
-
+$id = $_SESSION['id_user'];
+echo $id;
 //Recuperation de toutes les informations dans la table produits
 
 $query = $data->prepare("SELECT * FROM produits " );

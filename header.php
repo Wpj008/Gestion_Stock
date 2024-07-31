@@ -10,7 +10,7 @@
             <ul>
                 <li><a href="index.php">Accueil</a></li>
                 <li><a href="creation_Compte.php">Inscription</a></li>
-                <li><a href="#"> Mon compte</a></li> 
+                <li><a href="dataUser.php"> Mon compte</a></li> 
 
                 <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1): ?>
                     <li><a href="admin/login.php">Espace Admin</a></li>
