@@ -16,11 +16,34 @@ $valeur = $query->fetch();
 //$query = $data->prepare("SELECT SUM (quantite) FROM produits ");
 
 
+//$query->execute();
+
+//$solde = $query->fetch();
+
+$query = $data->prepare("SELECT * FROM produits " );
+
 $query->execute();
+  
+$produits = $query->fetchAll();
 
-$solde = $query->fetch();
+/*
+//recuperetion des utilisateurs qui ont passé commande 
+$userscommandes = $data->prepare("SELECT *, COUNT(c.id) as nbcommande FROM commandes c,utilisateurs u 
+                                 WHERE c.utilisateur_id = u.id
+                                 GROUP BY u.id"); //GROUP BY u.id
+$userscommandes->execute();
+
+$commandes = $userscommandes->fetchAll();
+*/
+
+$userscommandes = $data->prepare("SELECT *, COUNT(commandes.id) as nbcommande FROM utilisateurs INNER JOIN commandes ON utilisateurs.id = commandes.utilisateur_id  
+                                 GROUP BY utilisateurs.id ");
 
 
+
+$userscommandes->execute();
+
+ $commandes = $userscommandes->fetchAll();
 
 
 ?>
@@ -157,7 +180,7 @@ right: 10px;
 <ul>
     <li onclick="toggleDropdown(this)">Tableau de bord
         <div class="dropdown-content">
-            <a href="#">Option 1</a>
+           
             <a href="espace.php">Espace vendeur</a>
             <a href="deconnexion.php">Deconnexion</a>
         </div>
@@ -165,32 +188,28 @@ right: 10px;
     <li onclick="toggleDropdown(this)">Produits
         <div class="dropdown-content">
             <a href="ajoutProduit.php">Nouveau Produit</a>
-            <a href="acheteur.php">Liste Produit</a>
-            <a href="#">Option 3</a>
+            <!--a href="acheteur.php">Liste Produit</a-->
+        
         </div>
     </li>
     <li onclick="toggleDropdown(this)">Ventes clients
         <div class="dropdown-content">
             <a href="creation_Compte.php">Nouveau Client </a>
-            <a href="commande.php">Nouvelle commande</a>
-            <a href="#">Liste Client</a>
+            <!--a href="commande.php">Nouvelle commande</a>
+            <a href="#">Liste Client</a-->
             <a href="listeCommande.php">Liste commande</a>
         </div>
     </li>
     <li onclick="toggleDropdown(this)">Stocks
         <div class="dropdown-content">
             <ul>
-                <a href="#">Option 1</a>
+              
                 <a href="vendeur.php">Inventaire</a>
-                <a href="#">Option 3</a>
+              
             </ul>
         </div>
     </li>
-    <li onclick="toggleDropdown(this)">Rapport
-        <div class="dropdown-content">
-            <!-- Contenu du rapport -->
-        </div>
-    </li>
+  
     <li onclick="toggleDropdown(this)">Catégories
         <div class="dropdown-content">
             <a href="#">Aliments</a>
@@ -203,7 +222,7 @@ right: 10px;
 </nav>
 
 <br><br><br><br>
-<input type="text" placeholder="Recherche">
+<!--input type="text" placeholder="Recherche"-->
         </div>
 <div class="dashboard">
     <div class="stats">
@@ -246,8 +265,16 @@ right: 10px;
     </div>
     <div class="chart">
         <h2>ÉVOLUTION DE STOCK</h2>
-        <! Placeholder for chart >
-        <div class="chart-placeholder">Graphique</div>
+        <!-- Placeholder for chart-->
+        <div class="chart-placeholder">
+            <?php foreach ($commandes as $commande) { ?>
+
+                <p> Nom : <?= $commande['nom'] ?> : <?= $commande['nbcommande'] ?> </p>
+
+            <?php } ?>
+            <p> Lipaaaaaaaaaaaaaaaaaaa</p>
+            <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" />
+        </div>
     </div>
 </div>
 </div>

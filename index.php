@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
         //pour verifier dans les autres pages qu'on est connecté
         $_SESSION['is_logged_in'] = true;
 
-        header('Location: vendeur.php');
+        header('Location: espace.php');
 
         exit();
 

@@ -26,18 +26,56 @@ $description = $_POST['description'];
 $prix = $_POST['prix'];
 
 
+// Testons si le fichier a bien été envoyé et s'il n'y a pas des erreurs
+if (isset($_FILES['image']) && $_FILES['image']['error'] === 0) {
+    // Testons, si le fichier est trop volumineux
+    if ($_FILES['image']['size'] > 1000000) {
+        echo "L'envoi n'a pas pu être effectué, erreur ou image trop volumineuse";
+        return;
+    }
+    // Testons, si l'extension n'est pas autorisée
+    $fileInfo = pathinfo($_FILES['image']['name']);
+    $extension = $fileInfo['extension'];
+    $allowedExtensions = ['jpg', 'jpeg', 'gif', 'png'];
+    if (!in_array($extension, $allowedExtensions)) {
+        echo "L'envoi n'a pas pu être effectué, l'extension {$extension} n'est pas autorisée";
+        return;
+    }
+    // Testons, si le dossier uploads est manquant
+    $path ='img/';
+    if (!is_dir($path)) {
+        echo "L'envoi n'a pas pu être effectué, le dossier uploads est manquant";
+        return;
+    }
+    // Déplacez le fichier dans le répertoire de destination
+    $destination = $path . basename($_FILES['image']['name']);
+
+    $image = $destination;
+
 //Insertion des données saisies par l'user dans la bdd dans la table produit
 
-$query = $GLOBALS['data']->prepare("INSERT INTO produits (nom, quantite, description, prix) VALUES (:nom, :quantite, :description, :prix)");
+$query = $GLOBALS['data']->prepare("INSERT INTO produits (nom, quantite, description, prix, image) VALUES (:nom, :quantite, :description, :prix, :image)");
 $query->bindParam(':nom', $nom);
 $query->bindParam(':quantite', $quantite);
 $query->bindParam(':description', $description);
 $query->bindParam(':prix', $prix);
+$query->bindParam(':image', $image);
+
 
 $query->execute(); 
 
 
 
+
+    
+    if (move_uploaded_file($_FILES['image']['tmp_name'], $destination)) {
+        echo "Le fichier a été téléchargé avec succès.";
+    } else {
+        echo "Échec du téléchargement du fichier.";
+    }
+} else {
+    echo "Aucun fichier ou une erreur est survenue lors du téléchargement.";
+}
 
 }
 ?>
@@ -108,7 +146,7 @@ $query->execute();
 
 <div class="formulaire">
 
-        <form action="" method="POST">
+        <form action="" method="POST"enctype="multipart/form-data">
             <label for="nom">Nom du produit:</label><br>
             <input type="text" id="nom" name="nom" required><br>
             <label for="description">Description:</label><br>
@@ -117,6 +155,7 @@ $query->execute();
             <input type="number" id="quantite" name="quantite" required><br>
             <label for="prix">Prix:</label><br>
             <input type="text" id="prix" name="prix" required><br>
+            <input type="file" id="image" name="image">
             
             <button type="submit" name="submit">Ajouter le produit</button>
 
@@ -127,20 +166,3 @@ $query->execute();
 </body>
 </html>
 
-
-<?php 
-
-
-$query = $data->prepare("SELECT * FROM utilisateurs WHERE 'type' =  vendeur" );
-
-$query->execute();
-  
-$produits = $query->fetchAll();
-
-foreach($produits as $produit){
-
-    echo $produit['nom'];
-}
-
-
-?>

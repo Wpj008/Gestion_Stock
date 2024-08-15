@@ -4,7 +4,7 @@ include "data.php";
 include "header.php";
 
 $id = $_SESSION['id_user'];
-echo $id;
+
 //Recuperation de toutes les informations dans la table produits
 
 $query = $data->prepare("SELECT * FROM produits " );
@@ -71,6 +71,7 @@ $query->execute();
         }
     </script>
 </head>
+
 <body>
 
 
@@ -82,9 +83,11 @@ $query->execute();
             <td> <?= $produit['description'] ?> </td>
             <td> <?= $produit['quantite'] ?> </td>
             <td> <?= $produit['prix']." $" ?> </td> 
-            <td > <a href="modification.php ? id_produit= <?= $produit ['id'] ?> ">Modifier</a> &nbsp;&nbsp;
-             <a href="delete.php ? id_produit= <?= $produit ['id'] ?> ">Supprimer</a> </td>
-           
+            <td>
+  <a href="modification.php?id_produit=<?= $produit['id'] ?>" class="btn btn-primary">Modifier</a>
+  &nbsp;&nbsp;
+  <a href="delete.php?id_produit=<?= $produit['id'] ?>" class="btn btn-danger">Supprimer</a>
+</td>
             </tr>
         <?php } ?> 
 
@@ -93,9 +96,9 @@ $query->execute();
 
 
 
-    <button onclick="afficherFormulaire()">Ajouter un produit</button>
+    <!--button onclick="afficherFormulaire()">Ajouter un produit</button>
 
-<!-- Affichage du formulaire de l'ajout produit dans la bdd-->
+< Affichage du formulaire de l'ajout produit dans la bdd>
 
     <div id="formulaire">
         <form action="" method="POST">
@@ -111,7 +114,7 @@ $query->execute();
             <button type="submit" name="submit">Ajouter le produit</button>
                        
         </form>
-    </div>
+    </div-->
 
     <br><br><br><br><br><br>
 </body>

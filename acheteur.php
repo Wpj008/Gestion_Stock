@@ -39,7 +39,8 @@ $produits = $query->fetchAll();
         <div class="product-grid">
         <?php foreach($produits as $produit){?>
             <div class="product-item">
-                <img src="img/fer1.jpg" alt="Produit 1">
+                <img src="<?= $produit['image'] ?>" alt="">
+                
                 <h2> <?=  $produit['nom'] ?> </h2>
               <h2> <?= $produit['description'] ?> </h2>
               <h2> <?= $produit['quantite'] ?> </h2>

@@ -48,7 +48,7 @@ nav ul li {
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     padding: 10px;
-    z-index: 1000;
+    z-index: 1000; /* Définit l'ordre d'empilement pour que le menu déroulant soit au-dessus des autres éléments */
 }
 
 nav ul li:hover .dropdown-content {
