@@ -11,7 +11,7 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
 
 // Affichage de tous les produits se trouvant dans la bdd
 
-$query = $data->prepare("SELECT * FROM produits " );
+$query = $data->prepare("SELECT * FROM produits WHERE etat_produit = 1" );
 
 $query->execute();
   

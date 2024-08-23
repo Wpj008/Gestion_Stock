@@ -86,7 +86,9 @@ $query->execute();
             <td>
   <a href="modification.php?id_produit=<?= $produit['id'] ?>" class="btn btn-primary">Modifier</a>
   &nbsp;&nbsp;
-  <a href="delete.php?id_produit=<?= $produit['id'] ?>" class="btn btn-danger">Supprimer</a>
+  <a href="delete.php?id_produit=<?= $produit['id'] ?>" class="btn btn-danger">Désactiver</a>
+  &nbsp;&nbsp;
+  <a href="activation.php?id_produit=<?= $produit['id'] ?>" class="btn btn-primary">Activer</a>
 </td>
             </tr>
         <?php } ?> 

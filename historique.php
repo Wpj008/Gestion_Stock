@@ -5,9 +5,10 @@ include "header.php";
 
 $idUser = $_SESSION['id_user'] ;
 
+//Jointure des tables etat commande et commandes 
+
+
 $etatcommandes = $data->prepare("SELECT * FROM etats_commande INNER JOIN commandes ON etats_commande.id = commandes.etat_id");
-
-
 
 $etatcommandes->execute();
 
@@ -23,6 +24,9 @@ $etatcommandes->execute();
 //Jointure des tables produits et commandes et affichage de l'historique de commande
 
 $query = $data->prepare("SELECT * FROM produits INNER JOIN commandes ON produits.id = commandes.produit_id WHERE utilisateur_id = :id");
+
+//$query = $data->prepare("SELECT * FROM  commandes WHERE utilisateur_id = :id");
+
 
 $query->bindParam(':id',$idUser );
 
@@ -50,7 +54,7 @@ if ($results) {
     foreach ($results as $result) {
         
         echo "<tr>";
-       // foreach ($etats as $etat) {
+      
         echo "<td>" . $i++ . "</td>";
         echo "<td>" . $result['nom'] . "</td>"; 
         echo "<td>" . $result['description'] . "</td>";
