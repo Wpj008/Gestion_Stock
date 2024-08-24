@@ -47,7 +47,7 @@ $query->bindParam(':id',$idUser );
 <?php
 if ($results) {
     echo "<table>"; 
-    echo "<tr><th>N°</th><th>Nom du produit</th><th>Info sur le produit</th><th>Date de commande</th><th>Quantité commandée</th><th>Etat de la commande</th></tr>"; 
+    echo "<tr><th>N°</th><th>Nom du produit</th><th>Info sur le produit</th><th>Date de commande</th><th>Quantité commandée</th><th>Prix de la commande</th><th>Etat de la commande</th></tr>"; 
 
     $i = 1;
    
@@ -60,6 +60,7 @@ if ($results) {
         echo "<td>" . $result['description'] . "</td>";
         echo "<td>" . $result['date_commande'] . "</td>";
         echo "<td>" . $result['quantite'] . "</td>";
+        echo "<td>" . $result['prix_commande'] . ' $'."</td>";
         
         echo "<td>" . $etat_commande .  "</td>";
         

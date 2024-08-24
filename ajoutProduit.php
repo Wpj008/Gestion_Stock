@@ -101,60 +101,6 @@ $query->execute();
     <script src="js/verification.js"></script>
 </head>
 <body>
-<style>
-
-.formulaire {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
-    margin-top: 20px;
-  
-}
-
- .formulaire form {
-    display: flex;
-    flex-direction: column;
-}
-
-.formulaire label {
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-.formulaire input[type="text"],
-.formulaire input[type="number"] {
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.formulaire button {
-    padding: 10px;
-    background-color: #28a745;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.formulaire button:hover {
-    background-color: #218838;
-}
-
-    
-
-</style>
-
-
-
-
-
 
 <div class="formulaire">
 

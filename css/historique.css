@@ -12,7 +12,7 @@ table th, table td {
     text-align: left;
 }
 table th {
-    background-color: #4CAF50;
+    background-color: #00073f;
     color: white;
 }
 table tr:nth-child(even) {

@@ -5,6 +5,8 @@ include "header.php";
 
 $id = $_SESSION['id_user'];
 
+
+
 //Recuperation de toutes les informations dans la table produits
 
 $query = $data->prepare("SELECT * FROM produits " );
@@ -42,7 +44,7 @@ $query->execute();
 //Afficher des infos de la bdd dans un tableau
     
         echo "<table>"; 
-        echo "<tr><th>N°</th><th>Nom du produit</th><th>Info sur le produit</th><th>Quantité en stock</th><th>Prix </th><th>Actions </th></tr>"; 
+        echo "<tr><th>N°</th><th>Nom du produit</th><th>Info sur le produit</th><th>Quantité en stock</th><th>Prix </th><th>Etat du Produit </th><th>Actions </th></tr>"; 
 
         $i = 1;
         foreach($produits as $produit){
@@ -83,6 +85,9 @@ $query->execute();
             <td> <?= $produit['description'] ?> </td>
             <td> <?= $produit['quantite'] ?> </td>
             <td> <?= $produit['prix']." $" ?> </td> 
+            <td> <?php if ($produit['etat_produit'] === 1){?>
+                <p id="successMessage" style="color: green;"><?= $successMessage = "Activé"; ?>
+            <?php } else{ ?> <p id="errorMessage" style="color: red;"><?= $errorMessage = "Desactivé";}?> </td> 
             <td>
   <a href="modification.php?id_produit=<?= $produit['id'] ?>" class="btn btn-primary">Modifier</a>
   &nbsp;&nbsp;
@@ -95,28 +100,8 @@ $query->execute();
 
         </table>
 
+       
 
-
-
-    <!--button onclick="afficherFormulaire()">Ajouter un produit</button>
-
-< Affichage du formulaire de l'ajout produit dans la bdd>
-
-    <div id="formulaire">
-        <form action="" method="POST">
-            <label for="nom">Nom du produit:</label><br>
-            <input type="text" id="nom" name="nom"><br>
-            <label for="description">Description:</label><br>
-            <input type="text" id="description" name="description"><br>
-            <label for="quantite">Quantité en stock:</label><br>
-            <input type="number" id="quantite" name="quantite"><br>
-            <label for="prix">Prix:</label><br>
-            <input type="text" id="prix" name="prix"><br>
-            
-            <button type="submit" name="submit">Ajouter le produit</button>
-                       
-        </form>
-    </div-->
 
     <br><br><br><br><br><br>
 </body>

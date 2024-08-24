@@ -13,13 +13,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
 
 
 
-//Suppression du produit dont l'id a été envoyé en parametre 
+//Desactivation du produit dont l'id a été envoyé en parametre 
 
-  /*  $query = $data->prepare(" DELETE FROM produits WHERE id =:id");
-    
-$query->bindParam(':id', $idProduit);
-
-$query->execute();*/ 
 
 $queryproduit = $data->prepare ("UPDATE produits SET etat_produit = FALSE WHERE  id = :id_produit");
 

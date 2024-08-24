@@ -3,6 +3,7 @@
 include "data.php";
 include "header.php";
 
+$errormessage = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
 
@@ -56,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
     }
 
     else{
-        echo "Impossible de vous connecter";
+        $errormessage = "Impossible de vous connecter";
     }
 
 
@@ -88,6 +89,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
                 <label for="password">Mot de passe:</label>
                 <input type="password" id="password" name="password" required>
             </div>
+
+            <p id="errormessage" style="color: red;"><?= $errormessage; ?></p>
+            
             <button type="submit" name="submit">Connexion</button>
             <p class="signup">Pas encore de compte ? <a href="creation_Compte.php">Inscrivez-vous</a></p>
         </form>

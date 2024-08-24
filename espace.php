@@ -13,12 +13,7 @@ $query->execute();
 
 $valeur = $query->fetch();
 
-//$query = $data->prepare("SELECT SUM (quantite) FROM produits ");
 
-
-//$query->execute();
-
-//$solde = $query->fetch();
 
 $query = $data->prepare("SELECT * FROM produits " );
 
@@ -26,15 +21,7 @@ $query->execute();
   
 $produits = $query->fetchAll();
 
-/*
-//recuperetion des utilisateurs qui ont passé commande 
-$userscommandes = $data->prepare("SELECT *, COUNT(c.id) as nbcommande FROM commandes c,utilisateurs u 
-                                 WHERE c.utilisateur_id = u.id
-                                 GROUP BY u.id"); //GROUP BY u.id
-$userscommandes->execute();
 
-$commandes = $userscommandes->fetchAll();
-*/
 
 $userscommandes = $data->prepare("SELECT *, COUNT(commandes.id) as nbcommande FROM utilisateurs INNER JOIN commandes ON utilisateurs.id = commandes.utilisateur_id  
                                  GROUP BY utilisateurs.id ");
@@ -54,82 +41,11 @@ $userscommandes->execute();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion de Stock</title>
     <link rel="stylesheet" href="css/vendeur.css">
+    <link rel="stylesheet" href="css/button_profil.css">
     <script src="js/script.js"></script>
     
 </head>
 <body>
-
-<style>
-
-body {
-
-    font-family: Arial, sans-serif;
-}
-
-.user-info {
-
-  
-    padding: 20px;
-    position: absolute;
-top: 10px;
-right: 10px;
-}
-
-.profile-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-.profile-pic-large {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-}
-
-.profile-info {
-    display: none;
- 
-    top: 70px;
-    right: 20px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.menu {
-    margin-top: 20px;
-}
-
-.menu-content {
-    display: flex;
-    flex-direction: column;
-}
-
-.menu-content div {
-    margin-bottom: 10px;
-}
-
-.menu-content a {
-    text-decoration: none;
-    color: #000;
-    font-size: 16px;
-    
-    background-color: #0070fa;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 20px;
-    width: 40%;
-}
-
-.menu-content a:hover {
-    text-decoration: none;
-}
-</style>
-
     <div class="user-info">
         <button class="profile-button" onclick="toggleProfile()">
             <img src="https://img.icons8.com/?size=100&id=23293&format=png&color=000000" alt="Photo de profil" class="profile-pic-large">

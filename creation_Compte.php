@@ -39,10 +39,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
                     <input type="text" id="nom" name="nom" required>
                     <div id="nomErreur" class="error-message"></div>
                 </div>
-                <!-- <div class="form-group">
-                    <label for="prenom">Prenom :</label>
-                    <input type="text" id="prenom" name="prenom" required>
-                </div> -->
                 <div class="form-group">
                     <label for="password">Mot de passe :</label>
                     <input type="password" id="password" name="password" required>

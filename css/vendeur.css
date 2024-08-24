@@ -1,24 +1,8 @@
-
-
 .logo {
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 20px;
 }
-/* Style pour la sidebar */
-/*nav .detail/* {
-    background-color: #f4f4f4;
-    padding: 15px;
-    box-shadow: -2px 0 5px rgba(0,0,0,0.1);
-    position: fixed; /* Pour que la sidebar soit fixée */
-    /*top: 0;
-    right: 0;
-    width: 250px; /* Ajustez la largeur selon vos besoins */
-   /* height: 100vh; /* Hauteur de la fenêtre */
-    /*overflow-y: auto; /* Défilement si nécessaire */
-    /*z-index: 1000;
-}*/
-
 /* Style pour les éléments de la liste */
  nav ul {  list-style: none;
     padding: 0;

@@ -18,6 +18,9 @@ $query->execute();
 $produits = $query->fetchAll();
 
 
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -41,10 +44,10 @@ $produits = $query->fetchAll();
             <div class="product-item">
                 <img src="<?= $produit['image'] ?>" alt="">
                 
-                <h2> <?=  $produit['nom'] ?> </h2>
-              <h2> <?= $produit['description'] ?> </h2>
-              <h2> <?= $produit['quantite'] ?> </h2>
-              <h2> <?= $produit['prix'] ." $"?> </h2>
+                <h2> Nom : <?=  $produit['nom'] ?> </h2>
+              <h2> Description : <?= $produit['description'] ?> </h2>
+              <h2> Quantite : <?= $produit['quantite'] ?> </h2>
+              <h2> prix : <?= $produit['prix'] ." $"?> </h2>
                 
               <a href="produit.php ? id_produit= <?= $produit['id'] ?> ">Voir produit</a>
            
@@ -54,6 +57,14 @@ $produits = $query->fetchAll();
                <p class="in-stock">En stock</p>
                
            <?php } else {
+                      $idProduit = $produit['id'] ;
+                      
+
+$queryproduit = $data->prepare ("UPDATE produits SET etat_produit = FALSE WHERE  id = :id_produit");
+
+$queryproduit->bindParam(':id_produit', $idProduit);
+
+$queryproduit->execute();
            }?>
 
            

@@ -21,21 +21,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
     $commande = $_POST['commande'];
     $prix = $_SESSION['prix'];
 
-    // Insertion dans la table commandes  des données recuperées 
-
-    $query = $GLOBALS['data']->prepare("INSERT INTO commandes (utilisateur_id, produit_id, quantite, etat_id) VALUES (:id_user, :id_produit, :commande, :id)");
-    $query->bindParam(':id_user', $idUser);
-    $query->bindParam(':id_produit', $idProduit);
-    $query->bindParam(':commande', $commande);
-    $query->bindParam(':id', $idEtat);
-
-    $query->execute(); 
-
+   
 
 
 //Calcul et stockage de la nouvelle quantité dans bdd
 
       $newQuantite = $quantite - $commande ;
+      
+      //calcul du prix total selon la quantité commandé
+
+      $totalPrix = $prix * $commande ;
     
         if($newQuantite > 0){
     
@@ -45,14 +40,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
     
         $query->execute();
 
+
+         // Insertion dans la table commandes  des données recuperées 
+
+    $querycommande = $GLOBALS['data']->prepare("INSERT INTO commandes (utilisateur_id, produit_id, quantite, etat_id, prix_commande) VALUES (:id_user, :id_produit, :commande, :id, :prix_commande)");
+    $querycommande->bindParam(':id_user', $idUser);
+    $querycommande->bindParam(':id_produit', $idProduit);
+    $querycommande->bindParam(':commande', $commande);
+    $querycommande->bindParam(':prix_commande', $totalPrix);
+    $querycommande->bindParam(':id', $idEtat);
+
+    $querycommande->execute(); 
+
+
         
 
 
         echo "<div class='confirmation-message'>Votre commande est en cours.<br>";
-        /*
-        echo "quantité commandé : " . $commande . "<br>";
-        echo "Prix total : " . $totalPrix . "$" . "<br>"; 
-        */
+       
         echo "</div>";
     } else {
         echo "<div class='error-message'>Quantité insuffisante</div>";
