@@ -8,7 +8,7 @@
     <header>
         <nav class="main-nav">
             <ul>
-                <li><a href="index.php">Accueil</a></li>
+               
                 <li><a href="creation_Compte.php">Inscription</a></li>
                 <li><a href="dataUser.php"> Mon compte</a></li> 
 
@@ -18,12 +18,14 @@
 
                 
                 <?php if (isset($_SESSION['type']) && $_SESSION['type'] == "vendeur"): ?>
+                    <li><a href="espace.php">Accueil</a></li>
                     <li><a href="espace.php">Espace Vendeur</a></li>
                 <?php endif; ?>
 
                 <!-- <img src="" alt="Compte" style="vertical-align: middle;"> -->
 
                 <?php if (isset($_SESSION['type']) && $_SESSION['type'] == "acheteur"): ?>
+                    <li><a href="acheteur.php">Accueil</a></li>
 
                   <li><a href="historique.php">Historique</a></li>
 

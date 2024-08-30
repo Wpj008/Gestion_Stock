@@ -57,22 +57,8 @@ $query->execute();
 <html>
 <head>
     <link rel="stylesheet" href="css/historique.css">
-    <link rel="stylesheet" href="css/ajoutProduit.css">
     
-    
-    <script>
-    //Fonction Js boutton de roulant
-
-        function afficherFormulaire() {
-            var formulaire = document.getElementById("formulaire");
-            if (formulaire.style.display === "none") {
-                formulaire.style.display = "block";
-            } else {
-                formulaire.style.display = "none";
-            }
-        }
-    </script>
-</head>
+    </head>
 
 <body>
 

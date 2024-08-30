@@ -22,9 +22,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
     $prix = $_SESSION['prix'];
 
    
-
+if(is_numeric($commande)){
 
 //Calcul et stockage de la nouvelle quantité dans bdd
+
+    
 
       $newQuantite = $quantite - $commande ;
       
@@ -32,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
 
       $totalPrix = $prix * $commande ;
     
-        if($newQuantite > 0){
+        if($newQuantite >= 0){
     
         $query = $data->prepare( "UPDATE produits SET quantite = :quantite WHERE id = :id");
         $query->bindParam(':quantite', $newQuantite);
@@ -62,29 +64,66 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
     } else {
         echo "<div class='error-message'>Quantité insuffisante</div>";
     }
+}else{
+
+    echo "<div class='error-message'>TA SAISI N'EST PAS UN CHIFFRE </div>";
+}
+
 }
 ?>
-
 
 
 
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="css/commande.css">
+    <link rel="stylesheet" href="css/commande.css">
+    <script src="js/verification.js" defer></script> <!-- Assurez-vous que le script est chargé correctement -->
+    <style>
+        .counter {
+            font-size: 2rem;
+            margin: 20px;
+        }
+        .btn {
+            font-size: 1.5rem;
+            padding: 10px 20px;
+            margin: 5px;
+        }
+    </style>
+
+<script>
+    let count = 0;
+
+
+    function increment() {
+        count++;
+        document.getElementById('counter').innerText = count;
+    }
+
+
+    function decrement() {
+        count--;
+        document.getElementById('counter').innerText = count;
+    }
+</script>
+
 </head>
 <body>
+    <form method="POST" action="" onsubmit="return commandeChamps();">
+        <label for="commande">Quelle quantité désirez-vous ?</label><br><br>
+        <div class="counter" id="counter">0</div>
+<button class="btn" onclick="increment()">+</button>
+<button class="btn" onclick="decrement()">-</button>
+
+       
+        <div id="commandeErreur" class="error-message"></div>
+        <button type="submit" name="submit">Passer la commande</button>
+    </form>
 
 
-<form method="POST" action="">
-    <label for="commande">Quelle quantité désirez-vous ?</label><br><br>
-    <input id="commande" name="commande" type="text" required><br><br><br><br>
-    <button type="submit" name="submit">Passer la commande</button>
-</form>
 
 </body>
 </html>
-
 
 <?php
 include "footer.php";

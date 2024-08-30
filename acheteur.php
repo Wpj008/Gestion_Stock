@@ -41,7 +41,11 @@ $produits = $query->fetchAll();
         
         <div class="product-grid">
         <?php foreach($produits as $produit){?>
+            <?php $produit['quantite'] ?>
             <div class="product-item">
+
+            <?php if($produit['quantite'] > 5){?>
+
                 <img src="<?= $produit['image'] ?>" alt="">
                 
                 <h2> Nom : <?=  $produit['nom'] ?> </h2>
@@ -52,7 +56,7 @@ $produits = $query->fetchAll();
               <a href="produit.php ? id_produit= <?= $produit['id'] ?> ">Voir produit</a>
            
               <br><br>
-                <?php if($produit['quantite'] > 5){?>
+               
                
                <p class="in-stock">En stock</p>
                

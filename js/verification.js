@@ -14,3 +14,19 @@ function verifierChamps() {
     return true;
 }
 
+function commandeChamps() {
+    const commandes = document.getElementById('commandes').value;
+    const commandeErreur = document.getElementById('commandeErreur');
+    const regex = /^\d+$/; // Autorise uniquement les chiffres de 0 à 9
+
+    // Réinitialiser le message d'erreur
+    commandeErreur.textContent = '';
+
+    // Vérifier si la valeur ne correspond pas à des chiffres
+    if (!regex.test(commandes)) {
+        commandeErreur.textContent = "Le champ ne peut contenir que des chiffres de 0 à 9.";
+        return false; // Empêche la soumission du formulaire
+    }
+
+    return true; // Permet la soumission du formulaire
+}
