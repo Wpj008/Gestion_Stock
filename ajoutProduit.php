@@ -28,35 +28,58 @@ $description = $_POST['description'];
 $prix = $_POST['prix'];
 $etat_produit = 1 ;
 
-if (!empty($nom === "" || $description === "" || $quantite === "" || $prix === "")) {
-    $errormessage = "Veuillez remplir tous les champs ";
-    
-    
-  
-}
+if(isset($errormessage)){
 
+   echo' <p id="errormessage" style="color: red;">' .$errormessage.'</p>';
+}
 
 // Testons si le fichier a bien été envoyé et s'il n'y a pas des erreurs
 if (isset($_FILES['image']) && $_FILES['image']['error'] === 0) {
     // Testons, si le fichier est trop volumineux
     if ($_FILES['image']['size'] > 1000000) {
         $errormessage = "L'envoi n'a pas pu être effectué, erreur ou image trop volumineuse";
+
+        echo' <p id="errormessage" style="color: red;">' .$errormessage.'</p>';
         return;
     }
     // Testons, si l'extension n'est pas autorisée
     $fileInfo = pathinfo($_FILES['image']['name']);
     $extension = $fileInfo['extension'];
-    $allowedExtensions = ['jpg', 'jpeg', 'gif', 'png'];
+    $allowedExtensions = [ 'jpg','jpeg', 'gif', 'png'];
     if (!in_array($extension, $allowedExtensions)) {
         $errormessage = "L'envoi n'a pas pu être effectué, l'extension {$extension} n'est pas autorisée";
+
+        echo' <p id="errormessage" style="color: red;">' .$errormessage.'</p>';
         return;
     }
     // Testons, si le dossier uploads est manquant
     $path ='img/';
     if (!is_dir($path)) {
         $errormessage = "L'envoi n'a pas pu être effectué, le dossier uploads est manquant";
+
+        echo' <p id="errormessage" style="color: red;">' .$errormessage.'</p>';
         return;
     }
+
+    //Verification de tous les champs
+
+    if (!empty($nom === "" || $description === "" || $quantite === "" || $prix === "")) {
+        $errormessage = "Veuillez remplir tous les champs ";
+
+        echo' <p id="errormessage" style="color: red;">' .$errormessage.'</p>';
+        return;
+        
+    }
+
+    if($quantite <= 0 || $prix <= 0){
+
+        $errormessage = "La quantité ou le prix ne peut pas être inferieure ou égale à 0";
+
+        echo' <p id="errormessage" style="color: red;">' .$errormessage.'</p>';
+        return;
+    
+    }
+
     // Déplacez le fichier dans le répertoire de destination
     $destination = $path . basename($_FILES['image']['name']);
 
@@ -87,6 +110,7 @@ $query->execute();
 } else {
     $errormessage = "Aucun fichier ou une erreur est survenue lors du téléchargement.";
 }
+
 
 }
 ?>

@@ -96,7 +96,7 @@ if(is_numeric($commandes) && $commandes > 0){
 
 <div class="cart-item">
   
-    <img src="<?= $results['image'] ?>" alt="Product Image">
+    <img src="<?= $results['image'] ?>" alt="télévision 55'LG">
     <div class="cart-actions">
     <div class="cart-info">
         <h4> : <?= $results['nom'] ?> ; <?= $results['description'] ?></h4>

@@ -9,8 +9,6 @@
         <nav class="main-nav">
             <ul>
                
-                <li><a href="creation_Compte.php">Inscription</a></li>
-                <li><a href="dataUser.php"> Mon compte</a></li> 
 
                 <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1): ?>
                     <li><a href="admin/login.php">Espace Admin</a></li>
@@ -18,21 +16,22 @@
 
                 
                 <?php if (isset($_SESSION['type']) && $_SESSION['type'] == "vendeur"): ?>
-                    <li><a href="espace.php">Accueil</a></li>
                     <li><a href="espace.php">Espace Vendeur</a></li>
+                    <li><a href="dataUser.php"> Mon compte</a></li>
+                    <li><a href="deconnexion.php">Déconnexion</a></li>
                 <?php endif; ?>
 
                 <!-- <img src="" alt="Compte" style="vertical-align: middle;"> -->
 
                 <?php if (isset($_SESSION['type']) && $_SESSION['type'] == "acheteur"): ?>
                     <li><a href="acheteur.php">Accueil</a></li>
-
+                    <li><a href="dataUser.php"> Mon compte</a></li>
                   <li><a href="historique.php">Historique</a></li>
+                  <li><a href="deconnexion.php">Déconnexion</a></li>
 
                 <?php endif; ?>
 
 
-                <li><a href="deconnexion.php">Déconnexion</a></li>
             </ul>
         </nav>
     </header>
