@@ -87,7 +87,7 @@ if (isset($_FILES['image']) && $_FILES['image']['error'] === 0) {
 
 //Insertion des données saisies par l'user dans la bdd dans la table produit
 
-$query = $GLOBALS['data']->prepare("INSERT INTO produits (nom, quantite, description, prix, image, etat_produit) VALUES (:nom, :quantite, :description, :prix, :image, :etat_produit)");
+$query = $GLOBALS['data']->prepare("INSERT INTO produits (nom_produit, quantite, description, prix, image, etat_produit) VALUES (:nom, :quantite, :description, :prix, :image, :etat_produit)");
 $query->bindParam(':nom', $nom);
 $query->bindParam(':quantite', $quantite);
 $query->bindParam(':description', $description);
@@ -130,13 +130,13 @@ $query->execute();
 
         <form action="" method="POST" enctype="multipart/form-data">
             <label for="nom">Nom du produit:</label><br>
-            <input type="text" id="nom" name="nom" ><br>
+            <input type="text" id="nom" name="nom" required><br>
             <label for="description">Description:</label><br>
-            <input type="text" id="description" name="description" ><br>
+            <input type="text" id="description" name="description" required><br>
             <label for="quantite">Quantité en stock:</label><br>
-            <input type="number" id="quantite" name="quantite" ><br>
+            <input type="number" id="quantite" name="quantite" required><br>
             <label for="prix">Prix:</label><br>
-            <input type="text" id="prix" name="prix"><br>
+            <input type="text" id="prix" name="prix" required><br>
             <input type="file" id="image" name="image"><br>
             <p id="successmessage" style="color: green;"><?= $successmessage; ?></p>
 

@@ -99,7 +99,7 @@ if(is_numeric($commandes) && $commandes > 0){
     <img src="<?= $results['image'] ?>" alt="télévision 55'LG">
     <div class="cart-actions">
     <div class="cart-info">
-        <h4> : <?= $results['nom'] ?> ; <?= $results['description'] ?></h4>
+        <h4> : <?= $results['nom_produit'] ?> ; <?= $results['description'] ?></h4>
         <p> Prix Unitaire : <?= $results['prix'] . " $"?> </p>
         
     </div>

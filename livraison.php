@@ -5,7 +5,7 @@ include "header.php";
 
 //Recuperation de l'id envoyé en parametre
 
-$idProduit = $_GET['id_produit'];
+$idCommande = $_GET['id_commande'];
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
@@ -16,16 +16,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
 //activation du produit dont l'id a été envoyé en parametre 
  
 
-$queryproduit = $data->prepare ("UPDATE produits SET etat_produit = TRUE WHERE  id = :id_produit");
+$queryproduit = $data->prepare ("UPDATE commandes SET etat_id = 3 WHERE  id_commande = :id_commande");
 
-$queryproduit->bindParam(':id_produit', $idProduit);
+$queryproduit->bindParam(':id_commande', $idCommande);
 
 $queryproduit->execute();
 
     
     //Redirection à la page vendeur.php
     
-        header('Location: vendeur.php');
+        header('Location: listeCommande.php');
         
         
     
@@ -34,12 +34,12 @@ $queryproduit->execute();
 ?>
 
 <div class= "form" >
-<h2>Vous voulez activer ce produit ? </h2><br><br>
+<h2>Vous voulez Livrer cette commande ? </h2><br><br>
 
 <div class="container">
 <form method="POST" action="">
 
-<button type="submit" name="submit">Activer le produit</button>
+<button type="submit" name="submit">Livrer la commande</button>
 
 </form>
 </div>

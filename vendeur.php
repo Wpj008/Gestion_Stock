@@ -28,7 +28,7 @@ $prix = $_POST['prix'];
 
 //Insertion des données saisies par l'user dans la bdd dans la table produit
 
-$query = $GLOBALS['data']->prepare("INSERT INTO produits (nom, quantite, description, prix) VALUES (:nom, :quantite, :description, :prix)");
+$query = $GLOBALS['data']->prepare("INSERT INTO produits (nom_produit, quantite, description, prix) VALUES (:nom, :quantite, :description, :prix)");
 $query->bindParam(':nom', $nom);
 $query->bindParam(':quantite', $quantite);
 $query->bindParam(':description', $description);
@@ -67,7 +67,7 @@ $query->execute();
 
 <tr>
             <td> <?= $i++ ?></td>
-            <td> <?= $produit['nom'] ?> </td>
+            <td> <?= $produit['nom_produit'] ?> </td>
             <td> <?= $produit['description'] ?> </td>
             <td> <?= $produit['quantite'] ?> </td>
             <td> <?= $produit['prix']." $" ?> </td> 

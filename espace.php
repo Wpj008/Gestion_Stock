@@ -23,7 +23,7 @@ $produits = $query->fetchAll();
 
 
 
-$userscommandes = $data->prepare("SELECT *, COUNT(commandes.id) as nbcommande FROM utilisateurs INNER JOIN commandes ON utilisateurs.id = commandes.utilisateur_id  
+$userscommandes = $data->prepare("SELECT *, COUNT(commandes.id_commande) as nbcommande FROM utilisateurs INNER JOIN commandes ON utilisateurs.id = commandes.utilisateur_id  
                                  GROUP BY utilisateurs.id ");
 
 
@@ -167,7 +167,8 @@ $userscommandes->execute();
             <h4>Alertes automatiques</h4>
         </div>
         <div class="alert-block">
-            <h4>Stocks non traités</h4>
+            <h4><a href="validationCommande.php ">Commandes non validée</a></h4>
+            <h4><a href="livraisonCommande.php ">Commandes non livrée</a></h4>
             <span>Total: 3</span>
         </div>
         <div class="alert-block">
@@ -183,13 +184,7 @@ $userscommandes->execute();
         <h2>ÉVOLUTION DE STOCK</h2>
         <!-- Placeholder for chart-->
         <div class="chart-placeholder">
-            <?php foreach ($commandes as $commande) { ?>
-
-                <p> Nom : <?= $commande['nom'] ?> : <?= $commande['nbcommande'] ?> </p>
-
-            <?php } ?>
-            <p> Lipaaaaaaaaaaaaaaaaaaa</p>
-            <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" />
+           
         </div>
     </div>
 </div>

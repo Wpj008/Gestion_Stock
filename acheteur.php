@@ -48,7 +48,7 @@ $produits = $query->fetchAll();
 
                 <img src="<?= $produit['image'] ?>" alt="">
                 
-                <h2> Nom : <?=  $produit['nom'] ?> </h2>
+                <h2> Nom : <?=  $produit['nom_produit'] ?> </h2>
               <h2> Description : <?= $produit['description'] ?> </h2>
               <h2> Quantite : <?= $produit['quantite'] ?> </h2>
               <h2> prix : <?= $produit['prix'] ." $"?> </h2>

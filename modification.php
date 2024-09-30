@@ -33,7 +33,7 @@ $query->execute();
 if($nom){
 
     
-$query = $data->prepare( "UPDATE produits SET  nom =:nom WHERE id = :id");
+$query = $data->prepare( "UPDATE produits SET  nom_produit =:nom WHERE id = :id");
 
 $query->bindParam(':nom', $nom);
 $query->bindParam(':id', $idProduit);
