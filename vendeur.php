@@ -97,9 +97,3 @@ $query->execute();
 <?php
 include "footer.php";
 ?>
-
-
-
-
-
-

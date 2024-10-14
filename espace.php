@@ -114,6 +114,8 @@ $userscommandes->execute();
             <!--a href="commande.php">Nouvelle commande</a>
             <a href="#">Liste Client</a-->
             <a href="listeCommande.php">Liste commande</a>
+            <a href="validationCommande.php ">Commandes non validée</a>
+            <a href="livraisonCommande.php ">Commandes non livrée</a>
         </div>
     </li>
     <li onclick="toggleDropdown(this)">Stocks
@@ -167,8 +169,7 @@ $userscommandes->execute();
             <h4>Alertes automatiques</h4>
         </div>
         <div class="alert-block">
-            <h4><a href="validationCommande.php ">Commandes non validée</a></h4>
-            <h4><a href="livraisonCommande.php ">Commandes non livrée</a></h4>
+            <h4>Stock non traité</h4>
             <span>Total: 3</span>
         </div>
         <div class="alert-block">

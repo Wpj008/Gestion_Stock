@@ -4,6 +4,7 @@ include "data.php";
 include "header.php";
 
 $idUser = $_SESSION['id_user'] ;
+$successMessage = 0;
 
 
 //Jointure des tables produits et commandes et affichage de l'historique de commande
@@ -100,6 +101,11 @@ if ($resultats) {
 
 
         if( $etat_commannde === 'Validée'){
+
+            "<p id='successMessage' style='color: green;'>" .$successMessage;
+            $successMessage = $resultat['nom_etat'];
+
+
         
         echo "<tr>";
       
@@ -109,7 +115,7 @@ if ($resultats) {
         echo "<td>" . $resultat['date_commande'] . "</td>";
         echo "<td>" . $resultat['quantite'] . "</td>";
         echo "<td>" . $resultat['prix_commande'] . ' $'."</td>";        
-        echo "<td>" . $resultat['nom_etat'] . "</td>";
+        echo "<td>" . "<p id='successMessage' style='color: orange;'>" .$successMessage . "</td>";
         
         echo "</tr>";
      
@@ -153,6 +159,8 @@ if ($livreurs) {
 
 
         if( $etat_commannde === 'Livrée'){
+
+            $successMessage = $livreur['nom_etat'];
         
         echo "<tr>";
       
@@ -162,13 +170,14 @@ if ($livreurs) {
         echo "<td>" . $livreur['date_commande'] . "</td>";
         echo "<td>" . $livreur['quantite'] . "</td>";
         echo "<td>" . $livreur['prix_commande'] . ' $'."</td>";        
-        echo "<td>" . $livreur['nom_etat'] . "</td>";
+        echo "<td>" . "<p id='successMessage' style='color: green;'>" .$successMessage  . "</td>";
         
         echo "</tr>";
      
 } 
     }
     echo "</table>";
+
 
 } else {
     echo "Aucune commande à afficher.";
