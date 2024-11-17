@@ -2,6 +2,7 @@
 session_start();
 include "data.php";
 include "header.php";
+require 'fonction.php';
 
 $successmessage = "";
 $errormessage = "";
@@ -10,6 +11,7 @@ $errormessage = "";
     $idProduit = $_GET['id_produit'];
     $idUser = $_SESSION['id_user'] ;
     $idEtat = 1 ;
+    
     
 
     
@@ -20,6 +22,11 @@ $errormessage = "";
     $query->execute();
     $results = $query->fetch();
 
+    $nameproduit = $results['nom_produit'];
+$idCom = generateUniqueIdCommande($nameproduit);
+$idCommande = $idCom;
+
+var_dump($idCommande);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
 
@@ -28,23 +35,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
 $_SESSION['id_produit'] = $_GET['id_produit'];
 $quantite = $results['quantite'];
 $prix = $results['prix'];
-$commandes  = $_POST['commandes'] ;
+$com  = $_POST['com'] ;
+
 
 //Redirection à la page commande.php
 
    // header('Location: commande.php');
    
-if(is_numeric($commandes) && $commandes > 0){
+if(is_numeric($com) && $com > 0){
 
     //Calcul et stockage de la nouvelle quantité dans bdd
     
     
     
-    $newQuantite = $quantite - $commandes ;
+    $newQuantite = $quantite - $com ;
     
     //calcul du prix total selon la quantité commandé
     
-    $totalPrix = $prix * $commandes ;
+    $totalPrix = $prix * $com ;
     
     if($newQuantite >= 0){
     
@@ -57,12 +65,14 @@ if(is_numeric($commandes) && $commandes > 0){
     
      // Insertion dans la table commandes  des données recuperées 
     
-    $querycommande = $GLOBALS['data']->prepare("INSERT INTO commandes (utilisateur_id, produit_id, quantite, etat_id, prix_commande) VALUES (:id_user, :id_produit, :commandes, :id, :prix_commande)");
+    $querycommande = $GLOBALS['data']->prepare("INSERT INTO commandes (id_commande, utilisateur_id, produit_id, quantite, etat_id, prix_commande) VALUES (:idCommande, :id_user, :id_produit, :com, :idEtat, :prix_commande)");
+    $querycommande->bindParam(':idCommande', $idCommande);
     $querycommande->bindParam(':id_user', $idUser);
     $querycommande->bindParam(':id_produit', $idProduit);
-    $querycommande->bindParam(':commandes', $commandes);
+    $querycommande->bindParam(':com', $com);
+    $querycommande->bindParam(':idEtat', $idEtat);
     $querycommande->bindParam(':prix_commande', $totalPrix);
-    $querycommande->bindParam(':id', $idEtat);
+   
     
     $querycommande->execute(); 
        
@@ -106,7 +116,7 @@ if(is_numeric($commandes) && $commandes > 0){
     
     <form method="POST" action="" onsubmit="return commandeChamps();">
 
-    <select name="commandes" id="commandes">
+    <select name="com" id="com">
                                 <option value="1"selected>1</option>
                             <option value="2" >2</option>
                         <option value="3" >3</option>

@@ -25,7 +25,7 @@ $queryproduit->execute();
     
     //Redirection à la page vendeur.php
     
-        header('Location: listeCommande.php');
+        header('Location: validationCommande.php');
         
         
     

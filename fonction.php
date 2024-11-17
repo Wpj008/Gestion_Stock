@@ -33,5 +33,18 @@ function inscrireUtilisateur($nom, $email, $password, $type) {
     }
 }
 
+//fonction pour générer un ID unique 
+
+function generateUniqueIdCommande($text) {
+    // Prendre les 2 premiers caractères du label
+    $prefix = substr($text, 0, 2);
+    // Générer 3 chiffres aléatoires
+    $randomDigits = rand(100, 999);
+    // Concaténer le préfixe et les chiffres aléatoires
+    $uniqueId = strtoupper($prefix) . $randomDigits;
+    return $uniqueId;
+}
+
+
 
 ?>
