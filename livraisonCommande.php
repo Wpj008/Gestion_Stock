@@ -3,7 +3,7 @@ session_start();
 include "data.php";
 include "header.php";
 
-
+$idUser = $_SESSION['id_user'];
 //Jointure des tables produits et commandes et affichage de l'historique de commande
 
 $query = $data->prepare("SELECT * FROM produits INNER JOIN commandes ON produits.id = commandes.produit_id INNER JOIN etats_commande ON etats_commande.id = commandes.etat_id INNER JOIN utilisateurs ON utilisateurs.id = commandes.utilisateur_id");

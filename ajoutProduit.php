@@ -7,6 +7,7 @@ include "header.php";
 $successmessage = "";
 $errormessage = "";
 
+$idUser = $_SESSION['id_user'];
 //Recuperation de toutes les informations dans la table produits
 
 $query = $data->prepare("SELECT * FROM produits " );
@@ -87,13 +88,14 @@ if (isset($_FILES['image']) && $_FILES['image']['error'] === 0) {
 
 //Insertion des données saisies par l'user dans la bdd dans la table produit
 
-$query = $GLOBALS['data']->prepare("INSERT INTO produits (nom_produit, quantite, description, prix, image, etat_produit) VALUES (:nom, :quantite, :description, :prix, :image, :etat_produit)");
+$query = $GLOBALS['data']->prepare("INSERT INTO produits (nom_produit, quantite, description, prix, image, etat_produit, id_user) VALUES (:nom, :quantite, :description, :prix, :image, :etat_produit, :id_user)");
 $query->bindParam(':nom', $nom);
 $query->bindParam(':quantite', $quantite);
 $query->bindParam(':description', $description);
 $query->bindParam(':prix', $prix);
 $query->bindParam(':etat_produit', $etat_produit);
 $query->bindParam(':image', $image);
+$query->bindParam(':id_user', $idUser);
 
 
 $query->execute(); 

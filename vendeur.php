@@ -9,7 +9,8 @@ $id = $_SESSION['id_user'];
 
 //Recuperation de toutes les informations dans la table produits
 
-$query = $data->prepare("SELECT * FROM produits " );
+$query = $data->prepare("SELECT * FROM produits WHERE id_user = :id_user" );
+$query->bindParam(':id_user', $id);
 
 $query->execute();
   

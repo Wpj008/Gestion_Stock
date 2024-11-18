@@ -43,9 +43,11 @@ $password_3 = $_POST['password_3'];
 if($password_3){
 
 
+    $passwordHash = password_hash($password_3, PASSWORD_DEFAULT);
+
     $query = $data->prepare ("UPDATE utilisateurs SET mot_de_passe = :password_3 WHERE id = :id_user");
 
-    $query->bindParam(':password_3', $password_3);
+    $query->bindParam(':password_3', $passwordHash);
     $query->bindParam(':id_user', $idUser);
 
     $query->execute();

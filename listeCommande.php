@@ -5,16 +5,15 @@ include "header.php";
 
 $successMessage = 0;
 
+$idUser = $_SESSION['id_user'];
+
 
 
 //Jointure des tables produits et commandes et affichage de l'historique de commande
 
-$query = $data->prepare("SELECT * FROM produits INNER JOIN commandes ON produits.id = commandes.produit_id INNER JOIN etats_commande ON etats_commande.id = commandes.etat_id INNER JOIN utilisateurs ON utilisateurs.id = commandes.utilisateur_id");
+$query = $data->prepare("SELECT * FROM produits INNER JOIN commandes ON produits.id = commandes.produit_id INNER JOIN etats_commande ON etats_commande.id = commandes.etat_id INNER JOIN utilisateurs ON utilisateurs.id = commandes.utilisateur_id WHERE id_user = :id_user");
 
-
-
-
-
+$query->bindParam(':id_user', $idUser);
  $query->execute();
  $results = $query->fetchAll();
 
@@ -76,12 +75,9 @@ else {
 
 
 
-$valider = $data->prepare("SELECT * FROM produits INNER JOIN commandes ON produits.id = commandes.produit_id INNER JOIN etats_commande ON etats_commande.id = commandes.etat_id INNER JOIN utilisateurs ON utilisateurs.id = commandes.utilisateur_id");
+$valider = $data->prepare("SELECT * FROM produits INNER JOIN commandes ON produits.id = commandes.produit_id INNER JOIN etats_commande ON etats_commande.id = commandes.etat_id INNER JOIN utilisateurs ON utilisateurs.id = commandes.utilisateur_id WHERE id_user = :id_user");
 
-
-
-
-
+$valider->bindParam(':id_user', $idUser);
  $valider->execute();
  $resultats = $valider->fetchAll();
 
@@ -146,12 +142,9 @@ else {
 
 
 
-$livrer = $data->prepare("SELECT * FROM produits INNER JOIN commandes ON produits.id = commandes.produit_id INNER JOIN etats_commande ON etats_commande.id = commandes.etat_id INNER JOIN utilisateurs ON utilisateurs.id = commandes.utilisateur_id");
+$livrer = $data->prepare("SELECT * FROM produits INNER JOIN commandes ON produits.id = commandes.produit_id INNER JOIN etats_commande ON etats_commande.id = commandes.etat_id INNER JOIN utilisateurs ON utilisateurs.id = commandes.utilisateur_id WHERE id_user = :id_user");
 
-
-
-
-
+$livrer->bindParam(':id_user', $idUser);
  $livrer->execute();
  $livraison = $livrer->fetchAll();
 
@@ -215,10 +208,10 @@ else {
 
 
 
-
+if($results){
 
 echo "<div class='total-orders'>Total des commandes effectuées : " . $valeur['total'] . "</div>";
-
+}
 
 ?>
 
