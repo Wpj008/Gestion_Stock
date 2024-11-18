@@ -13,15 +13,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
     $password = htmlspecialchars($_POST['password']);
     $passwordHash = password_hash($password, PASSWORD_DEFAULT);
     
-    $query = $data->prepare("SELECT * FROM utilisateurs WHERE  mot_de_passe = :mot_de_passe AND email = :email  " );
+    //recupère tous les infos users
 
-    $query->bindParam(':mot_de_passe', $password);
+    $query = $data->prepare("SELECT * FROM utilisateurs WHERE  email = :email" );
+       
     $query->bindParam(':email', $email);
     $query->execute();
-  
-    $results = $query->fetch();
+     
+    $results = $query->fetch(); 
 
-    if($results && $results['type'] == "vendeur"){
+    //verifie si le mdp saisi === mdp hashé dans la bdd
+
+    if ($results && password_verify($password, $results['mot_de_passe'])) {
+
+    if($results['type'] == "vendeur"){
 
         session_start();
         $_SESSION['id_user'] = $results['id'];
@@ -38,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
         exit();
 
     }
-    else if($results && $results['type'] == "acheteur"){
+    else if($results['type'] == "acheteur"){
 
         session_start();
         $_SESSION['id_user'] = $results['id'];
@@ -55,6 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
         exit();
 
     }
+}
 
     else{
         $errormessage = "Impossible de vous connecter";
