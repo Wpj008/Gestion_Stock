@@ -11,11 +11,6 @@ $idCommande =  $_SESSION['id_commande'] ;
 
 
 
-echo 'idC : '. $idCommande;
- var_dump($idCommande);
-
- echo $idEtat;
-
 if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
 
 

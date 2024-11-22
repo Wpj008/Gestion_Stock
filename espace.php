@@ -98,6 +98,7 @@ $userscommandes->execute();
         <div class="dropdown-content">
            
             <a href="espace.php">Espace vendeur</a>
+            <a href="acheteur.php">Espace Acheteur</a>
             <a href="deconnexion.php">Deconnexion</a>
         </div>
     </li>

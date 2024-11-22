@@ -17,6 +17,7 @@
                 
                 <?php if (isset($_SESSION['type']) && $_SESSION['type'] == "vendeur"): ?>
                     <li><a href="espace.php">Espace Vendeur</a></li>
+                    <li><a href="acheteur.php">Espace Acheteur</a></li>
                     <li><a href="dataUser.php"> Mon compte</a></li>
                     <li><a href="deconnexion.php">Déconnexion</a></li>
                 <?php endif; ?>
