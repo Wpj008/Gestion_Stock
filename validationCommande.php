@@ -4,19 +4,21 @@ include "data.php";
 include "header.php";
 
 
-//Jointure des tables produits et commandes et affichage de l'historique de commande
-
-$query = $data->prepare("SELECT * FROM produits INNER JOIN commandes ON produits.id = commandes.produit_id INNER JOIN etats_commande ON etats_commande.id = commandes.etat_id INNER JOIN utilisateurs ON utilisateurs.id = commandes.utilisateur_id");
+$idUser = $_SESSION['id_user'];
 
 
+//Jointure des tables produits, etat commande et commandes puis affichage de l'historique de commande
 
+$query = $data->prepare("SELECT * FROM produits INNER JOIN commandes ON produits.id = commandes.produit_id INNER JOIN etats_commande ON etats_commande.id = commandes.etat_id INNER JOIN utilisateurs ON utilisateurs.id = commandes.utilisateur_id WHERE id_user = :idUser");
 
+$query->bindParam(':idUser',$idUser );
 
  $query->execute();
  $results = $query->fetchAll(); ?>
 
 
 <?php
+
 if ($results) {
 
     echo "<table>"; 
@@ -27,8 +29,11 @@ if ($results) {
     foreach ($results as $result) {
 
         $etat_commannde = $result['nom_etat'];
-
+        
         if( $etat_commannde === 'En cours'){
+
+            $_SESSION['id_commande'] = $result['id_commande'];
+
         
         echo "<tr>";
       
@@ -41,10 +46,11 @@ if ($results) {
         echo "<td>" . $result['date_commande'] . "</td>";
         echo "<td>" . $result['quantite'] . "</td>";
         echo "<td>" . $result['prix_commande'] . ' $'."</td>";
+       
         
         
         
-            echo  "<td>" ."<a href='validateur.php?id_commande=" . $result['id_commande'] ." class='btn btn-primary'>Valider</a>";
+            echo  "<td>" ."<a href= validateur.php?etat_id=" . $result['etat_id'] .  ' &'. ' id_commande=' . $result['id_commande'] . " class='btn btn-primary'>Valider</a>";
             
          } 
          
@@ -57,6 +63,9 @@ if ($results) {
 } else {
     echo "Aucune commande à afficher.";
 }
+
+
+
 
 
 ?>

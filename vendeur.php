@@ -3,6 +3,14 @@ session_start();
 include "data.php";
 include "header.php";
 
+// Vérifier si l'utilisateur est connecté
+if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true || $_SESSION['type'] !== 'vendeur') {
+    
+    header('Location: index.php');  // Rediriger vers la page de connexion
+  
+   exit;  // Arrêter l'exécution des scripts suivants
+}
+
 $id = $_SESSION['id_user'];
 
 

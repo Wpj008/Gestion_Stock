@@ -6,11 +6,9 @@ include "header.php";
 $idUser = $_SESSION['id_user'];
 //Jointure des tables produits et commandes et affichage de l'historique de commande
 
-$query = $data->prepare("SELECT * FROM produits INNER JOIN commandes ON produits.id = commandes.produit_id INNER JOIN etats_commande ON etats_commande.id = commandes.etat_id INNER JOIN utilisateurs ON utilisateurs.id = commandes.utilisateur_id");
+$query = $data->prepare("SELECT * FROM produits INNER JOIN commandes ON produits.id = commandes.produit_id INNER JOIN etats_commande ON etats_commande.id = commandes.etat_id INNER JOIN utilisateurs ON utilisateurs.id = commandes.utilisateur_id WHERE id_user = :id");
 
-
-
-
+$query->bindParam(':id',$idUser );
 
  $query->execute();
  $results = $query->fetchAll(); ?>
@@ -27,6 +25,8 @@ if ($results) {
         $etat_commannde = $result['nom_etat'];
 
         if( $etat_commannde === 'Validée'){
+
+            $_SESSION['id_commande'] = $result['id_commande'];
         
         echo "<tr>";
       
@@ -42,7 +42,7 @@ if ($results) {
         
         
            
-             echo  "<td>" ."<a href='livraison.php?id_commande=" . $result['id_commande'] ." class='btn btn-primary'>Livrer</a>";
+             echo  "<td>" ."<a href='livraison.php?etat_id=" . $result['etat_id'] ." class='btn btn-primary'>Livrer</a>";
         
          } 
          

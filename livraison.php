@@ -5,8 +5,16 @@ include "header.php";
 
 //Recuperation de l'id envoyé en parametre
 
-$idCommande = $_GET['id_commande'];
+$idEtat = $_GET['etat_id'];
 
+$idCommande =  $_SESSION['id_commande'] ;
+
+
+
+echo 'idC : '. $idCommande;
+ var_dump($idCommande);
+
+ echo $idEtat;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
 

@@ -17,7 +17,7 @@ $query->bindParam(':id_user', $idUser);
  $query->execute();
  $results = $query->fetchAll();
 
-
+/*
  //Affichage du nombre total de commande effectuée selon id_user
 
  $query = $data->prepare("SELECT COUNT(*) AS total FROM commandes ");
@@ -26,7 +26,7 @@ $query->bindParam(':id_user', $idUser);
 
  $query->execute();
 
- $valeur = $query->fetch();?>
+ $valeur = $query->fetch();*/?>
 
 <?php
 if ($results) {
@@ -208,11 +208,13 @@ else {
 
 
 
-if($results){
+/*if($results){
 
 echo "<div class='total-orders'>Total des commandes effectuées : " . $valeur['total'] . "</div>";
-}
 
+}*/
+
+$_SESSION['etat_id'] =  $result['etat_id'];
 ?>
 
 

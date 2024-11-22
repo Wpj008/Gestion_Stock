@@ -9,12 +9,13 @@ $errormessage = "";
 
     //recuperr l'id passé en parametre 
     $idProduit = $_GET['id_produit'];
-    $idUser = $_SESSION['id_user'] ;
+    
     $idEtat = 1 ;
     
     
 
     
+    //requete pour recupèrer tous les infos du produit dont id == id passé en url
 
     $query = $data->prepare("SELECT * FROM produits WHERE  id = :id" );
 
@@ -22,13 +23,26 @@ $errormessage = "";
     $query->execute();
     $results = $query->fetch();
 
-    $nameproduit = $results['nom_produit'];
+    //génération d'un ID unique en appellant la fonction...
+
+ $nameproduit = $results['nom_produit'];
 $idCom = generateUniqueIdCommande($nameproduit);
 $idCommande = $idCom;
 
-var_dump($idCommande);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
+
+    //on recupère l'id user et on le stock dans une variable
+
+    $idUser = $_SESSION['id_user'] ;
+
+    // Vérifier si l'utilisateur est connecté
+if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
+
+    
+    header('Location: index.php');  // Rediriger vers la page de connexion
+    exit;  // Arrêter l'exécution des scripts suivants
+} 
 
 //Recuperation des informations du produit ayant l'id passé en parametre
 
@@ -55,7 +69,9 @@ if(is_numeric($com) && $com > 0){
     $totalPrix = $prix * $com ;
     
     if($newQuantite >= 0){
-    
+
+        //requete pour modifier la quantité du produit dans la bdd     
+
     $query = $data->prepare( "UPDATE produits SET quantite = :quantite WHERE id = :id");
     $query->bindParam(':quantite', $newQuantite);
     $query->bindParam(':id', $idProduit);
@@ -63,7 +79,7 @@ if(is_numeric($com) && $com > 0){
     $query->execute();
     
     
-     // Insertion dans la table commandes  des données recuperées 
+     // Insertion  des données recuperées et saisies par l'user dans la table commandes
     
     $querycommande = $GLOBALS['data']->prepare("INSERT INTO commandes (id_commande, utilisateur_id, produit_id, quantite, etat_id, prix_commande) VALUES (:idCommande, :id_user, :id_produit, :com, :idEtat, :prix_commande)");
     $querycommande->bindParam(':idCommande', $idCommande);

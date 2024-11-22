@@ -3,18 +3,21 @@ session_start();
 include "data.php";
 include "header.php";
 
-//Recuperation de l'id envoyé en parametre
+//Recuperation de l'id etat envoyé en parametre et id commande via la variablede session
 
-$idCommande = $_GET['id_commande'];
+$idCommande = $_SESSION['id_commande'] ;
+
+
+$idEtat = $_GET['etat_id'];
+
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
 
 
+//confirmation du produit dont l'id_commande a été envoyé en parametre 
 
-
-//activation du produit dont l'id a été envoyé en parametre 
- 
+if($idCommande){
 
 $queryproduit = $data->prepare ("UPDATE commandes SET etat_id = 2 WHERE  id_commande = :id_commande");
 
@@ -26,10 +29,11 @@ $queryproduit->execute();
     //Redirection à la page vendeur.php
     
         header('Location: validationCommande.php');
-        
-        
+}  
+     
     
     }
+
 
 ?>
 
