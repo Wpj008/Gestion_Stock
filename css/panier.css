@@ -1,0 +1,30 @@
+.conte{
+
+    border : 2px double;
+    box-shadow: 10px 10px 10px 10px;
+    width: 800px;
+    height: auto;
+   
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.conte .contener{
+    border-radius: 20px 20px 20px 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    height: auto;
+    background-color: rgb(227, 49, 49);
+   margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+.contener img{
+
+    border-radius: 20px 20px 20px 20px;
+    width: 200px;
+    padding: 15px;
+
+
+}

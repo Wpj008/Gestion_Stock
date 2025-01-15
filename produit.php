@@ -9,6 +9,8 @@ $errormessage = "";
 
     //recuperr l'id passé en parametre 
     $idProduit = $_GET['id_produit'];
+       
+   $id_user = $_SESSION['id_user'];
     
     $idEtat = 1 ;
     
@@ -105,6 +107,25 @@ if(is_numeric($com) && $com > 0){
     }
     
     }
+
+
+  
+  echo $id_user;
+  
+  echo  $idProduit;
+  
+  if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
+  
+      $panier_query = $GLOBALS['data']->prepare("INSERT INTO paniers (utilisateur_id, produit_id) VALUES (:id_user, :id_produit)");
+          
+          $panier_query->bindParam(':id_user', $id_user);
+          $panier_query->bindParam(':id_produit', $idProduit);
+      
+          $panier_query->execute();
+      
+      
+      
+      }  
 ?>
 
 <!DOCTYPE html>
@@ -150,6 +171,9 @@ if(is_numeric($com) && $com > 0){
 <p id="errormessage" style="color: red;"><?= $errormessage; ?></p>
 
 <button type="submit" name="submit" >Commander</button>
+<form method="POST" action="">
+              <button  type="submit" name="submit">🛒</button>
+              </form>
        
 
 </form>

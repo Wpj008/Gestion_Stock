@@ -27,6 +27,7 @@
                 <?php if (isset($_SESSION['type']) && $_SESSION['type'] == "acheteur"): ?>
                     <li><a href="acheteur.php">Accueil</a></li>
                     <li><a href="dataUser.php"> Mon compte</a></li>
+                    <li><a href="panier.php"> Mon panier 🛒</a></li>
                   <li><a href="historique.php">Historique</a></li>
                   <li><a href="deconnexion.php">Déconnexion</a></li>
 
