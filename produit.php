@@ -3,129 +3,92 @@ session_start();
 include "data.php";
 include "header.php";
 require 'fonction.php';
-
+$nom_user = $_SESSION['nom'];
 $successmessage = "";
 $errormessage = "";
 
-    //recuperr l'id passé en parametre 
+    //recuperr l'id produit et celui de l'user passé en parametre 
     $idProduit = $_GET['id_produit'];
-       
+    $_SESSION['id_produit'] = $_GET['id_produit'];
    $id_user = $_SESSION['id_user'];
-    
+
     $idEtat = 1 ;
-    
-    
+
+    if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
 
     
-    //requete pour recupèrer tous les infos du produit dont id == id passé en url
+        header('Location: index.php');  // Rediriger vers la page de connexion
+        exit;  // Arrêter l'exécution des scripts suivants
+    } 
+    
+    //requete pour recupèrer tous les infos du produit dont id == id produit passé en url et une jointure avec la table commandes et la table utilisateurs
 
-    $query = $data->prepare("SELECT * FROM produits WHERE  id = :id" );
+    $query = $data->prepare("SELECT * FROM produits INNER JOIN  commandes ON produits.id = commandes.id_commande  INNER JOIN utilisateurs ON utilisateurs.id = produits.id_user WHERE  produits.id = :id" );
 
     $query->bindParam(':id', $idProduit);
     $query->execute();
     $results = $query->fetch();
 
-    //génération d'un ID unique en appellant la fonction...
-
- $nameproduit = $results['nom_produit'];
-$idCom = generateUniqueIdCommande($nameproduit);
-$idCommande = $idCom;
-
-
-if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
-
-    //on recupère l'id user et on le stock dans une variable
-
-    $idUser = $_SESSION['id_user'] ;
-
-    // Vérifier si l'utilisateur est connecté
-if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
-
-    
-    header('Location: index.php');  // Rediriger vers la page de connexion
-    exit;  // Arrêter l'exécution des scripts suivants
-} 
-
 //Recuperation des informations du produit ayant l'id passé en parametre
 
 $_SESSION['id_produit'] = $_GET['id_produit'];
-$quantite = $results['quantite'];
+
 $prix = $results['prix'];
-$com  = $_POST['com'] ;
+//$com  = $_POST['com'] ;
+$id_vendeur = $results['id_user'];
+$nom_acheteur = $nom_user ;
+$nom_produit = $results['nom_produit'];
+  //si user clique sur ajouter au panier
+  $quantite_produit = $results['quantite_produit'];
+  var_dump($results['quantite_produit']);
+ 
 
-
-//Redirection à la page commande.php
-
-   // header('Location: commande.php');
-   
-if(is_numeric($com) && $com > 0){
-
-    //Calcul et stockage de la nouvelle quantité dans bdd
-    
-    
-    
-    $newQuantite = $quantite - $com ;
-    
-    //calcul du prix total selon la quantité commandé
-    
-    $totalPrix = $prix * $com ;
-    
-    if($newQuantite >= 0){
-
-        //requete pour modifier la quantité du produit dans la bdd     
-
-    $query = $data->prepare( "UPDATE produits SET quantite = :quantite WHERE id = :id");
-    $query->bindParam(':quantite', $newQuantite);
-    $query->bindParam(':id', $idProduit);
-    
-    $query->execute();
-    
-    
-     // Insertion  des données recuperées et saisies par l'user dans la table commandes
-    
-    $querycommande = $GLOBALS['data']->prepare("INSERT INTO commandes (id_commande, utilisateur_id, produit_id, quantite, etat_id, prix_commande) VALUES (:idCommande, :id_user, :id_produit, :com, :idEtat, :prix_commande)");
-    $querycommande->bindParam(':idCommande', $idCommande);
-    $querycommande->bindParam(':id_user', $idUser);
-    $querycommande->bindParam(':id_produit', $idProduit);
-    $querycommande->bindParam(':com', $com);
-    $querycommande->bindParam(':idEtat', $idEtat);
-    $querycommande->bindParam(':prix_commande', $totalPrix);
-   
-    
-    $querycommande->execute(); 
-       
-    
-    $successmessage = "Votre commande est en cours ";
-    
-    echo "</div>";
-    } else {
-        $errormessage = "Quantité insuffisante";
-    }
-    }else{
-    
-    $errormessage = "TA SAISI N'EST PAS UN CHIFFRE";
-    }
-    
-    }
-
-
-  
-  echo $id_user;
-  
-  echo  $idProduit;
-  
   if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
-  
-      $panier_query = $GLOBALS['data']->prepare("INSERT INTO paniers (utilisateur_id, produit_id) VALUES (:id_user, :id_produit)");
-          
-          $panier_query->bindParam(':id_user', $id_user);
-          $panier_query->bindParam(':id_produit', $idProduit);
+
+//on recupere tous les infos en rapport avec l'id produit que user veut ajouter
+    $querypanier = $data->prepare("SELECT * FROM paniers WHERE utilisateur_id = :id_user AND produit_id = :id_produit");
+
+      $querypanier->bindParam(':id_user', $id_user);
+      $querypanier->bindParam(':id_produit', $idProduit);
       
-          $panier_query->execute();
+      $querypanier->execute();
+
+      $panier = $querypanier->fetch();
       
+  var_dump($panier['quantite_panier']);
+var_dump( $quantite_produit);
+
+      $quantite_panier = $panier['quantite_panier'];
+
+      if( $quantite_produit > $quantite_panier){
+
+if($panier){
+//si le produit existe deja dans le panier on modifie seulement la quantite
+    $query = $data->prepare("UPDATE paniers SET quantite_panier = quantite_panier + 1 WHERE utilisateur_id = :id_user AND produit_id = :id_produit");
+    $query->bindParam(':id_user', $id_user);
+      $query->bindParam(':id_produit', $idProduit);
       
-      
-      }  
+      $query->execute();
+}else{
+//sinon on ajoute le produit dans le panier
+    $querypanier = $GLOBALS['data']->prepare("INSERT INTO paniers (utilisateur_id, produit_id, nom_utilisateur, nom_produit, quantite_panier) VALUES (:id_user, :id_produit, :nom_utilisateur, :nom_produit, :quantite_panier)");
+    $querypanier->bindParam(':id_user', $id_user);
+    $querypanier->bindParam(':id_produit', $idProduit);
+    $querypanier->bindParam(':quantite_panier', $quantite_panier);
+    $querypanier->bindParam(':nom_utilisateur', $nom_acheteur);
+    $querypanier->bindParam(':nom_produit', $nom_produit);
+    
+    $querypanier->execute();
+}
+            
+      }else{
+
+        echo"Quantité insufficante";
+
+       
+    }
+
+}
 ?>
 
 <!DOCTYPE html>
@@ -155,11 +118,7 @@ if(is_numeric($com) && $com > 0){
 
     <select name="com" id="com">
                                 <option value="1"selected>1</option>
-                            <option value="2" >2</option>
-                        <option value="3" >3</option>
-                    <option value="4" >4</option>
-                        <option value="5" >5</option>
-                           <option value="6" >6</option>
+                        
      </select>
 
     
@@ -170,7 +129,7 @@ if(is_numeric($com) && $com > 0){
 
 <p id="errormessage" style="color: red;"><?= $errormessage; ?></p>
 
-<button type="submit" name="submit" >Commander</button>
+<!--button type="submit" name="submit" >Commander</button-->
 <form method="POST" action="">
               <button  type="submit" name="submit">🛒</button>
               </form>

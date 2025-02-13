@@ -52,16 +52,16 @@ $produits = $query->fetchAll();
         
         <div class="product-grid">
         <?php foreach($produits as $produit){?>
-            <?php $produit['quantite'] ?>
+            <?php $produit['quantite_produit'] ?>
             <div class="product-item">
 
-            <?php if($produit['quantite'] > 5){?>
+            <?php if($produit['quantite_produit'] > 5){?>
 
                 <img src="<?= $produit['image'] ?>" alt="">
                 
                 <h2> Nom : <?=  $produit['nom_produit'] ?> </h2>
               <h2> Description : <?= $produit['description'] ?> </h2>
-              <h2> Quantite : <?= $produit['quantite'] ?> </h2>
+              <h2> Quantite : <?= $produit['quantite_produit'] ?> </h2>
               <h2> prix : <?= $produit['prix'] ." $"?> </h2>
                 
               <a href="produit.php ? id_produit= <?= $produit['id'] ?> ">Voir produit</a>
@@ -141,16 +141,16 @@ $produits = $query->fetchAll();
         
         <div class="product-grid">
         <?php foreach($produits as $produit){?>
-            <?php $produit['quantite'] ?>
+            <?php $produit['quantite_produit'] ?>
             <div class="product-item">
 
-            <?php if($produit['quantite'] > 5){?>
+            <?php if($produit['quantite_produit'] > 5){?>
 
                 <img src="<?= $produit['image'] ?>" alt="">
                 
                 <h2> Nom : <?=  $produit['nom_produit'] ?> </h2>
               <h2> Description : <?= $produit['description'] ?> </h2>
-              <h2> Quantite : <?= $produit['quantite'] ?> </h2>
+              <h2> Quantite : <?= $produit['quantite_produit'] ?> </h2>
               <h2> prix : <?= $produit['prix'] ." $"?> </h2>
                 
               <a href="produit.php ? id_produit= <?= $produit['id'] ?> ">Voir produit</a>

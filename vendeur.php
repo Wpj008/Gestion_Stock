@@ -37,7 +37,7 @@ $prix = $_POST['prix'];
 
 //Insertion des données saisies par l'user dans la bdd dans la table produit
 
-$query = $GLOBALS['data']->prepare("INSERT INTO produits (nom_produit, quantite, description, prix) VALUES (:nom, :quantite, :description, :prix)");
+$query = $GLOBALS['data']->prepare("INSERT INTO produits (nom_produit, quantite_produit, description, prix) VALUES (:nom, :quantite, :description, :prix)");
 $query->bindParam(':nom', $nom);
 $query->bindParam(':quantite', $quantite);
 $query->bindParam(':description', $description);
@@ -56,6 +56,7 @@ $query->execute();
         echo "<tr><th>N°</th><th>Nom du produit</th><th>Info sur le produit</th><th>Quantité en stock</th><th>Prix </th><th>Etat du Produit </th><th>Actions </th></tr>"; 
 
         $i = 1;
+        echo "papapapapa";
         foreach($produits as $produit){
             
 
@@ -78,7 +79,7 @@ $query->execute();
             <td> <?= $i++ ?></td>
             <td> <?= $produit['nom_produit'] ?> </td>
             <td> <?= $produit['description'] ?> </td>
-            <td> <?= $produit['quantite'] ?> </td>
+            <td> <?= $produit['quantite_produit'] ?> </td>
             <td> <?= $produit['prix']." $" ?> </td> 
             <td> <?php if ($produit['etat_produit'] === 1){?>
                 <p id="successMessage" style="color: green;"><?= $successMessage = "Activé"; ?>
@@ -104,5 +105,46 @@ $query->execute();
 
 
 <?php
-include "footer.php";
+
+echo "papapapapa";
+
+
+$querynotification = $data->prepare("SELECT * FROM notifications INNER JOIN produits ON produits.id = notifications.id_notification INNER JOIN utilisateurs ON utilisateurs.id = notifications.id_notification WHERE vendeur_id = :id_vendeur");
+
+$querynotification->bindParam(':id_vendeur', $id);
+
+$querynotification->execute();
+
+$notification = $querynotification->fetchAll();
+
+var_dump($querynotification);
+
+foreach($notification as $notifications) {?>
+
+
+     
+         <?= var_dump($notifications['nom_produit']);?>
+         <p> <?= $notifications['message'] ?>. </p>
+         <small>Acheteur : <?= $notifications['nom']; ?> | Produit : <?= $notifications['nom_produit']; ?> | <?= $notifications['date_notification']; ?></small>
+         <a href="confirmer_commande.php?id=<?php //echo $notifications['commande_id']; ?>">Confirmer la commande</a>
+     
+
+
+     <?= var_dump($notifications['message']);?>
+
+
+
+<?= var_dump($notifications['nom_produit']);?>
+         <p> <?= $notifications['message'] ?>. </p>
+         <small>Acheteur : <?= $notifications['nom']; ?> | Produit : <?= $notifications['nom']; ?> | <?= $notifications['date_notification']; ?></small>
+         <a href="confirmer_commande.php?id=<?php //echo $notifications['commande_id']; ?>">Confirmer la commande</a>
+<?php } ?>
+
+<?php
+
+echo "papapapapa";
+//include "footer.php";
 ?>
+
+
+

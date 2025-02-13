@@ -3,7 +3,7 @@ session_start();
 include "data.php";
 
 
-
+$idUser = $_SESSION['id_user'];
 
 
 $query = $data->prepare("SELECT COUNT(*) AS total FROM produits ");
@@ -186,8 +186,7 @@ $userscommandes->execute();
         <h2>ÉVOLUTION DE STOCK</h2>
         <!-- Placeholder for chart-->
         <div class="chart-placeholder">
-           
-        </div>
+          
     </div>
 </div>
 </div>

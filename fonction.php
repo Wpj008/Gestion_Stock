@@ -35,6 +35,19 @@ function inscrireUtilisateur($nom, $email, $password, $type) {
 
 //fonction pour générer un ID unique 
 
+function generateUniqueIdCommande() {
+    return sprintf(
+        '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+        mt_rand(0, 0xffff), mt_rand(0, 0xffff),
+        mt_rand(0, 0xffff),
+        mt_rand(0, 0x0fff) | 0x4000,
+        mt_rand(0, 0x3fff) | 0x8000,
+        mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
+    );
+
+
+}
+/*
 function generateUniqueIdCommande($text) {
     // Prendre les 2 premiers caractères du label
     $prefix = substr($text, 0, 2);
@@ -44,7 +57,7 @@ function generateUniqueIdCommande($text) {
     $uniqueId = strtoupper($prefix) . $randomDigits;
     return $uniqueId;
 }
-
+*/
 
 
 ?>
