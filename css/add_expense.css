@@ -1,0 +1,146 @@
+/* Container principal */
+.expense-container {
+    padding: 25px;
+    color: #333;
+}
+
+/* Header */
+.expense-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.expense-header h1 {
+    font-size: 26px;
+}
+
+.btn-add {
+    background: #e67e22;
+    border: none;
+    padding: 12px 18px;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.btn-add:hover {
+    background: #d35400;
+}
+
+/* Tableau */
+.expense-table table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.expense-table th,
+.expense-table td {
+    padding: 14px 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+.expense-table th {
+    background: #f4f4f4;
+    font-weight: 600;
+}
+
+/* Boutons actions */
+.btn.small {
+    padding: 6px 10px;
+    font-size: 12px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn.edit {
+    background: #3498db;
+    color: #fff;
+}
+.btn.edit:hover {
+    background: #2980b9;
+}
+
+.btn.delete {
+    background: #e74c3c;
+    color: #fff;
+}
+.btn.delete:hover {
+    background: #c0392b;
+}
+
+/* Formulaire */
+.expense-form {
+    margin-top: 35px;
+    padding: 25px;
+    background: #fff;
+    border-radius: 10px;
+}
+
+.expense-form h2 {
+    margin-bottom: 20px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+/* Inputs */
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+
+input,
+select,
+textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: #e67e22;
+}
+
+textarea {
+    min-height: 90px;
+    resize: vertical;
+}
+
+/* Bouton enregistrer */
+.btn-save {
+    margin-top: 20px;
+    background: #27ae60;
+    border: none;
+    padding: 14px 20px;
+    color: #fff;
+    font-size: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.btn-save:hover {
+    background: #1e874b;
+}
+
+/* Responsive */
+@media (max-width: 800px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+}

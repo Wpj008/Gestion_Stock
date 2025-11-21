@@ -1,0 +1,160 @@
+.stock-container {
+    padding: 25px;
+    color: #333;
+}
+
+/* Header */
+.stock-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.stock-header h1 {
+    font-size: 26px;
+}
+
+.btn-add {
+    padding: 12px 18px;
+    background: #2ecc71;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.btn-add:hover {
+    background: #27ae60;
+}
+
+/* Table */
+.stock-table table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.stock-table th,
+.stock-table td {
+    padding: 14px 12px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+}
+
+.stock-table th {
+    background: #f4f4f4;
+    font-weight: 600;
+}
+
+/* Badges du stock */
+.badge {
+    padding: 5px 10px;
+    border-radius: 6px;
+    color: #fff;
+    font-weight: bold;
+}
+
+.badge.critical {
+    background: #e74c3c; /* Stock 0 */
+}
+
+.badge.low {
+    background: #f39c12; /* Stock faible */
+}
+
+.badge.normal {
+    background: #2ecc71; /* Stock OK */
+}
+
+/* Buttons */
+.btn.small {
+    padding: 6px 10px;
+    font-size: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn.edit {
+    background: #3498db;
+    color: #fff;
+}
+.btn.edit:hover {
+    background: #2980b9;
+}
+
+.btn.delete {
+    background: #e74c3c;
+    color: #fff;
+}
+.btn.delete:hover {
+    background: #c0392b;
+}
+
+/* Formulaire */
+.stock-form {
+    margin-top: 35px;
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+}
+
+.stock-form h2 {
+    margin-bottom: 20px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+textarea{
+
+    padding: 10px;
+}
+
+label {
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+
+input,
+select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+input:focus,
+select:focus {
+    border-color: #2ecc71;
+}
+
+.btn-save {
+    margin-top: 25px;
+    background: #27ae60;
+    color: #fff;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-save:hover {
+    background: #1e874b;
+}
+
+/* Responsive */
+@media (max-width: 800px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+}

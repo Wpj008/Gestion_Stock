@@ -1,0 +1,164 @@
+/* Container principal */
+.supplier-container {
+    padding: 25px;
+    color: #333;
+}
+
+/* Titre + bouton d’ajout */
+.supplier-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.supplier-header h1 {
+    font-size: 26px;
+}
+
+.btn-add {
+    background: #2ecc71;
+    border: none;
+    padding: 12px 18px;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-add:hover {
+    background: #27ae60;
+}
+
+/* Tableau */
+.supplier-table table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.supplier-table th, 
+.supplier-table td {
+    padding: 14px 12px;
+    border-bottom: 1px solid #e0e0e0;
+    text-align: left;
+}
+
+.supplier-table th {
+    background: #f4f4f4;
+    font-weight: 600;
+}
+
+/* Badge statut */
+.badge {
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    color: #fff;
+}
+
+.badge.success {
+    background: #2ecc71;
+}
+
+.badge.inactive {
+    background: #7f8c8d;
+}
+
+/* Boutons actions */
+.btn.small {
+    padding: 6px 10px;
+    font-size: 12px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn.edit {
+    background: #3498db;
+    color: white;
+}
+
+.btn.edit:hover {
+    background: #2980b9;
+}
+
+.btn.delete {
+    background: #e74c3c;
+    color: white;
+}
+
+.btn.delete:hover {
+    background: #c0392b;
+}
+
+.border-form{
+
+    border: 2px solid;
+    padding : 10px;
+}
+
+/* Formulaire */
+.supplier-form {
+    margin-top: 35px;
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+}
+
+.supplier-form h2 {
+    margin-bottom: 20px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #3498db;
+}
+
+.btn-save {
+    margin-top: 25px;
+    background: #27ae60;
+    border: none;
+    padding: 14px 20px;
+    color: #fff;
+    font-size: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-save:hover {
+    background: #1e874b;
+}
+
+/* Responsive */
+@media (max-width: 800px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+}

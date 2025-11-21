@@ -1,0 +1,168 @@
+/* ===== GENERAL LAYOUT ===== */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: #f3f4f6;
+}
+
+.employee-dashboard {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+    width: 230px;
+    background: #111827;
+    color: #fff;
+    margin: 0;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    padding: 0 20px 30px;
+}
+.logo span {
+    color: #4ade80;
+}
+
+.menu a {
+    display: block;
+    padding: 12px 20px;
+    color: #cbd5e1;
+    text-decoration: none;
+    border-radius: 6px;
+    margin-bottom: 5px;
+    transition: 0.2s;
+}
+
+.menu a:hover,
+.menu a.active {
+    background: #10b981;
+    color: white;
+}
+
+/* ===== CONTENT ===== */
+.content {
+    flex: 1;
+    padding: 25px;
+    overflow-y: auto;
+}
+
+h1 {
+    margin-top: 0;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+/* ===== STATS CARDS ===== */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    color: white;
+    text-align: center;
+}
+
+.stat-card h3 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.stat-card .value {
+    margin-top: 12px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.blue { background: #3b82f6; }
+.green { background: #10b981; }
+.purple { background: #9333ea; }
+.orange { background: #f97316; }
+
+/* ===== QUICK ACTIONS ===== */
+.quick-actions h2 {
+    margin-bottom: 15px;
+}
+
+.actions-grid {
+    display: flex;
+    gap: 20px;
+}
+
+.action-btn {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.action-btn.blue { background: #3b82f6; }
+.action-btn.green { background: #10b981; }
+.action-btn.purple { background: #9333ea; }
+
+/* ===== TABLE SECTIONS ===== */
+.alert-section, .sales-section {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+    margin-top: 30px;
+}
+
+.alert-section h2,
+.sales-section h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+/* ===== TABLES ===== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: left;
+}
+
+th {
+    background: #f9fafb;
+    font-weight: bold;
+}
+
+.empty {
+    text-align: center;
+    color: #6b7280;
+}
+
+/* BADGE */
+.badge.red {
+    background: #ef4444;
+    padding: 5px 10px;
+    border-radius: 6px;
+    color: white;
+    font-size: 12px;
+}
