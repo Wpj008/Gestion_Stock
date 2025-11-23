@@ -10,6 +10,8 @@ $checkLog = checkLogin(); // Vérifie la connexion
 $callPurchase = selctAllPurchase(); // Récupération fournisseurs + produits
 $success = "";
 
+$InnerPurchase = InnerJoinAllPurchase();
+
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
 
@@ -61,44 +63,43 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
             <tr>
                 <th>#</th>
                 <th>Fournisseur</th>
-                <th>Date</th>
-                <th>Articles</th>
+                <th>Article</th>
+                <th>Quantité</th>
                 <th>Total</th>
                 <th>Paiement</th>
                 <th>Statut</th>
+                <th>Date</th>
                 <th>Actions</th>
             </tr>
         </thead>
 
         <tbody>
+
+        <?php
+        $i = 0;
+
+        foreach($InnerPurchase as $purchase){
+            
+            $i++
+            ?>
+
             <tr>
-                <td>1</td>
-                <td>TechPlus SARL</td>
-                <td>15/02/2025</td>
-                <td>6</td>
-                <td>4500.00 €</td>
+                <td><?= $i ?></td>
+                <td><?= $purchase['name_supplier'] ?></td>
+                <td><?= $purchase['name_product'] ?></td>
+                <td><?= $purchase['quantity_retailPurchase']  ?></td>
+                <td><?= $purchase['grand_total_retailPurchase'] ?> €</td>
                 <td>Virement</td>
                 <td><span class="badge success">Payé</span></td>
+                <td><?= $purchase['date_purchase']  ?></td>
                 <td>
                     <button class="btn small view">Voir</button>
                     <button class="btn small delete">Supprimer</button>
                 </td>
             </tr>
 
-            <tr>
-                <td>2</td>
-                <td>Global Hardware</td>
-                <td>10/02/2025</td>
-                <td>3</td>
-                <td>980.00 €</td>
-                <td>Espèces</td>
-                <td><span class="badge partial">Partiel</span></td>
-                <td>
-                    <button class="btn small view">Voir</button>
-                    <button class="btn small delete">Supprimer</button>
-                </td>
-            </tr>
-        </tbody>
+            <?php }?>
+                </tbody>
     </table>
 </div>
 
