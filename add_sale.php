@@ -7,7 +7,7 @@ include "functions/saleFunction.php";
 
 $checkLog = checkLogin();//check connection
 
-$callSale = selctAllSale();
+$callSale = selectAllSale();
 
 $nameUser = $_SESSION['name_user'];
 
@@ -16,7 +16,7 @@ $success = "";
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
 
     $user   = $_SESSION['id_user'];
-    $status = 1;
+    $status = 4;
 
     // TABLEAUX ENVOYÉS PAR LES INPUTS CACHÉS
     $product_ids = $_POST['productID'] ?? [];
@@ -42,6 +42,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
 
     echo "<p style='color:green;'>Vente enregistrée avec succès.</p>";
 }
+
+//affiche la requete de jointure
+$InnerSale = InnerJoinTableSale();
 
 
 ?>
@@ -72,44 +75,41 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Client</th>
-                    <th>Date</th>
+                    <th>Vendeur</th>
                     <th>Articles</th>
+                    <th>Quantité</th>
                     <th>Total</th>
                     <th>Paiement</th>
-                    <th>Statut</th>
+                    <th>Date</th>
                     <th>Actions</th>
                 </tr>
             </thead>
 
             <tbody>
+                <?php
+                
+                $i = 0;
+                            
+                        foreach($InnerSale as $sales){
+                    $i++;  
+                    ?>
                 <tr>
-                    <td>1</td>
-                    <td>Jean Dupont</td>
-                    <td>19/02/2025</td>
-                    <td>3</td>
-                    <td>350.00 €</td>
+                    <td><?= $i ?></td>
+                    <td><?= $sales['name_user']  ?></td>
+                    <td><?= $sales['name_product'] ?></td>
+                    <td><?= $sales['quantity_retailSale'] ?></td>
+                    <td><?= $sales['grand_total_retailSale'] ?> €</td>
                     <td>Espèces</td>
-                    <td><span class="badge success">Payé</span></td>
+                    <td><?= $sales['date_sale'] ?></td>
                     <td>
                         <button class="btn small view">Voir</button>
                         <button class="btn small delete">Supprimer</button>
                     </td>
                 </tr>
 
-                <tr>
-                    <td>2</td>
-                    <td>Entreprise ABC</td>
-                    <td>18/02/2025</td>
-                    <td>5</td>
-                    <td>1 200.00 €</td>
-                    <td>Virement</td>
-                    <td><span class="badge partial">Partiel</span></td>
-                    <td>
-                        <button class="btn small view">Voir</button>
-                        <button class="btn small delete">Supprimer</button>
-                    </td>
-                </tr>
+                <?php }?>
+
+            
             </tbody>
         </table>
     </div>
@@ -196,7 +196,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
             </div>
 
             <!-- BOUTON AJOUTER PRODUIT -->
-            <button type="button" class="btn-add" onclick="addProduct()">+ Ajouter un produit</button>
+            <button type="button" class="btn-add" onclick="addVente()">+ Ajouter un produit</button>
 
             <h3>Produits ajoutés</h3>
 
