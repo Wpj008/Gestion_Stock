@@ -7,7 +7,7 @@ function selctAllPurchase(){
 
     try{
 
-     $query = $GLOBALS['data']->prepare("SELECT * FROM categories INNER JOIN products ON categories.id_category = products.category_id INNER JOIN suppliers ON suppliers.id_supplier = products.supplier_id");
+     $query = $GLOBALS['data']->prepare("SELECT * FROM categories INNER JOIN products ON categories.id_category = products.category_id INNER JOIN suppliers ON suppliers.id_supplier = products.supplier_id INNER JOIN retail_purchases ON retail_purchases.product_id = products.id_product");
 
 
 $query->execute();
@@ -107,6 +107,32 @@ function registerAllPurchase($supplier_id, $user_id, $status, $product_ids, $qua
 
     echo $success;
 }
+
+
+function InnerJoinAllPurchase(){
+
+    try{
+
+     $query = $GLOBALS['data']->prepare("SELECT * FROM retail_purchases INNER JOIN products ON retail_purchases.product_id = products.id_product INNER JOIN purchases ON purchases.id_purchase = retail_purchases.purchase_id  INNER JOIN suppliers ON suppliers.id_supplier = products.supplier_id ");
+
+
+$query->execute();
+  
+$produits = $query->fetchAll();
+
+if($produits){
+
+    return $produits;
+}
+
+} catch(PDOException $e){
+
+    return "Il y a eu un probleme de la recuperation des infos des produits" . $e->getMessage();
+}
+
+
+}
+
 
 ?>
 
