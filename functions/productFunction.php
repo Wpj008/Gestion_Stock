@@ -1,8 +1,8 @@
 <?php
-include "data.php";
+include __DIR__."/../data.php";
 
 //function pour afficher all products + requete de jointure entre product, category  and supplier
-function selctAllProduct(){
+function selectAllProduct(){
 
     try{
 
@@ -29,7 +29,7 @@ if($produits){
 
 //function affiche all category
 
-function selctAllCategory(){
+function selectAllCategory(){
 
     try{
 
@@ -55,7 +55,7 @@ if($category){
 
 //function affiche all supplier
 
-function selctAllSupplier(){
+function selectAllSupplier(){
 
     try{
 
