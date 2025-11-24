@@ -4,10 +4,12 @@ include "data.php";
 include "header.php";
 include "functions/userFunction.php";
 include "functions/purchaseFunction.php";
+include "functions/productFunction.php";
 
 $checkLog = checkLogin(); // Vérifie la connexion
 
-$callPurchase = selctAllPurchase(); // Récupération fournisseurs + produits
+//$callPurchase = selectAllPurchase(); // Récupération fournisseurs + produits
+$callProduct = selectAllProduct();
 $success = "";
 
 $InnerPurchase = InnerJoinAllPurchase();
@@ -36,6 +38,48 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
     $savePurchase = registerAllPurchase($supplier, $user, $status, $product_ids, $quantities, $prices);
 
     echo "<p style='color:green;'>$success</p>";
+}
+
+if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit-Add'])){
+
+    $idProduct = $_POST['ID_product'];
+    $idPurchase = $_POST['ID_purchase'];
+
+    $statusPurchase = $_POST["statusPurchase"];
+    $bdd_qty = $_POST['quantity'];
+    $add_qty = $_POST['retail_quantity'];
+
+    $newQty = $bdd_qty + $add_qty;
+
+
+    $status = $_POST['ID_status'];
+
+    $newStatus = 5;
+
+  $query = $GLOBALS['data']->prepare("UPDATE products SET quantity_product = :quantity WHERE id_product = :idproduct");
+
+  $query->bindParam(':quantity', $newQty);
+  $query->bindParam(':idproduct', $idProduct);
+  $query->execute();
+
+  $queryUpPurchase = $GLOBALS['data']->prepare("UPDATE purchases SET status_id = :idStatus WHERE id_purchase = :idpurchase");
+
+  $queryUpPurchase->bindParam(':idStatus', $newStatus);
+  $queryUpPurchase->bindParam(':idpurchase', $idPurchase);
+  $queryUpPurchase->execute();
+
+  if($status != 5){
+
+    $queryUpdate = $GLOBALS['data']->prepare("UPDATE products SET product_status = :status WHERE id_product = :idproduct ");
+
+    $queryUpdate->bindParam(':status', $newStatus);
+    $queryUpdate->bindParam(':idproduct', $idProduct);
+
+     $queryUpdate->execute();
+  }
+
+
+
 }
 ?>
 
@@ -79,6 +123,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
         $i = 0;
 
         foreach($InnerPurchase as $purchase){
+
+            if($purchase['status_id'] == 3){
             
             $i++
             ?>
@@ -90,15 +136,25 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
                 <td><?= $purchase['quantity_retailPurchase']  ?></td>
                 <td><?= $purchase['grand_total_retailPurchase'] ?> €</td>
                 <td>Virement</td>
-                <td><span class="badge success">Payé</span></td>
+                <td><span class="badge success">Livré</span></td>
                 <td><?= $purchase['date_purchase']  ?></td>
                 <td>
-                    <button class="btn small view">Voir</button>
-                    <button class="btn small delete">Supprimer</button>
+                    <form method="POST">
+
+                   
+                    <input name="statusPurchase" type="hidden" value="<?= $purchase['status_id'] ?>"/>
+                    <input name="ID_purchase" type="hidden" value="<?= $purchase['id_purchase'] ?>"/>
+                    <input name="retail_quantity" type="hidden" value="<?= $purchase['quantity_retailPurchase']  ?>"/>
+                    <input name="ID_product" type="hidden" value="<?= $purchase['product_id'] ?>"/>
+                    <input name="quantity" type="hidden" value="<?= $purchase['quantity_product'] ?>"/>
+                    <input name="ID_status" type="hidden" value="<?= $purchase['product_status'] ?>"/>
+                    <input name="submit-Add" type="submit" class="btn small view" value="Ajouter"/>
+                    </form>
+                   
                 </td>
             </tr>
 
-            <?php }?>
+            <?php  } }?>
                 </tbody>
     </table>
 </div>
@@ -144,7 +200,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
                     <select name="productID" id="productSelect" required>
                                           <option value="">Sélectionnez un produit</option>
 
-                                        <?php foreach($callPurchase as $product) { ?>
+                                        <?php foreach($callProduct as $product) { ?>
                                      <option 
                                             value="<?= $product['id_product']; ?>"
                                             data-price="<?= $product['price_product']; ?>"
