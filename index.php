@@ -19,6 +19,8 @@ $password = htmlspecialchars($_POST['password']);
 
         if ($login) {
 
+            $role = $_SESSION['role'];
+
             if ($password == '0000'){
 
                 $query = $GLOBALS['data']->prepare("SELECT * FROM users WHERE email_user = :email");
@@ -32,11 +34,15 @@ $password = htmlspecialchars($_POST['password']);
                         exit();
             
             
-             } else{
+             } else if ($role == "gestionnaire"){
                
-            header('Location: home.php');
+            header('Location: admin/login.php');
             exit;
-        } 
+
+        } else{
+
+            header('Location: home.php');
+        }
         
     }else {
         $errormessage = "Email ou mot de passe incorrect.";
