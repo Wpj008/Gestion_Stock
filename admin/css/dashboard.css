@@ -86,7 +86,7 @@ h1 {
 
 .red    { background: #ef4444; }
 .green  { background: #10b981; }
-.blue   { background: #3b82f6; }
+.blue   { background: #3bc1f6; }
 .gray   { background: #6b7280; }
 
 /* TODAY / MONTH */
@@ -104,11 +104,11 @@ h1 {
 }
 
 .today {
-    background: #065f46;
+    background: #062b5f;
 }
 
 .month {
-    background: #10b981;
+    background: #103bb9;
 }
 
 /* ALERTS */
@@ -149,4 +149,20 @@ h1 {
 .empty {
     text-align: center;
     color: #9ca3af;
+}
+
+.btn-view {
+    background: #009dff;
+    color: white;
+}
+.btn-view:hover {
+    background: #1346ff;
+}
+
+.btn-delete {
+    background: #fe321b;
+    color: white;
+}
+.btn-delete:hover {
+    background: #a23124;
 }
