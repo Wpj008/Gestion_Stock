@@ -101,10 +101,10 @@ $InnerSale = InnerJoinTableSale();
                     <td><?= $sales['grand_total_retailSale'] ?> €</td>
                     <td>Espèces</td>
                     <td><?= $sales['date_sale'] ?></td>
-                    <td>
+                   <td>
                         <button class="btn small view">Voir</button>
                         <button class="btn small delete">Supprimer</button>
-                    </td>
+                    </td> 
                 </tr>
 
                 <?php }?>
