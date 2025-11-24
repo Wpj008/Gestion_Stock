@@ -1,5 +1,5 @@
 <?php
-include "data.php";
+include __DIR__."/../data.php";
 
 //fonction de creation de gestionnaire 
 
