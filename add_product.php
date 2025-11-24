@@ -12,9 +12,9 @@ $errormessage = "";
 
 $idUser = $_SESSION['id_user'];
 
-$callProduct  = selctAllProduct();
-$callCategory = selctAllCategory();
-$callSupplier = selctAllSupplier();
+$callProduct  = selectAllProduct();
+$callCategory = selectAllCategory();
+$callSupplier = selectAllSupplier();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
 
@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
     $quantity    = htmlspecialchars($_POST['quantity'] ?? '');
     $description = htmlspecialchars($_POST['description'] ?? '');
     $prix        = htmlspecialchars($_POST['price'] ?? '');
-    $etat_produit = 3 ;
+    $etat_produit = 5 ;
     $picture     = $_FILES['image']['name'] ?? '';
 
     // Validation minimale
@@ -98,33 +98,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
 
             <?php }?>
 
-            <tr>
-                <td>2</td>
-                <td>P1689943120</td>
-                <td>Adata XPG 8GB DDR4</td>
-                <td>Mémoires RAM</td>
-                <td><span class="badge low">3</span></td>
-                <td>22 €</td>
-                <td>35 €</td>
-                <td>
-                    <button class="btn small edit">Modifier</button>
-                    <button class="btn small delete">Supprimer</button>
-                </td>
-            </tr>
-
-            <tr>
-                <td>3</td>
-                <td>P1689944470</td>
-                <td>MSI H510M PRO</td>
-                <td>Cartes Mères</td>
-                <td><span class="badge normal">14</span></td>
-                <td>55 €</td>
-                <td>85 €</td>
-                <td>
-                    <button class="btn small edit">Modifier</button>
-                    <button class="btn small delete">Supprimer</button>
-                </td>
-            </tr>
 
         </tbody>
     </table>
@@ -140,7 +113,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
 
             <div class="form-group">
                 <label>Nom du produit</label>
-                <input id="name" name="name" type="text" placeholder="Ex : Intel Core i5">
+                <input type="text" placeholder="nom du produit">
+               
             </div>
 
             <div class="form-group">
