@@ -27,7 +27,7 @@ $checkLog = checkLogin();//check connection
         <nav class="menu">
             <a href="#" class="active">Dashboard</a>
             <a href="add_sale.php">Ventes</a>
-            <a href="add_product.php">Stock</a>
+            <a href="add_purchase.php">Stock</a>
             <a href="#">Clients</a>
             <a href="dataUser.php">Profil</a>
         </nav>
