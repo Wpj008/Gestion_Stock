@@ -1,4 +1,60 @@
 <?php 
+session_start();
+include "../data.php";
+include "../functions/purchaseFunction.php";
+include "../functions/productFunction.php";
+
+
+// Vérifier si l'utilisateur est connecté
+if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
+    header('Location: ../index.php');  // Rediriger vers la page de connexion
+    exit;  // Arrêter l'exécution des scripts suivants
+}
+
+//on recupere les infos du purchase 
+
+$callPurchase = InnerJoinAllPurchase();
+$callProduct = selectAllProduct();
+
+if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit-valider'])){
+
+    $idPurchase = $_POST['ID_purchase'];
+
+    $futurStatus = 2;
+    
+    
+    $queryUpdate = $GLOBALS['data']->prepare("UPDATE purchases SET status_id = :status_id WHERE id_purchase = :id_purchase");
+
+    $queryUpdate->bindParam(':id_purchase', $idPurchase);
+    $queryUpdate->bindParam(':status_id', $futurStatus);
+
+    $queryUpdate->execute();
+
+}
+
+if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit-delete'])){
+
+   // echo "JE TAIME";
+}
+
+if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit-confirmer'])){
+
+    $idPurchase = $_POST['ID_purchase'];
+
+    $futurStatus = 3;
+    
+    
+    $queryUpdate = $GLOBALS['data']->prepare("UPDATE purchases SET status_id = :status_id WHERE id_purchase = :id_purchase");
+
+    $queryUpdate->bindParam(':id_purchase', $idPurchase);
+    $queryUpdate->bindParam(':status_id', $futurStatus);
+
+    $queryUpdate->execute();
+
+
+ }
+
+
 
 ?>
 
@@ -15,7 +71,7 @@
 </head>
 <body>
 
-<div class="layout">
+    <div class="layout">
 
     <!-- Sidebar -->
     <aside class="sidebar">
@@ -82,46 +138,96 @@
         <section class="alerts">
 
             <div class="alert-box">
-                <h3>Alertes Produits Usine</h3>
+                <h3> Produits En attente de Validation</h3>
                 <table>
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>ID</th>
-                            <th>Nom</th>
+                            <th>Produit</th>
                             <th>Quantité</th>
+                            <th>fournisseur</th>
+                            <th>Vendeur</th>
+                            <th>Total</th>
+                            <th>Date</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td colspan="4" class="empty">Aucun produit</td></tr>
+                <?php
+                $i = 0;
+                foreach($callPurchase as $purchase){
+
+                  
+
+                    if($purchase['status_id'] == 1){
+
+                        $i++;
+                    
+                    ?>
+                    <tr>
+                            <td><?= $i ?></td>
+                            <td><?= $purchase['name_product'] ?></td>
+                            <td><?= $purchase['quantity_retailPurchase'] ?></td>
+                            <td><?= $purchase['name_supplier'] ?></td>
+                            <td><?= $purchase['name_user'] ?></td>
+                            <td><?= $purchase['grand_total_retailPurchase'] ?></td>
+                            <td><?= $purchase['date_purchase'] ?></td>
+
+                     <td>
+                        <form method="POST">
+                            <input name="ID_purchase" type="hidden" value="<?= $purchase['id_purchase'] ?>"/>
+                        <input name="submit-valider" type="submit" class="btn-view" value="Valider"/>
+                        <input name="submit-delete" type="submit" class="btn-delete" value="Annuler"/>
+                        </form>
+                    </td>
+                        </tr>
+
+                        <?php  } }?>
+                  
                     </tbody>
                 </table>
             </div>
 
             <div class="alert-box">
-                <h3>Alertes Stock</h3>
+                <h3>Produits Livrés</h3>
                 <table>
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>ID</th>
-                            <th>Nom</th>
+                            <th>Produit</th>
                             <th>Quantité</th>
+                            <th>fournisseur</th>
+                            <th>Total</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>P1689942673</td>
-                            <td>Intel Core i5-10400</td>
-                            <td>0</td>
+                <?php
+                $i = 0;
+                foreach($callPurchase as $purchase){
+                    
+                    if($purchase['status_id'] == 2){
+
+                        $i++;
+                    
+                    ?>
+                    <tr>
+                            <td><?= $i ?></td>
+                            <td><?= $purchase['name_product'] ?></td>
+                            <td><?= $purchase['quantity_retailPurchase'] ?></td>
+                            <td><?= $purchase['name_supplier'] ?></td>
+                            <td><?= $purchase['grand_total_retailPurchase'] ?></td>
+
+                     <td>
+                        <form method="POST">
+                        <input name="ID_purchase" type="hidden" value="<?= $purchase['id_purchase'] ?>"/>
+                     <input name="submit-confirmer" type="submit" class="btn-view" value="Confirmer Livraison"/>
+                        </form>
+                    </td>
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>P1689943120</td>
-                            <td>Adata XPG 8GB DDR4</td>
-                            <td>0</td>
-                        </tr>
+
+                        <?php } }?>
+                  
                     </tbody>
                 </table>
             </div>
@@ -132,21 +238,41 @@
         <section class="alerts">
 
 <div class="alert-box">
-    <h3>Alertes Produits Usine</h3>
+    <h3> Produits En attente d'approvisionnement</h3>
     <table>
         <thead>
             <tr>
                 <th>#</th>
-                <th>ID</th>
-                <th>Nom</th>
+                <th>Produit</th>
+                <th>Categorie</th>
+                <th>Fournisseur</th>
                 <th>Quantité</th>
+                <th>Prix</th>
             </tr>
         </thead>
         <tbody>
-            <tr><td colspan="4" class="empty">Aucun produit</td></tr>
+        <?php
+        $i = 0;
+       // foreach($callProduct as $product){
+            foreach($callPurchase as $purchase){
+                if($purchase['status_id'] == 3){
+            $i ++;
+            ?>
+            <tr>
+           <td><?= $i ?></td>
+           <td><?= $purchase['name_product'] ?></td>
+           <td><?= $purchase['name_category'] ?></td>
+           <td><?= $purchase['name_supplier'] ?></td>
+           <td><?= $purchase['quantity_retailPurchase'] ?></td>
+           <td><?= $purchase['grand_total_retailPurchase'] ?></td>
+
+            </tr>
+
+        <?php }  }?>
         </tbody>
     </table>
 </div>
+
 
 <div class="alert-box">
     <h3>Alertes Stock</h3>
@@ -154,29 +280,41 @@
         <thead>
             <tr>
                 <th>#</th>
-                <th>ID</th>
-                <th>Nom</th>
+                <th>Produit</th>
+                <th>Categorie</th>
+                <th>Fournisseur</th>
                 <th>Quantité</th>
+                <th>Prix</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
+        <?php
+        $i = 0;
+        foreach($callProduct as $product){
+            $i ++;
+            ?>
             <tr>
-                <td>1</td>
-                <td>P1689942673</td>
-                <td>Intel Core i5-10400</td>
-                <td>0</td>
+           <td><?= $i ?></td>
+           <td><?= $product['name_product'] ?></td>
+           <td><?= $product['name_category'] ?></td>
+           <td><?= $product['name_supplier'] ?></td>
+           <td><?= $product['quantity_product'] ?></td>
+           <td><?= $product['price_product'] ?></td>
+           <td>
+                        <a href="../add_purchase.php" class="btn-view">Commander</a>
+                    </td>
+
             </tr>
-            <tr>
-                <td>2</td>
-                <td>P1689943120</td>
-                <td>Adata XPG 8GB DDR4</td>
-                <td>0</td>
-            </tr>
+
+        <?php }?>
         </tbody>
     </table>
+
 </div>
 
 </section>
+
 
     </main>
 
