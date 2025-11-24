@@ -1,5 +1,5 @@
 <?php
-include "data.php";
+include __DIR__."/../data.php";
 
 function registerSupplier($nameSupplier,$emailSupplier, $phoneSupplier, $supplierAddress){
 
