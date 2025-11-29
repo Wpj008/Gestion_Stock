@@ -46,7 +46,6 @@ echo $categories;
     <!-- Header -->
     <div class="category-header">
         <h1>Gestion des Catégories</h1>
-        <button class="btn-add">+ Ajouter une Catégorie</button>
     </div>
 
     <!-- Tableau des catégories -->
