@@ -12,64 +12,81 @@ $checkLog = checkLogin(); // Vérifie la connexion
 $callProduct = selectAllProduct();
 $success = "";
 
-$InnerPurchase = InnerJoinAllPurchase();
+$InnerPurchase = InnerJoinAllPurchase();// Récupération des achats avec jointures des autres tables
+
 
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
 
-   
-    $supplier   = $_POST['supplierInput'];     
+       
     $status     = 1;                         
-    $user       = $_SESSION['id_user'];    
+    $user       = $_SESSION['id_user'];  
+    $supplier  = $_POST['supplierInput']; 
 
-    
+    // Récupération de l'ID du fournisseur à partir du nom    
+    $querySupplier = $GLOBALS['data']->prepare("SELECT * FROM suppliers WHERE  name_supplier = :namesupplier");
+    $querySupplier->bindParam(':namesupplier', $supplier);
+    $querySupplier->execute();
+    $resultSupplier = $querySupplier->fetch();
+
+    if($resultSupplier){
+
+        $supplierID = $resultSupplier['id_supplier'];//on recupère l'id du fournisseur
+
+    } 
+
+ 
+  
     // recuperations de tableau des valeurs
-    $product_ids = isset($_POST['productID']) ? $_POST['productID'] : [];
+   $product_ids = isset($_POST['productID']) ? $_POST['productID'] : [];
     $quantities  = isset($_POST['quantity'])  ? $_POST['quantity']  : [];
     $prices      = isset($_POST['price'])     ? $_POST['price']     : [];
 
     // Vérification que des produits ont été ajoutés
     if (empty($product_ids)) {
-        echo "<p style='color:red;'>Erreur : aucun produit n’a été ajouté.</p>";
+        echo "<p style='color:red;'>Erreur : aucun produit n'a été ajouté.</p>";
         return;
     }
 
-    //sauvegardes de tous les champs
-    $savePurchase = registerAllPurchase($supplier, $user, $status, $product_ids, $quantities, $prices);
+    //sauvegardes de tous les champs dans la function finale
+    $savePurchase = registerAllPurchase($supplierID, $user, $status, $product_ids, $quantities, $prices);
 
     echo "<p style='color:green;'>$success</p>";
 }
 
 if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit-Add'])){
 
-    $idProduct = $_POST['ID_product'];
-    $idPurchase = $_POST['ID_purchase'];
+    $idProduct = $_POST['ID_product'];//on recupère l'id du produit
+    $idPurchase = $_POST['ID_purchase'];//on recupère l'id de l'achat
 
-    $statusPurchase = $_POST["statusPurchase"];
-    $bdd_qty = $_POST['quantity'];
-    $add_qty = $_POST['retail_quantity'];
+    $statusPurchase = $_POST["statusPurchase"];//on recupère le status de l'achat
+    $bdd_qty = $_POST['quantity'];//on recupère la quantité en bdd
+    $add_qty = $_POST['retail_quantity'];//on recupère la quantité à ajouter
 
-    $newQty = $bdd_qty + $add_qty;
+    $newQty = $bdd_qty + $add_qty;//calcul de la nouvelle quantité
 
 
-    $status = $_POST['ID_status'];
+    $status = $_POST['ID_status'];//on recupère le status du produit
 
-    $newStatus = 5;
+    $newStatus = 5;//nouveau status = en stock
 
+    // Mise à jour de la quantité du produit dans la table products
   $query = $GLOBALS['data']->prepare("UPDATE products SET quantity_product = :quantity WHERE id_product = :idproduct");
 
   $query->bindParam(':quantity', $newQty);
   $query->bindParam(':idproduct', $idProduct);
   $query->execute();
 
+  // Mise à jour du statut de l'achat dans la table purchases
   $queryUpPurchase = $GLOBALS['data']->prepare("UPDATE purchases SET status_id = :idStatus WHERE id_purchase = :idpurchase");
 
   $queryUpPurchase->bindParam(':idStatus', $newStatus);
   $queryUpPurchase->bindParam(':idpurchase', $idPurchase);
   $queryUpPurchase->execute();
 
-  if($status != 5){
+  if($status != 5){//si le status du produit n'est pas deja en stock on le met à jour
 
+    // Mise à jour du statut du produit dans la table products
     $queryUpdate = $GLOBALS['data']->prepare("UPDATE products SET product_status = :status WHERE id_product = :idproduct ");
 
     $queryUpdate->bindParam(':status', $newStatus);
@@ -122,7 +139,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit-Add'])){
         <?php
         $i = 0;
 
-        foreach($InnerPurchase as $purchase){
+        foreach($InnerPurchase as $purchase){//on parcourt les achats avec jointures des autres tables
 
             if($purchase['status_id'] == 3){
             
@@ -169,13 +186,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit-Add'])){
             <div class="form-grid">
                 <div class="form-group">
                     <label>Fournisseur</label>
-                    <input name="supplierInput" id="supplierInput" type="text" placeholder="Nom Fournisseur">
+                 
+                    <input name="supplierInput" id="supplierInput" type="text" placeholder="Nom Fournisseur" readonly>
+                    <input  name="supplierID" id="supplierID" type="hidden">
+                   
                
                 </div>
 
                 <div class="form-group">
                     <label>Date</label>
-                    <input type="date" name="date" required>
+                    <input type="date" name="date" disabled>
                 </div>
 
                 <div class="form-group">
@@ -205,7 +225,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit-Add'])){
                                             value="<?= $product['id_product']; ?>"
                                             data-price="<?= $product['price_product']; ?>"
                                             data-supplier="<?= $product['name_supplier']?>"
-                                         >
+                                            data-supplier-id="<?= $product['supplier_id'] ?>"
+                                                            >
                                          <?= $product['name_product']; ?>
                                  </option>
                             <?php } ?>
@@ -222,7 +243,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit-Add'])){
                     <?php ?>
                     <label>Prix unitaire (€)</label>
                   
-                    <input name="priceInput" id="priceInput" type="number" step="0.01" placeholder="00.0">
+                    <input name="priceInput" id="priceInput" type="number" step="0.01" placeholder="00.0" readonly>
                    
                 </div>
             </div>
@@ -250,7 +271,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit-Add'])){
             <!-- TOTAL GLOBAL -->
             <div class="form-group" style="margin-top:20px;">
                 <label>Total de l'achat (€)</label>
-                <input id="totalInput" type="number" step="0.01" value="0" readonly>
+                <input id="totalInput" name="totalInput" type="number" step="0.01"  placeholder="00.0" readonly>
             </div><br><br>
 
             <p id="successmessage" style="color: green;"><?= $success; ?></p>
