@@ -23,7 +23,8 @@ function selectAllSale(){
     }
     catch(PDOException $e){
 
-        return "Il y a eu un probleme de la recuperation des infos des produits" . $e->getMessage();
+        echo "<p style='color:red;'>Il y a eu un probleme de la recuperation des infos des produits : " . $e->getMessage()."</p>";
+        return;
      }
 
 
@@ -42,7 +43,8 @@ function registerSale($user_id, $status, $total_sale) {
         return $GLOBALS['data']->lastInsertId();
     }
     catch (PDOException $e) {
-        return "Erreur : " . $e->getMessage();
+        echo "<p style='color:red;'>Erreur : " . $e->getMessage()."</p>";
+        return;
     }
 }
 
@@ -120,6 +122,8 @@ function registerRetailSale($sale_id, $product_ids, $quantities, $prices) {
                         $queryUpdate->execute();
                     }
 
+                    echo "<p style='color:green;'>Vente enregistrée avec succès.</p>";
+
                 } else {
 
                     echo "<p style='color:red;'>Quantité insuffisante pour le produit commandé</p>";
@@ -132,7 +136,8 @@ function registerRetailSale($sale_id, $product_ids, $quantities, $prices) {
 
     } catch (PDOException $e) {
 
-        return "Erreur produits : " . $e->getMessage();
+        echo "<p style='color:red;'>Erreur produits : " . $e->getMessage()."</p>";
+        return;
     }
 }
 
@@ -160,9 +165,34 @@ function InnerJoinTableSale(){
     }
     catch(PDOException $e){
     
-         return "Erreur lors de la recuperation des informations". $e->getMessage();
+        echo "<p style='color:red;'>Erreur lors de la recuperation des informations". $e->getMessage()."</p>";
+        return;
 
         }
+}
+
+//==============================================
+
+//function pour afficher le nombre de sales
+
+function countSales(){
+
+    try{
+
+         $query = $GLOBALS['data']->prepare("SELECT COUNT(*) AS total FROM sales");
+            $query->execute();
+            $result = $query->fetch();
+            if($result){
+
+                return $result;
+            }
+
+    } catch(PDOException $e){
+
+        echo "<p style='color:red;'>Il y a eu un probleme de la recuperation des infos des ventes" . $e->getMessage()."</p>";
+        return;
+    }
+
 }
 
 ?>
