@@ -1,9 +1,10 @@
 <?php
 include __DIR__."/../data.php";
 
+
 //creation des infos dans la table purchase
-function createPurchase($supplier_id, $user_id, $status_id, $total_purchase)
-{
+function createPurchase($supplier_id, $user_id, $status_id, $total_purchase){
+
     try {
         $query = $GLOBALS['data']->prepare(" INSERT INTO purchases(supplier_id, user_id, status_id, total_purchase) VALUES (:supplier, :user, :status, :total)");
 
@@ -18,21 +19,25 @@ function createPurchase($supplier_id, $user_id, $status_id, $total_purchase)
         return $GLOBALS['data']->lastInsertId();
 
     } catch (PDOException $e) {
-        return "Erreur lors de l'enregistrement de l'achat : " . $e->getMessage();
+        echo "<p style='color:red;'> Erreur lors de l'enregistrement de purchase : " . $e->getMessage()."</p>";
+        return false;
     }
 }
 
 
 //creation des infos pour la table reatil_purchase
-function addPurchaseLine($purchase_id, $product_id, $quantity, $unit_price)
-{
+function addPurchaseLine($purchase_id, $product_id, $quantity, $unit_price){
+
     try {
         $total = $quantity * $unit_price;
+        $status = 1;
 
-        $query = $GLOBALS['data']->prepare("INSERT INTO retail_purchases(purchase_id, product_id, quantity_retailPurchase, unit_price_retailPurchase, grand_total_retailPurchase)VALUES (:purchase, :product, :qty, :price, :total)");
+        $query = $GLOBALS['data']->prepare("INSERT INTO retail_purchases(purchase_id, product_id, status_id_retail, quantity_retailPurchase, unit_price_retailPurchase, grand_total_retailPurchase)VALUES (:purchase, :product, :status_id, :qty, :price, :total)");
 
         $query->bindParam(':purchase', $purchase_id);
+       
         $query->bindParam(':product', $product_id);
+        $query->bindParam(':status_id', $status);
         $query->bindParam(':qty', $quantity);
         $query->bindParam(':price', $unit_price);
         $query->bindParam(':total', $total);
@@ -41,13 +46,13 @@ function addPurchaseLine($purchase_id, $product_id, $quantity, $unit_price)
 
 
     } catch (PDOException $e) {
-        return "Erreur lors de la recuperation des infos pour le produit : " . $e->getMessage();
+        echo "<p style='color:red;'>Erreur lors de l'enregistrement dans retailpurchase :  ".$e->getMessage()."</p>";
     }
 }
 
 //funtion permettant de recuperer tous les produits commandé
-function savePurchaseProducts($purchase_id, $product_ids, $quantities, $prices)
-{
+function savePurchaseProducts($purchase_id, $product_ids, $quantities, $prices){
+
     foreach ($product_ids as $index => $prodId) {//usage des dictionnaire (clé => valeur)
 
         $qty = $quantities[$index];
@@ -56,13 +61,12 @@ function savePurchaseProducts($purchase_id, $product_ids, $quantities, $prices)
         addPurchaseLine($purchase_id, $prodId, $qty, $price);//on fait appel à la premeire function pour save dans la table purchase
     }
 
-    $success = "Produits enregistrés.";
-    echo $success;
+    echo "<p style='color:green;'>Produits enregistrés.</p>";
 }
 
 //function finale, on recupère toutes les infos et on fait la requete finale pour retail_purchase
-function registerAllPurchase($supplier_id, $user_id, $status, $product_ids, $quantities, $prices)
-{
+function registerAllPurchase($supplier_id, $user_id, $status, $product_ids, $quantities, $prices){
+
     // Calcul total
     $total = 0;
 
@@ -73,12 +77,15 @@ function registerAllPurchase($supplier_id, $user_id, $status, $product_ids, $qua
     // Enregistrer l'achat
     $purchase_id = createPurchase($supplier_id, $user_id, $status, $total);
 
+    if (!$purchase_id) {
+        echo "<p style='color:red;'>Enregistrement interrompu : purchase non créé.</p>";
+        return;
+}
+
     // Enregistrer les produits
     savePurchaseProducts($purchase_id, $product_ids, $quantities, $prices);
 
-    $success = "Achat complet enregistré";
-
-    echo $success;
+    echo "<p style='color:green;'>Achat complet enregistré.</p>";
 }
 
 
@@ -101,12 +108,59 @@ if($produits){
 
 } catch(PDOException $e){
 
-    return "Il y a eu un probleme de la recuperation des infos des produits" . $e->getMessage();
+    echo "<p style='color:red;'>Erreur, Il y a eu un probleme de la recuperation des infos des produits : ".$e->getMessage()."</p>";
+    return false;
 }
 
 
 }
 
+//function affiche all purchases
 
+function selectAllPurchase(){
+
+    try{
+
+    $query = $GLOBALS['data']->prepare("SELECT * FROM purchases " );
+
+$query->execute();
+  
+$purchase = $query->fetchAll();
+
+if($purchase){
+
+    return $purchase;
+}
+
+
+} catch(PDOException $e){
+
+    echo "<p style='color:red;'> Erreur, Il y a eu un probleme de la recuperation des infos des achats : ".$e->getMessage()."</p>";
+    return false;
+}
+
+
+}
+
+//=============================================
+//function pour afficher le nombre de purchase
+
+function countPurchases(){
+
+    try{
+
+         $query = $GLOBALS['data']->prepare("SELECT COUNT(*) AS total FROM purchases WHERE status_id = 5");
+            $query->execute();
+            $result = $query->fetch();
+            if($result){
+
+                return $result;
+            }
+    } catch(PDOException $e){
+        echo "<p style='color:red;'>Il y a eu un probleme de la recuperation du nombre des achats " . $e->getMessage()."</p>";
+        return false;
+        }
+
+}  
 ?>
 
