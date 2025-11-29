@@ -5,7 +5,8 @@ function registerCategory($nameCategory, $categoryDescription){
 
     if(empty($nameCategory) || empty($categoryDescription)){
 
-        return "Tous les champs sont requis.";
+        echo "<p style='color:red;'>.Tous les champs sont requis."."</p>";
+        return;
     }
 
     try{
@@ -20,10 +21,12 @@ function registerCategory($nameCategory, $categoryDescription){
     
     $query->execute(); 
 
-    return "Categorie enregistré !";
+    echo "<p style='color:green;'>Categorie enregistré !"."</p>";
+        return;
 
     } catch (PDOException $e) {
-        return "Erreur d'inscription : " . $e->getMessage();
+        echo "<p style='color:red;'> Erreur d'inscription : " . $e->getMessage()."</p>";
+            return;
          }
 
 
@@ -51,7 +54,8 @@ function selectAllCategory(){
     
     } catch(PDOException $e){
     
-        return "Il y a eu un probleme de la recuperation des infos de la categorie" . $e->getMessage();
+        echo "<p style='color:red;'>Il y a eu un probleme de la recuperation des infos de la categorie" . $e->getMessage()."</p>";
+        return;
     }
     
     
