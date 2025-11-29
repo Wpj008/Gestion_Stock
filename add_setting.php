@@ -4,7 +4,11 @@ include "data.php";
 include "header.php";
 include "functions/userFunction.php";
 
+
 $checkLog = checkLogin();//check connection
+
+$callUser = selectAllUser();
+
 
 ?>
 
@@ -85,6 +89,7 @@ $checkLog = checkLogin();//check connection
 
         <table class="settings-table">
             <thead>
+
             <tr>
                 <th>#</th>
                 <th>Nom</th>
@@ -94,16 +99,23 @@ $checkLog = checkLogin();//check connection
             </tr>
             </thead>
             <tbody>
+
+            <?php 
+            $i = 0;            
+            foreach($callUser as $user){
+                
+                $i++; ?>
             <tr>
-                <td>1</td>
-                <td>Admin Principal</td>
-                <td>admin@mail.com</td>
-                <td>Administrateur</td>
+                <td><?= $i ?></td>
+                <td><?= $user['name_user'] ?></td>
+                <td><?= $user['email_user'] ?></td>
+                <td><?= $user['role'] ?></td>
                 <td>
                     <button class="btn small edit">Modifier</button>
                     <button class="btn small delete">Supprimer</button>
                 </td>
             </tr>
+            <?php }?>
             </tbody>
         </table>
 
