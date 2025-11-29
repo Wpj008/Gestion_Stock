@@ -14,7 +14,7 @@
     padding: 25px;
     border-radius: 10px;
     margin-bottom: 35px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    box-shadow: 10px 10px 10px rgba(0,0,0,0.05);
 }
 
 .settings-box h2 {
