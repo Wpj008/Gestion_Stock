@@ -7,7 +7,7 @@ include "functions/userFunction.php";
 
 $checkLog = checkLogin();//check connection
 
-$callSupplier = selectAllSupplier();
+$callSupplier = selectAllSuppliers();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
 
@@ -46,7 +46,6 @@ echo $suppliers;
     <!-- Titre + bouton -->
     <div class="supplier-header">
         <h1>Gestion des Fournisseurs</h1>
-        <button class="btn-add">+ Ajouter un Fournisseur</button>
     </div>
 
     <!-- Tableau des fournisseurs -->
