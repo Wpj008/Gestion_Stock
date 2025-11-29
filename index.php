@@ -74,7 +74,7 @@ $password = htmlspecialchars($_POST['password']);
         <form action="" method="POST">
             <div class="input-group">
                 <label for="username">Email:</label>
-                <input type="text" id="username" name="username" required>
+                <input type="email" id="username" name="username" required>
             </div>
             <div class="input-group">
                 <label for="password">Mot de passe:</label>
