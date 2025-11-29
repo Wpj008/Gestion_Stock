@@ -21,7 +21,8 @@ if($produits){
 
 } catch(PDOException $e){
 
-    return "Il y a eu un probleme de la recuperation des infos des produits" . $e->getMessage();
+    echo "<p style='color:red;'>Il y a eu un probleme de la recuperation des infos des produits" . $e->getMessage()."</p>";
+    return;
 }
 
 
@@ -47,7 +48,8 @@ if($category){
 
 } catch(PDOException $e){
 
-    return "Il y a eu un probleme de la recuperation des infos des catégories" . $e->getMessage();
+    echo "<p style='color:red;'>Il y a eu un probleme de la recuperation des infos des catégories" . $e->getMessage()."</p>";
+    return;
 }
 
 
@@ -73,7 +75,8 @@ if($supplier){
 
 } catch(PDOException $e){
 
-    return "Il y a eu un probleme de la recuperation des infos des fournisseurs" . $e->getMessage();
+    echo "<p style='color:red;'>Il y a eu un probleme de la recuperation des infos des fournisseurs" . $e->getMessage()."</p>";
+    return;
 }
 
 
@@ -156,26 +159,15 @@ function registerProduct( $name, $supplier, $quantity, $description, $prix, $pic
     
         
         if (move_uploaded_file($_FILES['image']['tmp_name'], $destination)) {
-           $successmessage ="Le fichier a été téléchargé avec succès.";
+            echo "<p style='color:red;'>Le fichier a été téléchargé avec succès."."</p>";
         } else {
-            $errormessage = "Échec du téléchargement du fichier.";
+            echo "<p style='color:red;'>Échec du téléchargement du fichier."."</p>";
         }
     } else {
-        $errormessage = "Aucun fichier ou une erreur est survenue lors du téléchargement.";
+        echo "<p style='color:red;'>Aucun fichier ou une erreur est survenue lors du téléchargement."."</p>";
     }
     
     
     }
-
-
-
-
-
-
-
-
-
-
-
 
 ?>
