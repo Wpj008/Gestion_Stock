@@ -40,7 +40,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
     //  Enregistrer les produits de la vente
     $result = registerRetailSale($sale_id, $product_ids, $quantities, $prices);
 
-    echo "<p style='color:green;'>Vente enregistrée avec succès.</p>";
 }
 
 //affiche la requete de jointure
@@ -66,7 +65,6 @@ $InnerSale = InnerJoinTableSale();
 
  <div class="sales-header">
         <h1>Gestion des Ventes</h1>
-        <button class="btn-add">+ Nouvelle Vente</button>
     </div>
 
     <!-- Tableau -->
@@ -81,7 +79,7 @@ $InnerSale = InnerJoinTableSale();
                     <th>Total</th>
                     <th>Paiement</th>
                     <th>Date</th>
-                    <th>Actions</th>
+                    <!--th>Actions</!--th-->
                 </tr>
             </thead>
 
@@ -101,10 +99,10 @@ $InnerSale = InnerJoinTableSale();
                     <td><?= $sales['grand_total_retailSale'] ?> €</td>
                     <td>Espèces</td>
                     <td><?= $sales['date_sale'] ?></td>
-                   <td>
+                   <!--td>
                         <button class="btn small view">Voir</button>
                         <button class="btn small delete">Supprimer</button>
-                    </td> 
+                    </!--td--> 
                 </tr>
 
                 <?php }?>
@@ -140,7 +138,7 @@ $InnerSale = InnerJoinTableSale();
 
                 <div class="form-group">
                     <label>Date</label>
-                    <input type="date" name="date" required>
+                    <input type="date" name="date" disabled>
                 </div>
 
                 <div class="form-group">
@@ -156,7 +154,7 @@ $InnerSale = InnerJoinTableSale();
 
                 <div class="form-group">
                     <label>Montant payé</label>
-                    <input type="number" name="montant_paye" step="0.01" placeholder="0.00">
+                    <input type="number" name="montant_paye" step="0.01" placeholder="0.00" disabled>
                 </div>
 
             </div>
@@ -190,7 +188,7 @@ $InnerSale = InnerJoinTableSale();
                 <!-- PRIX -->
                 <div class="product-group">
                     <label>Prix (€)</label>
-                    <input id="priceInput" type="number" step="0.01" placeholder="0.00">
+                    <input id="priceInput" type="number" step="0.01" placeholder="0.00" readonly>
                 </div>
 
             </div>
