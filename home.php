@@ -2,9 +2,12 @@
 session_start();
 include "data.php";
 include "functions/userFunction.php";
+include "functions/productFunction.php";
 
 
 $checkLog = checkLogin();//check connection
+
+$callProduct  = selectAllProduct();
 
 ?>
 
@@ -36,7 +39,7 @@ $checkLog = checkLogin();//check connection
     <!-- Contenu -->
     <main class="content">
 
-        <h1>Bienvenue, Employé</h1>
+        <h1>Bienvenue, <?= $_SESSION['name_user'] ?></h1>
 
         <!-- Statistiques personnelles -->
         <div class="stats-grid">
@@ -82,14 +85,25 @@ $checkLog = checkLogin();//check connection
                         <th>Produit</th>
                         <th>Stock</th>
                     </tr>
+
                 </thead>
                 <tbody>
+
+                <?php    $i = 0;
+                    
+                    foreach($callProduct as $product){
+                        
+                        if($product['quantity_product'] <= 10){
+                         
+                            $i++;
+                        ?>
                     <tr>
-                        <td>1</td>
-                        <td>P1689942673</td>
-                        <td>Intel Core i5-10400</td>
-                        <td><span class="badge red">0</span></td>
+                        <td><?= $i ?></td>
+                        <td><?= $product['name_product'] ?></td>
+                        <td><?= $product['name_supplier'] ?></td>
+                        <td><span class="badge red"><?= $product['quantity_product'] ?></span></td>
                     </tr>
+                    <?php } } ?>
                 </tbody>
             </table>
         </div>
