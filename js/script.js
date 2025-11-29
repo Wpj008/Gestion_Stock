@@ -3,22 +3,29 @@
 document.getElementById("productSelect").addEventListener("change", function() {
     let price = this.options[this.selectedIndex].getAttribute("data-price");
     let supplier = this.options[this.selectedIndex].getAttribute("data-supplier");
+    let supplierID = this.options[this.selectedIndex].getAttribute("data-supplier-id");
     if (price) {
         document.getElementById("priceInput").value = price;
     }
     if (supplier) {
         document.getElementById("supplierInput").value = supplier;
     }
+    if (supplierID) {
+        document.getElementById("supplierID").value = supplierID;
+    }
+
+  
 });
 
 function addProduct() {
+
     let productSelect = document.getElementById("productSelect");
     let productId = productSelect.value;
     let productName = productSelect.options[productSelect.selectedIndex].text;
 
     let quantity = parseInt(document.getElementById("quantityInput").value);
     let price = parseFloat(document.getElementById("priceInput").value);
-    let supplier = parseFloat(document.getElementById("supplierInput").value);
+    let supplierID = document.getElementById("supplierID").value; // Récupérer l'ID du fournisseur
 
     if (!productId || quantity <= 0 || price <= 0) {
         alert("Veuillez remplir tous les champs produit.");
@@ -43,8 +50,13 @@ function addProduct() {
             ${price.toFixed(2)}
             <input type="hidden" name="price[]" value="${price}">
         </td>
+
         <td>${subtotal.toFixed(2)}</td>
-        <td><button type="button" onclick="removeRow(this)">X</button></td>
+
+        <td>
+            <input type="hidden" name="supplierID[]" value="${supplierID}">
+            <button type="button" onclick="removeRow(this)">X</button>
+        </td>
     `;
 
     table.appendChild(row);
@@ -61,14 +73,25 @@ function updateTotal() {
     let rows = document.querySelectorAll("#tableBody tr");
     let total = 0;
 
-    rows.forEach(row => {
-        let subtotal = parseFloat(row.children[3].textContent);
-        total += subtotal;
+    
+    rows.forEach(r => {
+        total += parseFloat(r.children[3].textContent);
     });
 
     document.getElementById("totalInput").value = total.toFixed(2);
 }
 
+/*
+function updateTotal() {
+    let rows = document.querySelectorAll("#tableBody tr");
+    let total = 0;
+
+    rows.forEach(r => {
+        total += parseFloat(r.children[3].textContent);
+    });
+
+    document.getElementById("total_sale").value = total.toFixed(2);
+}*/
 
 
 //function vente
