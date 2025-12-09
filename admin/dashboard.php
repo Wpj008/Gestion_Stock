@@ -23,6 +23,8 @@ $numberUser = countUsers();//compte le nombre d'utilisateur
 $numberSupplier = countSuppliers();//compte le nombre de fournisseur
 $numberSale = countSales();//compte le nombre de sale
 $numberPurchase = countPurchases();//compte le nombre de purchase
+$recupTotalSale = totalSales();//appel de la function totalSales
+$recupTotalPurchase = totalPurchases();//appel de la function totalPurchases
 
 if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit-valider'])){
 
@@ -145,7 +147,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit-confirmer'])){
             </div>
 
             <div class="stat-card gray">
-                <h3>Total Achats</h3>
+                <h3>Total Commandes</h3>
                 <p class="value"><?= $numberPurchase['total'] ?></p>
             </div>
         </section>
@@ -159,9 +161,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit-confirmer'])){
             </div>
 
             <div class="box month">
-                <h3>Mensuel</h3>
-                <p>Ventes : 19 000.00</p>
-                <p>Achats : 195 495.00</p>
+                <h3>Statistique</h3>
+               <p class="value"> Ventes : <?= $recupTotalSale['total_sales'] ?> €</p>
+                <p>Commandes : <?= $recupTotalPurchase['total_purchases'] ?> €</p>
             </div>
         </section>
 
