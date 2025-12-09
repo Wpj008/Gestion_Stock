@@ -23,6 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
     $quantities  = $_POST['quantity']  ?? [];
     $prices      = $_POST['price']     ?? [];
     $total       = $_POST['total_sale'] ?? 0;
+    $payment     = $_POST['paymentSale'] ?? 'Espèces' || 'Carte Bancaire';
 
     if (empty($product_ids)) {
         echo "<p style='color:red;'>Erreur : aucun produit ajouté.</p>";
@@ -30,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
     }
 
     //  Enregistrer la vente
-    $sale_id = registerSale($user, $status, $total);
+    $sale_id = registerSale($user, $status, $total, $payment);
 
     if (!is_numeric($sale_id)) {
         echo $sale_id; // affiche erreur SQL
@@ -97,7 +98,7 @@ $InnerSale = InnerJoinTableSale();
                     <td><?= $sales['name_product'] ?></td>
                     <td><?= $sales['quantity_retailSale'] ?></td>
                     <td><?= $sales['grand_total_retailSale'] ?> €</td>
-                    <td>Espèces</td>
+                    <td><?= $sales['payment_method_sale'] ?></td>
                     <td><?= $sales['date_sale'] ?></td>
                    <!--td>
                         <button class="btn small view">Voir</button>
@@ -143,12 +144,9 @@ $InnerSale = InnerJoinTableSale();
 
                 <div class="form-group">
                     <label>Mode de paiement</label>
-                    <select name="paiement">
+                    <select id="paymentSale" name="paymentSale">
                         <option>Espèces</option>
                         <option>Carte Bancaire</option>
-                        <option>Mobile Money</option>
-                        <option>Chèque</option>
-                        <option>Virement</option>
                     </select>
                 </div>
 
@@ -171,7 +169,7 @@ $InnerSale = InnerJoinTableSale();
 
                         <?php foreach($callSale as $sale){ ?>
                             <option value="<?= $sale['id_product'] ?>"
-                                    data-price="<?= $sale['price_product'] ?>">
+                                    data-price="<?= $sale['price_product_sale'] ?>">
                                 <?= $sale['name_product'] ?>
                             </option>
                         <?php } ?>
