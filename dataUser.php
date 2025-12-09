@@ -13,8 +13,6 @@ $phone = $_SESSION['phone_user'];
 $role = $_SESSION['role'];
 
 
-//$callUser = loginUser()
-
 ?>
 
 
@@ -74,6 +72,7 @@ $role = $_SESSION['role'];
         
 
         <button class="btn save-btn">Enregistrer</button>
+        <button class="btn red-btn">Modifier Mot de passe</button>
     </div>
 
 </div>
