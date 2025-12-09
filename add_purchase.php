@@ -41,6 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
    $product_ids = isset($_POST['productID']) ? $_POST['productID'] : [];
     $quantities  = isset($_POST['quantity'])  ? $_POST['quantity']  : [];
     $prices      = isset($_POST['price'])     ? $_POST['price']     : [];
+    $payment     = $_POST['paymentPurchase'] ?? 'Espèces' || 'Virement Bancaire';
 
     // Vérification que des produits ont été ajoutés
     if (empty($product_ids)) {
@@ -49,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
     }
 
     //sauvegardes de tous les champs dans la function finale
-    $savePurchase = registerAllPurchase($supplierID, $user, $status, $product_ids, $quantities, $prices);
+    $savePurchase = registerAllPurchase($supplierID, $user, $status, $product_ids, $quantities, $prices, $payment);
 
     echo "<p style='color:green;'>$success</p>";
 }
@@ -152,7 +153,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit-Add'])){
                 <td><?= $purchase['name_product'] ?></td>
                 <td><?= $purchase['quantity_retailPurchase']  ?></td>
                 <td><?= $purchase['grand_total_retailPurchase'] ?> €</td>
-                <td>Virement</td>
+                <td><?= $purchase['payment_method_purchase'] ?></td>
                 <td><span class="badge success">Livré</span></td>
                 <td><?= $purchase['date_purchase']  ?></td>
                 <td>
@@ -200,12 +201,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit-Add'])){
 
                 <div class="form-group">
                     <label>Mode de paiement</label>
-                    <select name="paiement">
+                    <select name="paymentPurchase" id="paymentPurchase">
                         <option>Espèces</option>
-                        <option>Carte Bancaire</option>
-                        <option>Chèque</option>
-                        <option>Mobile Money</option>
-                        <option>Virement</option>
+                        <option>Virement Bancaire</option>
                     </select>
                 </div>
 
@@ -223,7 +221,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit-Add'])){
                                         <?php foreach($callProduct as $product) { ?>
                                      <option 
                                             value="<?= $product['id_product']; ?>"
-                                            data-price="<?= $product['price_product']; ?>"
+                                            data-price="<?= $product['price_product_purchase']; ?>"
                                             data-supplier="<?= $product['name_supplier']?>"
                                             data-supplier-id="<?= $product['supplier_id'] ?>"
                                                             >
