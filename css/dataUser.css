@@ -80,22 +80,28 @@ input:focus {
     border-color: #4CAF50;
 }
 
-.btn {
+.btn, .btn a {
     padding: 10px 18px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    color: white;
+    color: rgb(0, 0, 0);
     font-weight: 500;
 }
 
 .edit-btn a {
     background: #673ab7;
-    text-decoration: none;
+   
 }
 
 .save-btn {
     background: #4CAF50;
     width: 180px;
+    margin-top: 10px;
+}
+
+.red-btn {
+    background: #f44336;
+    width: 200px;
     margin-top: 10px;
 }
