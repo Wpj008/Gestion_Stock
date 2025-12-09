@@ -3,15 +3,16 @@ include __DIR__."/../data.php";
 
 
 //creation des infos dans la table purchase
-function createPurchase($supplier_id, $user_id, $status_id, $total_purchase){
+function createPurchase($supplier_id, $user_id, $status_id, $total_purchase, $payment) {
 
     try {
-        $query = $GLOBALS['data']->prepare(" INSERT INTO purchases(supplier_id, user_id, status_id, total_purchase) VALUES (:supplier, :user, :status, :total)");
+        $query = $GLOBALS['data']->prepare(" INSERT INTO purchases(supplier_id, user_id, status_id, total_purchase, payment_method_purchase) VALUES (:supplier, :user, :status, :total, :payment) ");
 
         $query->bindParam(':supplier', $supplier_id);
         $query->bindParam(':user', $user_id);
         $query->bindParam(':status', $status_id);
         $query->bindParam(':total', $total_purchase);
+        $query->bindParam(':payment', $payment);
 
         $query->execute();
 
@@ -65,7 +66,7 @@ function savePurchaseProducts($purchase_id, $product_ids, $quantities, $prices){
 }
 
 //function finale, on recupère toutes les infos et on fait la requete finale pour retail_purchase
-function registerAllPurchase($supplier_id, $user_id, $status, $product_ids, $quantities, $prices){
+function registerAllPurchase($supplier_id, $user_id, $status, $product_ids, $quantities, $prices, $payment) {
 
     // Calcul total
     $total = 0;
@@ -75,7 +76,7 @@ function registerAllPurchase($supplier_id, $user_id, $status, $product_ids, $qua
     }
 
     // Enregistrer l'achat
-    $purchase_id = createPurchase($supplier_id, $user_id, $status, $total);
+    $purchase_id = createPurchase($supplier_id, $user_id, $status, $total,$payment);
 
     if (!$purchase_id) {
         echo "<p style='color:red;'>Enregistrement interrompu : purchase non créé.</p>";
@@ -162,5 +163,48 @@ function countPurchases(){
         }
 
 }  
+
+//function pour claculer le total des purchase
+
+function totalPurchases(){
+
+    try{
+
+         $query = $GLOBALS['data']->prepare("SELECT SUM(total_purchase) AS total_purchases FROM purchases WHERE status_id = 5");
+            $query->execute();
+            $result = $query->fetch();
+            if($result){
+
+                return $result;
+            }
+
+    } catch(PDOException $e){
+
+        echo "<p style='color:red;'>Il y a eu un probleme de la recuperation des infos des achats" . $e->getMessage()."</p>";
+        return false;
+    }
+
+}
+
+//==============================================
+
+//function affiche data of purchases
+
+
+function fetchPurchaseData() {
+    $purchase = InnerJoinAllPurchase(); // Appel de la fonction InnerJoinAllPucharse()
+
+    foreach($purchase as $row) {
+        $listeProduct[] = $row['name_product'];    // Colonne product
+        $listeQuantity[] = $row['quantity_retailPurchase'];  // Colonne quantity
+    }
+
+    // Retourner les deux listes sous forme de tableau associatif
+    return [
+        'products' => $listeProduct,
+        'quantities' => $listeQuantity
+    ];
+
+}
 ?>
 
