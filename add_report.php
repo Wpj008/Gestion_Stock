@@ -3,13 +3,26 @@ session_start();
 include "data.php";
 include "header.php";
 include "functions/userFunction.php";
+include "functions/purchaseFunction.php";
+include "functions/saleFunction.php";
 
 $checkLog = checkLogin();//check connection
 
+$recupTotalSale = totalSales();//appel de la function totalSales
+$recupTotalPurchase = totalPurchases();//appel de la function totalPurchases
+
+
+$dataSale = fetchSalesData();//appel de la function fetchSalesData
+$listeProductSale = $dataSale['products'];//on recupere la liste des produits vendu
+$listeQuantitySale = $dataSale['quantities'];//on recupere la liste des quantités vendu
+
+$dataPurchase = fetchPurchaseData();//appel de la function fetchPurchaseData
+ 
+$listeProductPurchase = $dataPurchase['products'];//on recupere la liste des produits commandé
+$listeQuantityPurchase = $dataPurchase['quantities'];//on recupere la liste des quantités commandé
+
+
 ?>
-
-
-
 
 
 <!DOCTYPE html>
@@ -18,10 +31,13 @@ $checkLog = checkLogin();//check connection
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/add_report.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/statisticalData.js"></script>
+
+    <script src="js/fetchData.js"></script>
     <title>Rapport</title>
 </head>
 <body>
-    
 
 <div class="report-container">
 
@@ -31,12 +47,12 @@ $checkLog = checkLogin();//check connection
 
         <div class="report-filters">
             <label>Du</label>
-            <input type="date">
+            <input type="date" id="startData">
 
             <label>Au</label>
-            <input type="date">
+            <input type="date" id="endData">
 
-            <button class="btn-filter">Filtrer</button>
+            <button onclick="loadData()" class="btn-filter">Filtrer</button>
         </div>
     </div>
 
@@ -45,12 +61,12 @@ $checkLog = checkLogin();//check connection
 
         <div class="report-card blue">
             <h3>Total Ventes</h3>
-            <p class="value">19 000.00 €</p>
+            <p class="value"><?= $recupTotalSale['total_sales'] ?> €</p>
         </div>
 
         <div class="report-card green">
             <h3>Total Achats</h3>
-            <p class="value">12 950.00 €</p>
+            <p class="value"><?= $recupTotalPurchase['total_purchases'] ?> €</p>
         </div>
 
         <div class="report-card orange">
@@ -60,7 +76,7 @@ $checkLog = checkLogin();//check connection
 
         <div class="report-card purple">
             <h3>Bénéfice Net</h3>
-            <p class="value">3 700.00 €</p>
+            <p class="value"><?= $recupTotalSale['total_sales'] - $recupTotalPurchase['total_purchases'] ?> €</p>
         </div>
 
     </div>
@@ -69,13 +85,18 @@ $checkLog = checkLogin();//check connection
     <div class="report-charts">
 
         <div class="chart-box">
-            <h3>Ventes mensuelles</h3>
-            <div class="chart-placeholder"></div>
+            <h3>Statistique de Ventes</h3>
+            <div class="chart-placeholder">
+
+                 <canvas id="lineChartSale"></canvas>
         </div>
 
         <div class="chart-box">
-            <h3>Achats mensuels</h3>
-            <div class="chart-placeholder"></div>
+            <h3>Statistique de commandes</h3>
+            <div class="chart-placeholder">
+
+            <canvas id="lineChartPurchase"></canvas>
+            </div>
         </div>
 
         <div class="chart-box">
@@ -133,6 +154,29 @@ $checkLog = checkLogin();//check connection
 </div>
 
 
+
+</div>
+
+<script>
+  //<!— Passage des données PHP vers JavaScript —>
+        const labelSale = <?= json_encode($listeProductSale) ?>;
+        const valueSale = <?= json_encode($listeQuantitySale) ?>;
+ 
+//<!— Passage des données PHP vers JavaScript —>
+
+        const labelPurchase = <?= json_encode($listeProductPurchase) ?>;
+        const valuePurchase = <?= json_encode($listeQuantityPurchase) ?>;
+    
+</script>
+
+<!-- Ton fichier JS avec les fonctions ViewDataSale() -->
+<script src="js/statisticalData.js"></script>
+
+<!-- Appels CORRECTS des fonctions, APRES chargement du JS -->
+<script>
+    ViewDataSale();//appel de la function ViewDataSale
+    ViewDataPurchase();//appel de la function ViewDataPurchase
+</script>
 
 </body>
 </html>
