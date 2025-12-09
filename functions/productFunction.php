@@ -84,7 +84,7 @@ if($supplier){
 
 //function d'ajout de produit dans la bdd
 
-function registerProduct( $name, $supplier, $quantity, $description, $prix, $picture, $category, $etat_produit){
+function registerProduct( $name, $supplier, $quantity, $description, $priceSALe, $pricePurchase, $picture, $category, $etat_produit){
 
 
     // Testons si le fichier a bien été envoyé et s'il n'y a pas des erreurs
@@ -117,7 +117,7 @@ function registerProduct( $name, $supplier, $quantity, $description, $prix, $pic
     
         //Verification de tous les champs
     
-        if (!empty($name === "" || $description === "" || $quantity === "" || $prix === "")) {
+        if (!empty($name === "" || $description === "" || $quantity === "" || $priceSALe === "" || $pricePurchase === "")) {
             $errormessage = "Veuillez remplir tous les champs ";
     
             echo' <p id="errormessage" style="color: red;">' .$errormessage.'</p>';
@@ -125,7 +125,7 @@ function registerProduct( $name, $supplier, $quantity, $description, $prix, $pic
             
         }
     
-        if($quantity <= 0 || $prix <= 0){
+        if($quantity <= 0 || $priceSALe <= 0 || $pricePurchase <= 0){
     
             $errormessage = "La quantité ou le prix ne peut pas être inferieure ou égale à 0";
     
@@ -141,13 +141,14 @@ function registerProduct( $name, $supplier, $quantity, $description, $prix, $pic
     
     //Insertion des données saisies par l'user dans la bdd dans la table produit
     
-    $query = $GLOBALS['data']->prepare("INSERT INTO products (name_product, category_id, supplier_id, quantity_product, product_description, price_product, picture_product, product_status) VALUES (:name, :category, :supplier, :quantity, :description, :price, :image, :etat_produit)");
+    $query = $GLOBALS['data']->prepare("INSERT INTO products (name_product, category_id, supplier_id, quantity_product, product_description, price_product_sale, price_product_purchase, picture_product, product_status) VALUES (:name, :category, :supplier, :quantity, :description, :priceSale, :pricePurchase , :image, :etat_produit)");
     $query->bindParam(':name', $name);
     $query->bindParam(':category', $category);
     $query->bindParam(':supplier', $supplier);
     $query->bindParam(':quantity', $quantity);
     $query->bindParam(':description', $description);
-    $query->bindParam(':price', $prix);
+    $query->bindParam(':priceSale', $priceSALe);
+    $query->bindParam(':pricePurchase', $pricePurchase);
     $query->bindParam(':etat_produit', $etat_produit);
     $query->bindParam(':image', $picture);
 
@@ -159,7 +160,7 @@ function registerProduct( $name, $supplier, $quantity, $description, $prix, $pic
     
         
         if (move_uploaded_file($_FILES['image']['tmp_name'], $destination)) {
-            echo "<p style='color:red;'>Le fichier a été téléchargé avec succès."."</p>";
+            echo "<p style='color:green;'>Le fichier a été téléchargé avec succès."."</p>";
         } else {
             echo "<p style='color:red;'>Échec du téléchargement du fichier."."</p>";
         }
