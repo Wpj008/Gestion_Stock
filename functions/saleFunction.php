@@ -31,13 +31,14 @@ function selectAllSale(){
 }
 
 // Enregistre la vente principale
-function registerSale($user_id, $status, $total_sale) {
+function registerSale($user_id, $status, $total_sale, $payment) {
     try {
-        $query = $GLOBALS['data']->prepare(" INSERT INTO sales (user_id, date_sale, status_id, total_sale) VALUES (:user_id, NOW(), :status_id, :total_sale)");
+        $query = $GLOBALS['data']->prepare(" INSERT INTO sales (user_id, date_sale, status_id, total_sale, payment_method_sale) VALUES (:user_id, NOW(), :status_id, :total_sale, :payment) ");
 
         $query->bindParam(':user_id', $user_id);
         $query->bindParam(':status_id', $status);
         $query->bindParam(':total_sale', $total_sale);
+        $query->bindParam(':payment', $payment);
         $query->execute();
 
         return $GLOBALS['data']->lastInsertId();
@@ -192,6 +193,50 @@ function countSales(){
         echo "<p style='color:red;'>Il y a eu un probleme de la recuperation des infos des ventes" . $e->getMessage()."</p>";
         return;
     }
+
+}
+
+
+//function pour claculer le total des sales
+
+function totalSales(){
+
+    try{
+
+         $query = $GLOBALS['data']->prepare("SELECT SUM(total_sale) AS total_sales FROM sales");
+            $query->execute();
+            $result = $query->fetch();
+            if($result){
+
+                return $result;
+            }
+
+    } catch(PDOException $e){
+
+        echo "<p style='color:red;'>Il y a eu un probleme de la recuperation des infos des ventes" . $e->getMessage()."</p>";
+        return;
+    }
+
+}
+
+//=============================================
+
+//function affiche data of sales
+
+
+function fetchSalesData() {
+    $sales = InnerJoinTableSale(); // Appel de la fonction InnerJoinTableSale()
+
+    foreach($sales as $row) {
+        $listeProduct[] = $row['name_product'];    // Colonne product
+        $listeQuantity[] = $row['quantity_retailSale'];  // Colonne quantity
+    }
+
+    // Retourner les deux listes sous forme de tableau associatif
+    return [
+        'products' => $listeProduct,
+        'quantities' => $listeQuantity
+    ];
 
 }
 
