@@ -24,17 +24,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
     $category    = htmlspecialchars($_POST['category'] ?? '');
     $quantity    = htmlspecialchars($_POST['quantity'] ?? '');
     $description = htmlspecialchars($_POST['description'] ?? '');
-    $prix        = htmlspecialchars($_POST['price'] ?? '');
+    $priceSALe        = htmlspecialchars($_POST['priceSale'] ?? '');
+    $pricePurchase  = htmlspecialchars($_POST['pricePurchase'] ?? '');
     $etat_produit = 5 ;
     $picture     = $_FILES['image']['name'] ?? '';
 
     // Validation minimale
-    if (empty($name) || empty($prix) || empty($quantity)) {
+    if (empty($name) || empty($priceSALe) || empty($quantity) || empty($description) || empty($pricePurchase)) {
         $errormessage = "Veuillez remplir tous les champs obligatoires.";
     } else {
 
         // Enregistrement
-        $addProduct = registerProduct($name, $supplier, $quantity, $description, $prix, $picture, $category, $etat_produit);
+        $addProduct = registerProduct($name, $supplier, $quantity, $description, $priceSALe, $pricePurchase, $picture, $category, $etat_produit);
 
         $successmessage = "Produit ajouté avec succès.";
     }
@@ -88,8 +89,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
                 <td><?= $product['name_supplier']; ?></td>
                 <td><?= $product['name_category']; ?></td>
                 <td><span class="badge normal"><?= $product['quantity_product']; ?></span></td>
-                <td><?= $product['price_product']; ?> €</td>
-                <td>180 €</td>
+                <td><?= $product['price_product_sale']; ?> €</td>
+                <td><?= $product['price_product_purchase']; ?> €</td>
                 <td>
                     <button class="btn small edit">Modifier</button>
                     <button class="btn small delete">Supprimer</button>
@@ -113,7 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
 
             <div class="form-group">
                 <label>Nom du produit</label>
-                <input type="text" placeholder="nom du produit">
+                <input name="name" id="name" type="text" placeholder="nom du produit">
                
             </div>
 
@@ -148,7 +149,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
 
             <div class="form-group">
                 <label>Prix de vente</label>
-                <input id="price" name="price" type="number" placeholder="0.00">
+                <input id="priceSale" name="priceSale" type="number" placeholder="0.00">
+            </div>
+
+            <div class="form-group">
+                <label>Prix d'Achat</label>
+                <input id="pricePurchase" name="pricePurchase" type="number" placeholder="0.00">
             </div>
 
             <div class="form-group">
