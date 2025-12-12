@@ -112,7 +112,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit-confirmer'])){
 
         <nav class="menu">
             <a href="#" class="active">Dashboard</a>
-            <a href="#">Clients</a>
+            <a href="../add_employee.php">Employés</a>
             <a href="../add_supplier.php">Fournisseurs</a>
             <a href="../add_category.php">Catégories</a>
             <a href="../add_product.php">Stock</a>
