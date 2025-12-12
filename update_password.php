@@ -82,7 +82,7 @@ if (isset($idUser) && !empty($idUser)) {
 
 
 <h2>CHANGEMENT DE MOT DE PASSE </h2>
-<form action="" method="POST">
+<form action="" method="POST" onsubmit="return verificationPassword();">
 
 <label for="password_1"> Ancien Mot de passe</label>
 <input type="password" id="password_1" name="password_1" required><br><br>
