@@ -33,8 +33,6 @@ $listeQuantityPurchase = $dataPurchase['quantities'];//on recupere la liste des 
     <link rel="stylesheet" href="css/add_report.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/statisticalData.js"></script>
-
-    <script src="js/fetchData.js"></script>
     <title>Rapport</title>
 </head>
 <body>
