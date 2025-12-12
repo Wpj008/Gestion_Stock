@@ -1,7 +1,7 @@
 function verifierChamps() {
-    var nom = document.getElementById('nom').value;
-    var nomErreur = document.getElementById('nomErreur');
-    var regex = /^[A-Za-z]+$/; // Autorise uniquement les lettres non accentuées
+    const nom = document.getElementById('nom').value;
+    const nomErreur = document.getElementById('nomErreur');
+    const regex = /^[A-Za-z]+$/; // Autorise uniquement les lettres non accentuées
 
     // Réinitialiser le message d'erreur
     nomErreur.textContent = '';
@@ -14,19 +14,21 @@ function verifierChamps() {
     return true;
 }
 
-function commandeChamps() {
-    const commandes = document.getElementById('commandes').value;
-    const commandeErreur = document.getElementById('commandeErreur');
-    const regex = /^\d+$/; // Autorise uniquement les chiffres de 0 à 9
+// Vérification du mot de passe
+function verificationPassword() {
 
-    // Réinitialiser le message d'erreur
-    commandeErreur.textContent = '';
+    const password = document.querySelector("#password_3").value;
+    const passwordError = document.querySelector("#passwordEror");
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/; 
 
-    // Vérifier si la valeur ne correspond pas à des chiffres
-    if (!regex.test(commandes)) {
-        commandeErreur.textContent = "Le champ ne peut contenir que des chiffres de 0 à 9.";
-        return false; // Empêche la soumission du formulaire
+    passwordError.textContent = "";
+
+    if(!regex.test(password)) {
+
+        passwordError.textContent = "Le mot de passe doit contenir au moins 8 caractères, une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial (@$!%*?&).";
+
+        return false;
     }
 
-    return true; // Permet la soumission du formulaire
+    return true;
 }
