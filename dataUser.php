@@ -37,7 +37,9 @@ $role = $_SESSION['role'];
                 <h3><?= $name; ?></h3>
                 <p class="email"><?= $email; ?></p>
             </div>
+            
             <a class="btn edit-btn" href="update_password.php">Modifier Mon Mot de Passe</a>
+            <!--button class="btn red-btn">Modifier Mot de passe</!--button-->
         </div>
 
         <div class="profile-section">
