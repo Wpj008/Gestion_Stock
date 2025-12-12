@@ -61,3 +61,45 @@ body {
     padding-top: 60px; /* Assurez-vous que c'est assez pour votre header */
     padding-bottom: 40px; /* Assurez-vous que c'est assez pour votre footer */
 }
+
+
+/* === Navigation responsive === */
+@media (max-width: 768px) {
+    nav.main-nav ul {
+        flex-direction: column; /* Menu vertical */
+        align-items: flex-start; /* Aligne à gauche */
+        width: 100%;
+    }
+
+    nav.main-nav li {
+        padding: 10px 0;
+    }
+}
+
+/* Pour très petits écrans */
+@media (max-width: 480px) {
+    header {
+        padding: 10px;
+        text-align: center;
+    }
+
+    nav.main-nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav.main-nav li {
+        padding: 8px 0;
+    }
+
+    nav.main-nav a {
+        font-size: 14px;
+    }
+}
+
+/* Ajuster le padding pour le contenu */
+body {
+    padding-top: 60px; /* pour header fixe */
+    padding-bottom: 60px; /* pour footer fixe */
+}
+

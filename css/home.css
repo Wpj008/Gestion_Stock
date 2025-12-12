@@ -166,3 +166,62 @@ th {
     color: white;
     font-size: 12px;
 }
+
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .actions-grid {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 768px) {
+    .employee-dashboard {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 10px 0;
+    }
+
+    .menu {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        flex-wrap: nowrap;
+    }
+
+    .menu a {
+        padding: 10px;
+        font-size: 14px;
+        white-space: nowrap;
+    }
+
+    .content {
+        padding: 15px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .action-btn {
+        font-size: 14px;
+        padding: 12px;
+    }
+    .stat-card .value {
+        font-size: 24px;
+    }
+    .stat-card h3 {
+        font-size: 14px;
+    }
+}
+

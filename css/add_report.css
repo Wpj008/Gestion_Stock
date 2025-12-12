@@ -2,6 +2,7 @@
 .report-container {
     padding: 25px;
     color: #333;
+    box-sizing: border-box;
 }
 
 /* Header */
@@ -9,18 +10,21 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap; /* Permet au titre et aux filtres de passer en colonne */
     margin-bottom: 25px;
-    flex-wrap: wrap;
 }
 
 .report-header h1 {
     font-size: 26px;
+    margin-bottom: 10px; /* Pour petits écrans */
 }
 
+/* Filtres */
 .report-filters {
     display: flex;
     align-items: center;
     gap: 10px;
+    flex-wrap: wrap;
 }
 
 .report-filters label {
@@ -31,6 +35,7 @@
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 6px;
+    box-sizing: border-box;
 }
 
 .btn-filter {
@@ -41,6 +46,7 @@
     border-radius: 6px;
     cursor: pointer;
 }
+
 .btn-filter:hover {
     background: #2980b9;
 }
@@ -108,6 +114,7 @@
     background: #fff;
     padding: 20px;
     border-radius: 10px;
+    overflow-x: auto;
 }
 
 .table-box table {
@@ -119,6 +126,7 @@
 .table-box td {
     padding: 12px;
     border-bottom: 1px solid #ddd;
+    font-size: 14px;
 }
 
 .table-box th {
@@ -126,10 +134,22 @@
     font-weight: 600;
 }
 
-/* Responsive */
+/* === RESPONSIVE === */
 @media (max-width: 1000px) {
     .report-stats {
         grid-template-columns: repeat(2, 1fr);
+    }
+    .report-charts {
+        grid-template-columns: 1fr;
+    }
+    .report-tables {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 800px) {
+    .report-stats {
+        grid-template-columns: 1fr;
     }
     .report-charts {
         grid-template-columns: 1fr;
@@ -144,5 +164,37 @@
         flex-direction: column;
         width: 100%;
         align-items: flex-start;
+    }
+
+    .report-header h1 {
+        font-size: 22px;
+    }
+
+    .btn-filter {
+        width: 100%;
+    }
+
+    .report-card .value {
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 480px) {
+    .report-container {
+        padding: 15px;
+    }
+
+    .report-card h3 {
+        font-size: 16px;
+    }
+
+    .report-card .value {
+        font-size: 20px;
+    }
+
+    .table-box th,
+    .table-box td {
+        padding: 10px;
+        font-size: 13px;
     }
 }

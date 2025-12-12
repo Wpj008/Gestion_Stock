@@ -1,3 +1,4 @@
+/* Styles de base */
 body {
     font-family: Arial, sans-serif;
     background: #f4f4f4;
@@ -14,7 +15,9 @@ body {
     padding: 30px;
     border-radius: 5px;
     box-shadow: 0 0 20px rgba(0,0,0,0.2);
-    width: 400px; /* Largeur ajustée du conteneur */
+    width: 90%;          /* Adaptation aux petits écrans */
+    max-width: 400px;    /* Limite maximale pour grands écrans */
+    box-sizing: border-box;
 }
 
 .form-group {
@@ -28,24 +31,26 @@ body {
 
 .form-group input, .form-group select {
     width: 100%;
-    padding: 8px;
+    padding: 10px;       /* Ajusté pour confort tactile */
     border: 1px solid #ccc;
     border-radius: 4px;
-    box-sizing: border-box; /* S'assure que le padding et la bordure sont inclus dans la largeur */
+    box-sizing: border-box;
+    font-size: 1rem;
 }
 
 input[type="submit"] {
     width: 100%;
     padding: 12px;
-    background-color: #5cb85c;
+    background-color: #0088ff;
     border: none;
     color: white;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 1rem;
 }
 
 input[type="submit"]:hover {
-    background-color: #4cae4c;
+    background-color: #0051ff;
 }
 
 .error-message {
@@ -53,3 +58,14 @@ input[type="submit"]:hover {
     margin-top: 5px; 
 }
 
+/* Media Queries pour petits écrans */
+@media screen and (max-width: 480px) {
+    .signup-container {
+        padding: 20px;
+    }
+
+    .form-group input, .form-group select, input[type="submit"] {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+}

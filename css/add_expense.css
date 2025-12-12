@@ -10,12 +10,14 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 25px;
+    flex-wrap: wrap;
 }
 
 .expense-header h1 {
     font-size: 26px;
 }
 
+/* Bouton Ajouter */
 .btn-add {
     background: #e67e22;
     border: none;
@@ -24,6 +26,7 @@
     font-size: 14px;
     border-radius: 8px;
     cursor: pointer;
+    transition: 0.3s;
 }
 .btn-add:hover {
     background: #d35400;
@@ -87,13 +90,14 @@
     margin-bottom: 20px;
 }
 
+/* Grille du formulaire */
 .form-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
 }
 
-/* Inputs */
+/* Inputs et labels */
 .form-group {
     display: flex;
     flex-direction: column;
@@ -110,12 +114,14 @@ textarea {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 6px;
+    font-size: 14px;
 }
 
 input:focus,
 textarea:focus,
 select:focus {
     border-color: #e67e22;
+    outline: none;
 }
 
 textarea {
@@ -133,14 +139,26 @@ textarea {
     font-size: 15px;
     border-radius: 8px;
     cursor: pointer;
+    transition: 0.3s;
 }
 .btn-save:hover {
     background: #1e874b;
 }
 
-/* Responsive */
+/* ===== RESPONSIVE ===== */
 @media (max-width: 800px) {
     .form-grid {
         grid-template-columns: 1fr;
+    }
+    .expense-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    .btn-add, .btn-save {
+        width: 100%;
+    }
+    .expense-table table, .expense-form {
+        width: 100%;
     }
 }

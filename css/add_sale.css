@@ -2,6 +2,7 @@
 .sales-container {
     padding: 25px;
     color: #333;
+    box-sizing: border-box;
 }
 
 /* Header */
@@ -9,13 +10,16 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap; /* Titre et bouton passent en colonne sur petits écrans */
     margin-bottom: 25px;
 }
 
 .sales-header h1 {
     font-size: 26px;
+    margin-bottom: 10px; /* Pour petits écrans */
 }
 
+/* Buttons */
 .btn-add {
     background: #3498db;
     border: none;
@@ -25,6 +29,7 @@
     border-radius: 8px;
     cursor: pointer;
 }
+
 .btn-add:hover {
     background: #2980b9;
 }
@@ -43,6 +48,7 @@
     padding: 14px 12px;
     border-bottom: 1px solid #e0e0e0;
     text-align: left;
+    font-size: 14px;
 }
 
 .sales-table th {
@@ -58,17 +64,11 @@
     color: #fff;
 }
 
-.badge.success {
-    background: #2ecc71;
-}
-.badge.partial {
-    background: #f1c40f;
-}
-.badge.unpaid {
-    background: #e74c3c;
-}
+.badge.success { background: #2ecc71; }
+.badge.partial { background: #f1c40f; }
+.badge.unpaid { background: #e74c3c; }
 
-/* Buttons */
+/* Small buttons */
 .btn.small {
     padding: 6px 10px;
     font-size: 12px;
@@ -77,38 +77,25 @@
     cursor: pointer;
 }
 
-.btn.view {
-    background: #8e44ad;
-    color: white;
-}
-.btn.view:hover {
-    background: #732d91;
-}
+.btn.view { background: #8e44ad; color: #fff; }
+.btn.view:hover { background: #732d91; }
 
-.btn.delete {
-    background: #e74c3c;
-    color: white;
-}
-.btn.delete:hover {
-    background: #c0392b;
-}
+.btn.delete { background: #e74c3c; color: #fff; }
+.btn.delete:hover { background: #c0392b; }
 
-/* Formulaire */
+/* Form */
 .sales-form {
     margin-top: 35px;
     background: #fff;
     padding: 25px;
     border-radius: 10px;
+    width: 70%;
+    max-width: 900px;
+    box-sizing: border-box;
 }
 
-.sales-form h2 {
-    margin-bottom: 20px;
-}
-
-.sales-form h3 {
-    margin-top: 25px;
-    margin-bottom: 15px;
-}
+.sales-form h2 { margin-bottom: 20px; }
+.sales-form h3 { margin-top: 25px; margin-bottom: 15px; }
 
 /* Grids */
 .form-grid {
@@ -141,6 +128,7 @@ select {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 6px;
+    box-sizing: border-box;
 }
 
 input:focus,
@@ -163,12 +151,44 @@ select:focus {
     background: #1e874b;
 }
 
-/* Responsive */
+/* === RESPONSIVE === */
+@media (max-width: 1024px) {
+    .sales-form { width: 85%; padding: 20px; }
+}
+
 @media (max-width: 800px) {
-    .form-grid {
-        grid-template-columns: 1fr;
-    }
+    .form-grid,
     .product-grid {
         grid-template-columns: 1fr;
+    }
+
+    .sales-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .btn-add {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .sales-form { width: 95%; padding: 15px; }
+}
+
+@media (max-width: 480px) {
+    .sales-container { padding: 15px; }
+
+    .sales-header h1 { font-size: 22px; }
+
+    .sales-table th,
+    .sales-table td {
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    .btn-add,
+    .btn-save {
+        padding: 12px;
+        font-size: 14px;
     }
 }

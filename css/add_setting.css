@@ -1,6 +1,8 @@
+/* Container */
 .settings-container {
     padding: 25px;
     color: #333;
+    box-sizing: border-box;
 }
 
 .settings-container h1 {
@@ -15,6 +17,9 @@
     border-radius: 10px;
     margin-bottom: 35px;
     box-shadow: 10px 10px 10px rgba(0,0,0,0.05);
+    width: 70%;
+    max-width: 900px;
+    box-sizing: border-box;
 }
 
 .settings-box h2 {
@@ -45,6 +50,7 @@ select {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 6px;
+    box-sizing: border-box;
 }
 
 input:focus,
@@ -71,12 +77,16 @@ select:focus {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 15px;
+    overflow-x: auto;
+    display: block;
 }
 
 .settings-table th,
 .settings-table td {
     padding: 12px;
     border-bottom: 1px solid #eee;
+    text-align: left;
+    font-size: 14px;
 }
 
 .settings-table th {
@@ -120,9 +130,43 @@ select:focus {
     background: #732d91;
 }
 
-/* Responsive */
+/* === RESPONSIVE === */
+@media (max-width: 1024px) {
+    .settings-box {
+        width: 85%;
+        padding: 20px;
+    }
+}
+
 @media (max-width: 800px) {
     .form-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .settings-container {
+        padding: 15px;
+    }
+
+    .settings-container h1 {
+        font-size: 24px;
+    }
+
+    .settings-box h2 {
+        font-size: 18px;
+    }
+
+    .btn-save,
+    .btn-add-user {
+        width: 100%;
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .settings-table th,
+    .settings-table td {
+        padding: 10px;
+        font-size: 13px;
     }
 }

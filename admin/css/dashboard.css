@@ -154,6 +154,8 @@ h1 {
 .btn-view {
     background: #009dff;
     color: white;
+    padding: 3px;
+    border-radius: 8px;
 }
 .btn-view:hover {
     background: #1346ff;
@@ -162,7 +164,70 @@ h1 {
 .btn-delete {
     background: #fe321b;
     color: white;
+    padding: 3px;
+    border-radius: 8px;
 }
 .btn-delete:hover {
     background: #a23124;
+}
+
+
+@media (max-width: 1024px) {
+    .content {
+        padding: 20px;
+    }
+
+    .sidebar {
+        width: 200px;
+    }
+}
+
+
+@media (max-width: 768px) {
+
+    .layout {
+        flex-direction: column;
+    }
+
+    /* SIDEBAR devient un menu déroulant */
+    .sidebar {
+        position: fixed;
+        left: -250px;
+        top: 0;
+        height: 100%;
+        width: 250px;
+        transition: 0.3s ease;
+        z-index: 1000;
+    }
+
+    /* Quand la sidebar est ouverte : ajouter la classe .open */
+    .sidebar.open {
+        left: 0;
+    }
+
+    /* Bouton menu */
+    .menu-toggle {
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        background: #1f2937;
+        color: white;
+        padding: 10px 14px;
+        border-radius: 6px;
+        cursor: pointer;
+        z-index: 1100;
+        font-size: 18px;
+    }
+
+    .content {
+        margin-top: 60px;
+        padding: 20px;
+    }
+
+    /* Les grilles prennent 100% */
+    .stats-grid,
+    .dual-box,
+    .alerts {
+        grid-template-columns: 1fr !important;
+    }
 }

@@ -1,3 +1,4 @@
+/* Container principal */
 .stock-container {
     padding: 25px;
     color: #333;
@@ -8,11 +9,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap; /* Permet aux éléments de passer en colonne sur petits écrans */
     margin-bottom: 25px;
 }
 
 .stock-header h1 {
     font-size: 26px;
+    margin-bottom: 10px; /* Pour petits écrans */
 }
 
 .btn-add {
@@ -23,6 +26,7 @@
     border-radius: 8px;
     cursor: pointer;
 }
+
 .btn-add:hover {
     background: #27ae60;
 }
@@ -57,15 +61,15 @@
 }
 
 .badge.critical {
-    background: #e74c3c; /* Stock 0 */
+    background: #e74c3c;
 }
 
 .badge.low {
-    background: #f39c12; /* Stock faible */
+    background: #f39c12;
 }
 
 .badge.normal {
-    background: #2ecc71; /* Stock OK */
+    background: #2ecc71;
 }
 
 /* Buttons */
@@ -81,6 +85,7 @@
     background: #3498db;
     color: #fff;
 }
+
 .btn.edit:hover {
     background: #2980b9;
 }
@@ -89,6 +94,7 @@
     background: #e74c3c;
     color: #fff;
 }
+
 .btn.delete:hover {
     background: #c0392b;
 }
@@ -99,6 +105,9 @@
     background: #fff;
     padding: 25px;
     border-radius: 10px;
+    width: 60%;
+    max-width: 800px; /* Limite la largeur sur grands écrans */
+    box-sizing: border-box;
 }
 
 .stock-form h2 {
@@ -116,8 +125,7 @@
     flex-direction: column;
 }
 
-textarea{
-
+textarea {
     padding: 10px;
 }
 
@@ -127,14 +135,17 @@ label {
 }
 
 input,
-select {
+select,
+textarea {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 6px;
+    box-sizing: border-box;
 }
 
 input:focus,
-select:focus {
+select:focus,
+textarea:focus {
     border-color: #2ecc71;
 }
 
@@ -152,9 +163,54 @@ select:focus {
     background: #1e874b;
 }
 
-/* Responsive */
+/* === RESPONSIVE === */
+@media (max-width: 1024px) {
+    .stock-form {
+        width: 80%;
+        padding: 20px;
+    }
+}
+
 @media (max-width: 800px) {
     .form-grid {
         grid-template-columns: 1fr;
+    }
+
+    .stock-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .stock-header h1 {
+        font-size: 22px;
+        margin-bottom: 10px;
+    }
+
+    .btn-add {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .stock-form {
+        width: 90%;
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .stock-container {
+        padding: 15px;
+    }
+
+    .stock-table th,
+    .stock-table td {
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    .btn-add,
+    .btn-save {
+        padding: 12px;
+        font-size: 14px;
     }
 }

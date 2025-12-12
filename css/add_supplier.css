@@ -2,6 +2,7 @@
 .supplier-container {
     padding: 25px;
     color: #333;
+    box-sizing: border-box;
 }
 
 /* Titre + bouton d’ajout */
@@ -10,10 +11,12 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 25px;
+    flex-wrap: wrap;
 }
 
 .supplier-header h1 {
     font-size: 26px;
+    margin-bottom: 10px;
 }
 
 .btn-add {
@@ -31,12 +34,15 @@
 }
 
 /* Tableau */
+.supplier-table {
+    overflow-x: auto;
+}
+
 .supplier-table table {
     width: 100%;
     border-collapse: collapse;
     background: #fff;
     border-radius: 10px;
-    overflow: hidden;
 }
 
 .supplier-table th, 
@@ -44,6 +50,7 @@
     padding: 14px 12px;
     border-bottom: 1px solid #e0e0e0;
     text-align: left;
+    font-size: 14px;
 }
 
 .supplier-table th {
@@ -94,10 +101,9 @@
     background: #c0392b;
 }
 
-.border-form{
-
+.border-form {
     border: 2px solid;
-    padding : 10px;
+    padding: 12px;
 }
 
 /* Formulaire */
@@ -106,6 +112,9 @@
     background: #fff;
     padding: 25px;
     border-radius: 10px;
+    box-sizing: border-box;
+    width: 70%;
+    max-width: 900px;
 }
 
 .supplier-form h2 {
@@ -156,9 +165,39 @@
     background: #1e874b;
 }
 
-/* Responsive */
+/* === RESPONSIVE === */
+@media (max-width: 1024px) {
+    .supplier-form {
+        width: 85%;
+        padding: 20px;
+    }
+}
+
 @media (max-width: 800px) {
     .form-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .supplier-container {
+        padding: 15px;
+    }
+
+    .supplier-header h1 {
+        font-size: 22px;
+    }
+
+    .btn-add,
+    .btn-save {
+        width: 100%;
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .supplier-table th,
+    .supplier-table td {
+        font-size: 13px;
+        padding: 10px;
     }
 }

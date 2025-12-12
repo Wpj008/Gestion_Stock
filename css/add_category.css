@@ -9,11 +9,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap; /* Permet aux éléments de passer en ligne si l'écran est petit */
     margin-bottom: 25px;
 }
 
 .category-header h1 {
     font-size: 26px;
+    margin-bottom: 10px; /* Pour petits écrans */
 }
 
 .btn-add {
@@ -100,8 +102,10 @@
     background: #fff;
     padding: 25px;
     border-radius: 10px;
-    border : 2px solid;
+    border: 2px solid;
     width: 60%;
+    box-sizing: border-box; /* Important pour padding + largeur */
+    max-width: 800px; /* Limite largeur sur grands écrans */
 }
 
 .category-form h2 {
@@ -125,7 +129,8 @@
 }
 
 .form-group input,
-.form-group select {
+.form-group select,
+.form-group textarea {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 6px;
@@ -133,12 +138,8 @@
 }
 
 .form-group input:focus,
-.form-group select:focus {
-    border-color: #3498db;
-}
-
+.form-group select:focus,
 .form-group textarea:focus {
-    padding: 15px;
     border-color: #3498db;
 }
 
@@ -157,9 +158,54 @@
     background: #1e874b;
 }
 
-/* Responsive */
+/* === RESPONSIVE === */
+@media (max-width: 1024px) {
+    .category-form {
+        width: 80%;
+        padding: 20px;
+    }
+}
+
 @media (max-width: 800px) {
     .form-grid {
         grid-template-columns: 1fr;
+    }
+
+    .category-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .category-header h1 {
+        font-size: 22px;
+        margin-bottom: 10px;
+    }
+
+    .btn-add {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .category-form {
+        width: 90%;
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .category-container {
+        padding: 15px;
+    }
+
+    .category-table th,
+    .category-table td {
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    .btn-add,
+    .btn-save {
+        padding: 12px;
+        font-size: 14px;
     }
 }
