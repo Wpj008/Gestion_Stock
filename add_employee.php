@@ -1,14 +1,13 @@
 <?php 
 session_start();
 include "data.php";
-include "functions/userFunction.php";
 include "header.php";
 include "functions/userFunction.php";
 
 $checkLog = checkLogin();//check connection
 
 
-$passeword = '0000';
+$passeword = '12345678';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
 
@@ -16,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
     $nom = htmlspecialchars($_POST['nom']);
     $email = htmlspecialchars($_POST['email']);
     //$password = htmlspecialchars($_POST['password']);
-    $passeword = '0000';
+    $passeword = '12345678';
     $phone = htmlspecialchars($_POST['phone']);
     $role = htmlspecialchars($_POST['role']);
 
@@ -62,9 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"  && isset($_POST['submit'])) {
                 <div class="form-group">
                     <label for="fonction">Fonction </label>
                     <select name="role" id="role">
-                        <option value="employe">Employé</option>
-                        <option value="administrateur">administrateur</option>
-                        
+                        <option value="employe">Employé</option>                        
                     </select>
                 </div>
                 <div class="form-group">
